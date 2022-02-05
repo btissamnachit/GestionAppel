@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="GestionAppel:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>GestionAppel</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="GestionAppel-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="GestionAppel:war exploded" />
+    </root>
+  </artifact>
+</component>
