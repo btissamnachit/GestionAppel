@@ -16,7 +16,7 @@
 
 C:/Users/manaa/IdeaProjects/GestionAppel/src/main/resources/hibernate.cfg.xml</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3307/db_22107723_2</jdbc-url>
+      <jdbc-url>jdbc:mysql://etu-web2.ut-capitole.fr:3306/db_22107723_2</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
