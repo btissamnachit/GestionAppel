@@ -12,7 +12,7 @@ public class Test {
             //ouverture d'une transaction
             Transaction t = session.beginTransaction();
 
-            User e1 = new User("Nachit");
+            User e1 = new User("Btissam");
 
             session.save(e1);
 
