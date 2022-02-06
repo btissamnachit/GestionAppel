@@ -11428,3 +11428,34 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
     width: 100%
 }
+
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: rgba(231, 90, 83, 0.76)
+}
+
+.profile-button {
+    background: rgba(231, 90, 83, 0.76);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: rgba(232, 80, 72, 0.76)
+}
+
+.profile-button:focus {
+    background: rgba(229, 62, 53, 0.76);
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: rgba(229, 62, 53, 0.76);
+    box-shadow: none
+}
+
+.back:hover {
+    color: rgba(231, 90, 83, 0.76);
+    cursor: pointer
+}
