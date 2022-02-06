@@ -10034,12 +10034,12 @@ a:focus {
     -webkit-animation-duration: .2s;
     animation-duration: .2s;
     -webkit-animation-timing-function: opacity cubic-bezier(0, 1, .4, 1);
-    animation-timing-function: opacity cubic-bezier(0, 1, .4, 1)
+    animation-timing-function: opacity cubic-bezier(0, 1, .4, 1);
 }
 
 .bg-gradient-primary {
-    background-color: rgba(231, 74, 68, 0.76);
-    background-image: linear-gradient(180deg, rgba(232, 42, 35, 0.76) 10%, rgba(232, 42, 35, 0.76) 100%);
+    background-color: rgba(231, 90, 83, 0.76);
+    background-image: linear-gradient(180deg, rgba(231, 90, 83, 0.76) 10%, rgbargba(231, 90, 83, 0.76) 100%);
     background-size: cover;
 }
 
