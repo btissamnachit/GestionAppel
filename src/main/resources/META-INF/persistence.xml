@@ -6,16 +6,14 @@
     <persistence-unit name="GestionAppel_PU" transaction-type="RESOURCE_LOCAL">
 
         <class>miage.gestionappel.metier.Cours</class>
-
         <class>miage.gestionappel.metier.Etudiant</class>
         <class>miage.gestionappel.metier.Groupe</class>
-
         <class>miage.gestionappel.metier.Justificatif</class>
         <class>miage.gestionappel.metier.Occurence</class>
-
         <class>miage.gestionappel.metier.Presenter</class>
         <class>miage.gestionappel.metier.Professeur</class>
         <class>miage.gestionappel.metier.Scolarite</class>
+        <class>miage.gestionappel.metier.User</class>
          <!-- Transaction gérée au niveau de l'ORM -->
         <properties>
             <property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml" />

@@ -5,7 +5,7 @@
   Time: 15:41
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,10 +36,10 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6"><input type="text" class="form-control" placeholder="first name" value="John"></div>
-                    <div class="col-md-6"><input type="text" class="form-control" value="Doe" placeholder="Doe"></div>
+                    <div class="col-md-6"><input type="text" class="form-control" value="${sessionScope.role}" placeholder=""></div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-6"><input type="text" class="form-control" placeholder="Email" value="john_doe12@bbb.com"></div>
+                    <div class="col-md-6"><input type="text" class="form-control" placeholder="Email" value="@bbb.com"></div>
                     <div class="col-md-6"><input type="text" class="form-control" value="+19685969668" placeholder="Phone number"></div>
                 </div>
                 <div class="row mt-3">
