@@ -12,56 +12,26 @@ public class User {
     @Column(name = "CodeU")
     private Long codeU;
 
+    @Column(name = "MailU")
+    private String mailU;
+
     @Column(name = "NomU")
     private String nomU;
+
+    @Column(name = "PrenomU")
+    private String prenomU;
+
+    @Column(name = "RoleU")
+    private String roleU;
 
     public User() {
     }
 
-    public Long getCodeU() {
-        return codeU;
-    }
-
-    public void setCodeU(Long codeU) {
-        this.codeU = codeU;
-    }
-
-    public String getNomU() {
-        return nomU;
-    }
-
-    public void setNomU(String nomU) {
+    public User(String mailU, String nomU, String prenomU, String roleU) {
+        this.mailU = mailU;
         this.nomU = nomU;
-    }
-
-    public User(Long codeU, String nomU) {
-        this.codeU = codeU;
-        this.nomU = nomU;
-    }
-
-    public User(String nomU) {
-        this.nomU = nomU;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(codeU, user.codeU);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(codeU);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "codeU=" + codeU +
-                ", nomU='" + nomU + '\'' +
-                '}';
+        this.prenomU = prenomU;
+        this.roleU = roleU;
     }
 }
 

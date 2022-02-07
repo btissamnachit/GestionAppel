@@ -4,12 +4,12 @@ import miage.gestionappel.metier.Etudiant;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
-public class EtudiantDao implements Dao {
-
-    @Override
+public class EtudiantDao implements Dao<Etudiant> {
+     @Override
     public Optional<Etudiant> get(int id) {
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -22,43 +22,39 @@ public class EtudiantDao implements Dao {
 
     @Override
     public List<Etudiant> getAll() {
-
-
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
-            List<Etudiant> list1 = session.createSQLQuery("select * from Etudiant ").list();
+            List<Etudiant> etudiantList = session.createQuery("From Etudiant ").list();
 
-            return list1;
+            return etudiantList;
         }
     }
 
     @Override
-    public void save(Object etudiant) {
+    public void save(Etudiant etudiant) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            session.save((Etudiant) etudiant);
+            session.save(etudiant);
             t.commit();
-
         }
     }
 
     @Override
-    public void update(Object e, String[] params) {
+    public void update(Etudiant etudiant, String[] params) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-
-            Etudiant etudiant = (Etudiant) e;
 
             etudiant.setNomE(params[0]);
             etudiant.setPrenomE(params[1]);
             etudiant.setMailE(params[2]);
+
             session.update(etudiant);
             t.commit();
         }
     }
 
     @Override
-    public void delete(Object o) {
+    public void delete(Etudiant o) {
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();

@@ -20,6 +20,10 @@
         <servlet-name>Profil</servlet-name>
         <jsp-file>/jsp/Profil.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>ConnexionServlet</servlet-name>
+        <servlet-class>miage.gestionappel.ctrl.ConnexionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>Profil</servlet-name>
         <url-pattern>/profil</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConnexionServlet</servlet-name>
+        <url-pattern>/connexionServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>login</welcome-file>
