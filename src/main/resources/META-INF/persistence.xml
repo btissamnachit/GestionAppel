@@ -3,9 +3,25 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
-    <persistence-unit name="GestionAppel_PU" transaction-type="RESOURCE_LOCAL"> <!-- Transaction gérée au niveau de l'ORM -->
+    <persistence-unit name="GestionAppel_PU" transaction-type="RESOURCE_LOCAL">
+        <class>miage.gestionappel.metier.entity.AppartenirEntity</class>
+        <class>miage.gestionappel.metier.entity.CoursEntity</class>
+        <class>miage.gestionappel.metier.entity.EnseignerEntity</class>
+        <class>miage.gestionappel.metier.entity.EtudiantEntity</class>
+        <class>miage.gestionappel.metier.entity.GroupeEntity</class>
+        <class>miage.gestionappel.metier.entity.InscrireEntity</class>
+        <class>miage.gestionappel.metier.entity.JustificatifEntity</class>
+        <class>miage.gestionappel.metier.entity.OccurenceEntity</class>
+        <class>miage.gestionappel.metier.entity.ParticiperEntity</class>
+        <class>miage.gestionappel.metier.entity.PresenterEntity</class>
+        <class>miage.gestionappel.metier.entity.ProfesseurEntity</class>
+        <class>miage.gestionappel.metier.entity.ScolariteEntity</class>
+        <class>miage.gestionappel.metier.entity.SurveillerEntity</class>
+        <class>miage.gestionappel.metier.entity.UserEntity</class> <!-- Transaction gérée au niveau de l'ORM -->
         <properties>
             <property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3307/db_22107723_2"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
         </properties>
     </persistence-unit>
 </persistence>
