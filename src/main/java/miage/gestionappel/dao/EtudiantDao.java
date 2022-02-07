@@ -54,8 +54,6 @@ public class EtudiantDao implements Dao {
             etudiant.setMailE(params[2]);
             session.update(etudiant);
             t.commit();
-
-
         }
     }
 
