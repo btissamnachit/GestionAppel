@@ -1,26 +1,25 @@
-package miage.gestionappel.metier.entity;
+package miage.gestionappel.metier;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PARTICIPER", schema = "db_22107723_2")
-@IdClass(ParticiperEntityPK.class)
-public class ParticiperEntity {
+@IdClass(InscrirePK.class)
+public class Inscrire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "idOc")
-    private int idOc;
+    @Column(name = "idC")
+    private int idC;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idG")
     private int idG;
 
-    public int getIdOc() {
-        return idOc;
+    public int getIdC() {
+        return idC;
     }
 
-    public void setIdOc(int idOc) {
-        this.idOc = idOc;
+    public void setIdC(int idC) {
+        this.idC = idC;
     }
 
     public int getIdG() {
@@ -36,17 +35,17 @@ public class ParticiperEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ParticiperEntity that = (ParticiperEntity) o;
+        Inscrire inscrire = (Inscrire) o;
 
-        if (idOc != that.idOc) return false;
-        if (idG != that.idG) return false;
+        if (idC != inscrire.idC) return false;
+        if (idG != inscrire.idG) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idOc;
+        int result = idC;
         result = 31 * result + idG;
         return result;
     }

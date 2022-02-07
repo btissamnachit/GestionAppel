@@ -1,19 +1,17 @@
-package miage.gestionappel.metier.entity;
+package miage.gestionappel.metier;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 
-public class EnseignerEntityPK implements Serializable {
+@Entity
+@IdClass(EnseignerPK.class)
+public class Enseigner {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name = "idP")
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idP;
-    @Column(name = "idC")
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "idC")
     private int idC;
 
     public int getIdP() {
@@ -37,10 +35,10 @@ public class EnseignerEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EnseignerEntityPK that = (EnseignerEntityPK) o;
+        Enseigner enseigner = (Enseigner) o;
 
-        if (idP != that.idP) return false;
-        if (idC != that.idC) return false;
+        if (idP != enseigner.idP) return false;
+        if (idC != enseigner.idC) return false;
 
         return true;
     }

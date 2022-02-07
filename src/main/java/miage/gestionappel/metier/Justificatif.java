@@ -1,10 +1,9 @@
-package miage.gestionappel.metier.entity;
+package miage.gestionappel.metier;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "JUSTIFICATIF", schema = "db_22107723_2")
-public class JustificatifEntity {
+public class Justificatif {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idJustif")
@@ -45,7 +44,7 @@ public class JustificatifEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        JustificatifEntity that = (JustificatifEntity) o;
+        Justificatif that = (Justificatif) o;
 
         if (idJustif != that.idJustif) return false;
         if (statutJustif != null ? !statutJustif.equals(that.statutJustif) : that.statutJustif != null) return false;

@@ -1,19 +1,16 @@
-package miage.gestionappel.metier.entity;
+package miage.gestionappel.metier;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "INSCRIRE", schema = "db_22107723_2")
-@IdClass(InscrireEntityPK.class)
-public class InscrireEntity {
+public class Cours {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idC")
     private int idC;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "idG")
-    private int idG;
+    @Basic
+    @Column(name = "NomC")
+    private String nomC;
 
     public int getIdC() {
         return idC;
@@ -23,12 +20,12 @@ public class InscrireEntity {
         this.idC = idC;
     }
 
-    public int getIdG() {
-        return idG;
+    public String getNomC() {
+        return nomC;
     }
 
-    public void setIdG(int idG) {
-        this.idG = idG;
+    public void setNomC(String nomC) {
+        this.nomC = nomC;
     }
 
     @Override
@@ -36,10 +33,10 @@ public class InscrireEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        InscrireEntity that = (InscrireEntity) o;
+        Cours cours = (Cours) o;
 
-        if (idC != that.idC) return false;
-        if (idG != that.idG) return false;
+        if (idC != cours.idC) return false;
+        if (nomC != null ? !nomC.equals(cours.nomC) : cours.nomC != null) return false;
 
         return true;
     }
@@ -47,7 +44,7 @@ public class InscrireEntity {
     @Override
     public int hashCode() {
         int result = idC;
-        result = 31 * result + idG;
+        result = 31 * result + (nomC != null ? nomC.hashCode() : 0);
         return result;
     }
 }

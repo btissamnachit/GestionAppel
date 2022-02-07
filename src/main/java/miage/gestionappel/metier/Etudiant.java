@@ -1,10 +1,9 @@
-package miage.gestionappel.metier.entity;
+package miage.gestionappel.metier;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ETUDIANT", schema = "db_22107723_2")
-public class EtudiantEntity {
+public class Etudiant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idEtudiant")
@@ -62,12 +61,12 @@ public class EtudiantEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EtudiantEntity that = (EtudiantEntity) o;
+        Etudiant etudiant = (Etudiant) o;
 
-        if (idEtudiant != that.idEtudiant) return false;
-        if (nomE != null ? !nomE.equals(that.nomE) : that.nomE != null) return false;
-        if (prenomE != null ? !prenomE.equals(that.prenomE) : that.prenomE != null) return false;
-        if (mailE != null ? !mailE.equals(that.mailE) : that.mailE != null) return false;
+        if (idEtudiant != etudiant.idEtudiant) return false;
+        if (nomE != null ? !nomE.equals(etudiant.nomE) : etudiant.nomE != null) return false;
+        if (prenomE != null ? !prenomE.equals(etudiant.prenomE) : etudiant.prenomE != null) return false;
+        if (mailE != null ? !mailE.equals(etudiant.mailE) : etudiant.mailE != null) return false;
 
         return true;
     }

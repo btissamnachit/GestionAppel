@@ -1,12 +1,11 @@
-package miage.gestionappel.metier.entity;
+package miage.gestionappel.metier;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 
 @Entity
-@Table(name = "OCCURENCE", schema = "db_22107723_2")
-public class OccurenceEntity {
+public class Occurence {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idOc")
@@ -91,15 +90,16 @@ public class OccurenceEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OccurenceEntity that = (OccurenceEntity) o;
+        Occurence occurence = (Occurence) o;
 
-        if (idOc != that.idOc) return false;
-        if (appelValide != that.appelValide) return false;
-        if (dateOc != null ? !dateOc.equals(that.dateOc) : that.dateOc != null) return false;
-        if (heureDebutOc != null ? !heureDebutOc.equals(that.heureDebutOc) : that.heureDebutOc != null) return false;
-        if (heureFinOc != null ? !heureFinOc.equals(that.heureFinOc) : that.heureFinOc != null) return false;
-        if (idC != null ? !idC.equals(that.idC) : that.idC != null) return false;
-        if (idP != null ? !idP.equals(that.idP) : that.idP != null) return false;
+        if (idOc != occurence.idOc) return false;
+        if (appelValide != occurence.appelValide) return false;
+        if (dateOc != null ? !dateOc.equals(occurence.dateOc) : occurence.dateOc != null) return false;
+        if (heureDebutOc != null ? !heureDebutOc.equals(occurence.heureDebutOc) : occurence.heureDebutOc != null)
+            return false;
+        if (heureFinOc != null ? !heureFinOc.equals(occurence.heureFinOc) : occurence.heureFinOc != null) return false;
+        if (idC != null ? !idC.equals(occurence.idC) : occurence.idC != null) return false;
+        if (idP != null ? !idP.equals(occurence.idP) : occurence.idP != null) return false;
 
         return true;
     }

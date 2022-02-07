@@ -1,24 +1,25 @@
-package miage.gestionappel.metier.entity;
+package miage.gestionappel.metier;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 
-public class PresenterEntityPK implements Serializable {
+@Entity
+@IdClass(PresenterPK.class)
+public class Presenter {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name = "idOc")
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idOc;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name = "idJustif")
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idJustif;
-    @Column(name = "idEtudiant")
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "idEtudiant")
     private int idEtudiant;
+    @Basic
+    @Column(name = "Statut")
+    private String statut;
 
     public int getIdOc() {
         return idOc;
@@ -44,16 +45,25 @@ public class PresenterEntityPK implements Serializable {
         this.idEtudiant = idEtudiant;
     }
 
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PresenterEntityPK that = (PresenterEntityPK) o;
+        Presenter presenter = (Presenter) o;
 
-        if (idOc != that.idOc) return false;
-        if (idJustif != that.idJustif) return false;
-        if (idEtudiant != that.idEtudiant) return false;
+        if (idOc != presenter.idOc) return false;
+        if (idJustif != presenter.idJustif) return false;
+        if (idEtudiant != presenter.idEtudiant) return false;
+        if (statut != null ? !statut.equals(presenter.statut) : presenter.statut != null) return false;
 
         return true;
     }
@@ -63,6 +73,7 @@ public class PresenterEntityPK implements Serializable {
         int result = idOc;
         result = 31 * result + idJustif;
         result = 31 * result + idEtudiant;
+        result = 31 * result + (statut != null ? statut.hashCode() : 0);
         return result;
     }
 }
