@@ -1,58 +1,57 @@
 package miage.gestionappel.dao;
 
-import miage.gestionappel.metier.Etudiant;
+import miage.gestionappel.metier.Professeur;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 import java.util.Optional;
 
-public class EtuDao implements Dao {
-
+public class ProDao implements Dao {
     @Override
-    public Optional<Etudiant> get(long id) {
+    public Optional<Professeur> get(long id) {
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
 
-            Etudiant etudiant = session.get(Etudiant.class, id);
-            return Optional.ofNullable(etudiant);
+            Professeur professeur = session.get(Professeur.class, id);
+            return Optional.ofNullable(professeur);
         }
     }
 
     @Override
-    public List<Etudiant> getAll() {
+    public List<Professeur> getAll() {
 
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
-            List<Etudiant> list1 = session.createSQLQuery("select * from Etudiant ").list();
+            List<Professeur> list1 = session.createSQLQuery("select * from Professeur ").list();
 
             return list1;
         }
     }
 
     @Override
-    public void save(Object etudiant) {
+    public void save(Object professeur) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            session.save((Etudiant) etudiant);
+            session.save((Professeur) professeur);
             t.commit();
 
         }
     }
 
     @Override
-    public void update(Object e, String[] params) {
+    public void update(Object p, String[] params) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
 
-            Etudiant etudiant = (Etudiant) e;
+            Professeur professeur = (Professeur) p;
 
-            etudiant.setNomE(params[0]);
-            etudiant.setPrenomE(params[1]);
-            etudiant.setMailE(params[2]);
-            session.update(etudiant);
+            professeur.setNomP(params[0]);
+            professeur.setPrenomP(params[1]);
+            professeur.setMailP(params[2]);
+            session.update(professeur);
             t.commit();
 
 
@@ -60,14 +59,15 @@ public class EtuDao implements Dao {
     }
 
     @Override
-    public void delete(Object o) {
+
+    public void delete(Object p) {
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
 
-            Etudiant etudiant = (Etudiant) o;
+            Professeur professeur = (Professeur) p;
 
-            session.remove(etudiant);
+            session.remove(professeur);
             t.commit();
 
         }
@@ -75,3 +75,4 @@ public class EtuDao implements Dao {
 
 
 }
+

@@ -18,7 +18,7 @@ public class Etudiant {
     @Column(name = "MailE")
     private String mailE;
 
-    public EtudiantEntity(String nomE, String prenomE, String mailE) {
+    public Etudiant(String nomE, String prenomE, String mailE) {
         this.nomE = nomE;
         this.prenomE = prenomE;
         this.mailE = mailE;
