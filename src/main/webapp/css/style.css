@@ -10705,7 +10705,7 @@ a:focus {
         animation-name: growIn;
         -webkit-animation-duration: .2s;
         animation-duration: .2s;
-        }
+    }
 
     .sidebar.toggled .nav-item .collapse .collapse-inner {
         box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15);

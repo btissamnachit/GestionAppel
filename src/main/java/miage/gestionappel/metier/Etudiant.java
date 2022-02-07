@@ -86,6 +86,9 @@ public class Etudiant {
         this.presences = presences;
     }
 */
+    public void addPresence(Presenter presence) {
+        this.presences.add(presence);
+     }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

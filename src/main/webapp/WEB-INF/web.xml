@@ -21,6 +21,10 @@
         <jsp-file>/jsp/Profil.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>Calendar</servlet-name>
+        <jsp-file>/jsp/Calendar.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>ConnexionServlet</servlet-name>
         <servlet-class>miage.gestionappel.ctrl.ConnexionServlet</servlet-class>
     </servlet>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>Profil</servlet-name>
         <url-pattern>/profil</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Calendar</servlet-name>
+        <url-pattern>/calendar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ConnexionServlet</servlet-name>
