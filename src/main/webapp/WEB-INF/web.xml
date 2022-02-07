@@ -25,6 +25,10 @@
         <jsp-file>/jsp/Calendar.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>DepotJustificatif</servlet-name>
+        <jsp-file>/jsp/DepotJustificatif.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>ConnexionServlet</servlet-name>
         <servlet-class>miage.gestionappel.ctrl.ConnexionServlet</servlet-class>
     </servlet>
@@ -43,6 +47,10 @@
     <servlet-mapping>
         <servlet-name>Calendar</servlet-name>
         <url-pattern>/calendar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DepotJustificatif</servlet-name>
+        <url-pattern>/depotjustificatif</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ConnexionServlet</servlet-name>

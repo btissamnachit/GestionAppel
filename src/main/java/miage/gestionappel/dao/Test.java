@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.text.ParseException;
+import java.util.List;
 
 public class Test {
     public static void createEtudiant(){
@@ -21,7 +22,13 @@ public class Test {
     }
     public static void main (String[] args) throws ParseException
     {
-        Test.createEtudiant();
+        //Test.createEtudiant();
+
+        GroupeDao gd = new GroupeDao();
+
+        gd.getListeEtudiantCour();
+
+
 
     }
 }
