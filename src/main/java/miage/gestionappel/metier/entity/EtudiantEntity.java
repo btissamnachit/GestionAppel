@@ -19,6 +19,12 @@ public class EtudiantEntity {
     @Column(name = "MailE")
     private String mailE;
 
+    public EtudiantEntity(String nomE, String prenomE, String mailE) {
+        this.nomE = nomE;
+        this.prenomE = prenomE;
+        this.mailE = mailE;
+    }
+
     public int getIdEtudiant() {
         return idEtudiant;
     }
