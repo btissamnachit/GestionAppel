@@ -32,7 +32,16 @@ public class HibernateUtil
             /**
              * Entité.
              */
-            configuration.addAnnotatedClass(miage.gestionappel.metier.User.class);;
+            configuration.addAnnotatedClass(miage.gestionappel.metier.Cours.class);
+            configuration.addAnnotatedClass(miage.gestionappel.metier.Groupe.class);
+            configuration.addAnnotatedClass(miage.gestionappel.metier.Justificatif.class);
+            configuration.addAnnotatedClass(miage.gestionappel.metier.Occurence.class);
+            configuration.addAnnotatedClass(miage.gestionappel.metier.Presenter.class);
+            configuration.addAnnotatedClass(miage.gestionappel.metier.Professeur.class);
+            configuration.addAnnotatedClass(miage.gestionappel.metier.Scolarite.class);
+            configuration.addAnnotatedClass(miage.gestionappel.metier.User.class);
+
+            configuration.addAnnotatedClass(miage.gestionappel.metier.Etudiant.class);
 
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();

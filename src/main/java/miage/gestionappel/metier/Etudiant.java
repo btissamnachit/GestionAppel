@@ -1,13 +1,16 @@
 package miage.gestionappel.metier;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
-@Entity
+@Entity(name = "Etudiant")
 public class Etudiant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "idEtudiant")
-    private int idEtudiant;
+    @Column(name = "IdE")
+    private int idE;
     @Basic
     @Column(name = "NomE")
     private String nomE;
@@ -18,18 +21,29 @@ public class Etudiant {
     @Column(name = "MailE")
     private String mailE;
 
+    @ManyToMany
+    @JoinTable(name = "Appartenir", joinColumns = @JoinColumn(name = "IdE"), inverseJoinColumns = @JoinColumn(name = "IdG"))
+    private Set<Groupe> groupes = new HashSet<>();
+
+    @OneToMany(mappedBy = "etudiant")
+    Set<Presenter> presences = new HashSet<>();
+    public Etudiant() {
+    }
+
     public Etudiant(String nomE, String prenomE, String mailE) {
         this.nomE = nomE;
         this.prenomE = prenomE;
         this.mailE = mailE;
+
     }
 
-    public int getIdEtudiant() {
-        return idEtudiant;
+
+    public int getIdE() {
+        return idE;
     }
 
-    public void setIdEtudiant(int idEtudiant) {
-        this.idEtudiant = idEtudiant;
+    public void setIdE(int idE) {
+        this.idE = idE;
     }
 
     public String getNomE() {
@@ -56,27 +70,42 @@ public class Etudiant {
         this.mailE = mailE;
     }
 
+ /*   public Set<Groupe> getGroupes() {
+        return groupes;
+    }
+
+    public void setGroupes(Set<Groupe> groupes) {
+        this.groupes = groupes;
+    }
+
+    public Set<Presenter> getPresences() {
+        return presences;
+    }
+
+    public void setPresences(Set<Presenter> presences) {
+        this.presences = presences;
+    }
+*/
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Etudiant etudiant = (Etudiant) o;
-
-        if (idEtudiant != etudiant.idEtudiant) return false;
-        if (nomE != null ? !nomE.equals(etudiant.nomE) : etudiant.nomE != null) return false;
-        if (prenomE != null ? !prenomE.equals(etudiant.prenomE) : etudiant.prenomE != null) return false;
-        if (mailE != null ? !mailE.equals(etudiant.mailE) : etudiant.mailE != null) return false;
-
-        return true;
+        return idE == etudiant.idE;
     }
 
     @Override
     public int hashCode() {
-        int result = idEtudiant;
-        result = 31 * result + (nomE != null ? nomE.hashCode() : 0);
-        result = 31 * result + (prenomE != null ? prenomE.hashCode() : 0);
-        result = 31 * result + (mailE != null ? mailE.hashCode() : 0);
-        return result;
+        return Objects.hash(idE);
+    }
+
+    @Override
+    public String toString() {
+        return "Etudiant{" +
+                "idE=" + idE +
+                ", nomE='" + nomE + '\'' +
+                ", prenomE='" + prenomE + '\'' +
+                ", mailE='" + mailE + '\'' +
+                '}';
     }
 }

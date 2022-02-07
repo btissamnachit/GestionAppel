@@ -9,13 +9,12 @@
         <property name="hibernate.connection.username">22107723</property>
         <property name="hibernate.connection.password">V01VR1</property>
 
-
         <!-- Parseur HQL -->
         <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
         <property name="hibernate.show_sql">true</property>
 
         <!-- Gestion des sessions par Hibernate lui-mÃªme -->
         <property name="hibernate.current_session_context_class">thread</property> <!-- Pour getCurrentSession() -->
-        <property name="hibernate.hbm2ddl.auto">validate</property> <!-- create, validate, update, none -->
+        <property name="hibernate.hbm2ddl.auto">update</property> <!-- create, validate, update, none -->
     </session-factory>
 </hibernate-configuration>
