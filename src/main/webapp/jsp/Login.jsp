@@ -25,7 +25,6 @@
 </head>
 
 <body class="bg-gradient-primary">
-
 <div class="container">
 
     <!-- Outer Row -->
@@ -47,28 +46,25 @@
                                     <div class="form-group">
                                         <input type="email" class="form-control form-control-user"
                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                               placeholder="Enter Email Address...">
+                                               placeholder="Entrez votre mail...">
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user"
-                                               id="exampleInputPassword" placeholder="Password">
+                                               id="exampleInputPassword" placeholder="Mot de passe">
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
                                             <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember
-                                                Me</label>
+                                            <label class="custom-control-label" for="customCheck">Se souvenir de moi</label>
                                         </div>
                                     </div>
                                     <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                        Login
+                                        Se connecter
                                     </a>
-                                    <hr>
-
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    <a class="small" href="forgot-password.html">Mot de passe oublié ?</a>
                                 </div>
 
                             </div>
