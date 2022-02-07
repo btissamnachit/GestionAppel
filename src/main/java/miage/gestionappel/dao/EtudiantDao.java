@@ -10,7 +10,7 @@ import java.util.Optional;
 public class EtudiantDao implements Dao {
 
     @Override
-    public Optional<Etudiant> get(long id) {
+    public Optional<Etudiant> get(int id) {
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
