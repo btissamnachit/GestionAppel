@@ -1,4 +1,4 @@
-package miage.gestionappel.metier.entity;
+package miage.gestionappel.metier;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-public class ParticiperEntityPK implements Serializable {
+public class ParticiperPK implements Serializable {
     @Column(name = "idOc")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class ParticiperEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ParticiperEntityPK that = (ParticiperEntityPK) o;
+        ParticiperPK that = (ParticiperPK) o;
 
         if (idOc != that.idOc) return false;
         if (idG != that.idG) return false;

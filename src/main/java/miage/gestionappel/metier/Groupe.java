@@ -1,10 +1,9 @@
-package miage.gestionappel.metier.entity;
+package miage.gestionappel.metier;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "GROUPE", schema = "db_22107723_2")
-public class GroupeEntity {
+public class Groupe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idG")
@@ -23,9 +22,9 @@ public class GroupeEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GroupeEntity that = (GroupeEntity) o;
+        Groupe groupe = (Groupe) o;
 
-        if (idG != that.idG) return false;
+        if (idG != groupe.idG) return false;
 
         return true;
     }

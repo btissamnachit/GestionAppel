@@ -1,17 +1,18 @@
-package miage.gestionappel.metier.entity;
+package miage.gestionappel.metier;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "SCOLARITE", schema = "db_22107723_2")
-public class ScolariteEntity {
+@IdClass(SurveillerPK.class)
+public class Surveiller {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idS")
     private int idS;
-    @Basic
-    @Column(name = "LibelleS")
-    private String libelleS;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "idC")
+    private int idC;
 
     public int getIdS() {
         return idS;
@@ -21,12 +22,12 @@ public class ScolariteEntity {
         this.idS = idS;
     }
 
-    public String getLibelleS() {
-        return libelleS;
+    public int getIdC() {
+        return idC;
     }
 
-    public void setLibelleS(String libelleS) {
-        this.libelleS = libelleS;
+    public void setIdC(int idC) {
+        this.idC = idC;
     }
 
     @Override
@@ -34,10 +35,10 @@ public class ScolariteEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ScolariteEntity that = (ScolariteEntity) o;
+        Surveiller that = (Surveiller) o;
 
         if (idS != that.idS) return false;
-        if (libelleS != null ? !libelleS.equals(that.libelleS) : that.libelleS != null) return false;
+        if (idC != that.idC) return false;
 
         return true;
     }
@@ -45,7 +46,7 @@ public class ScolariteEntity {
     @Override
     public int hashCode() {
         int result = idS;
-        result = 31 * result + (libelleS != null ? libelleS.hashCode() : 0);
+        result = 31 * result + idC;
         return result;
     }
 }
