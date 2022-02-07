@@ -1,16 +1,36 @@
 package miage.gestionappel.metier;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
-@Entity
+@Entity(name = "Scolarite")
 public class Scolarite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "idS")
+    @Column(name = "IdS")
     private int idS;
-    @Basic
+
     @Column(name = "LibelleS")
     private String libelleS;
+
+    @OneToMany(mappedBy = "scolarite", fetch = FetchType.LAZY)
+    private Set<Cours> cours = new HashSet(0);
+
+    public Scolarite() {
+    }
+
+    public Scolarite(int idS, String libelleS, Set<Cours> cours) {
+        this.idS = idS;
+        this.libelleS = libelleS;
+        this.cours = cours;
+    }
+
+    public Scolarite(String libelleS, Set<Cours> cours) {
+        this.libelleS = libelleS;
+        this.cours = cours;
+    }
 
     public int getIdS() {
         return idS;
@@ -28,23 +48,32 @@ public class Scolarite {
         this.libelleS = libelleS;
     }
 
+    public Set<Cours> getCours() {
+        return cours;
+    }
+
+    public void setCours(Set<Cours> cours) {
+        this.cours = cours;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Scolarite scolarite = (Scolarite) o;
-
-        if (idS != scolarite.idS) return false;
-        if (libelleS != null ? !libelleS.equals(scolarite.libelleS) : scolarite.libelleS != null) return false;
-
-        return true;
+        return idS == scolarite.idS;
     }
 
     @Override
     public int hashCode() {
-        int result = idS;
-        result = 31 * result + (libelleS != null ? libelleS.hashCode() : 0);
-        return result;
+        return Objects.hash(idS);
+    }
+
+    @Override
+    public String toString() {
+        return "Scolarite{" +
+                "idS=" + idS +
+                ", libelleS='" + libelleS + '\'' +
+                '}';
     }
 }

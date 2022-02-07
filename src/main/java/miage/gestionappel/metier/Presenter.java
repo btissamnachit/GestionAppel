@@ -1,48 +1,66 @@
 package miage.gestionappel.metier;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Entity
-@IdClass(PresenterPK.class)
+@Entity(name="Presenter")
 public class Presenter {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "idOc")
-    private int idOc;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "idJustif")
-    private int idJustif;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "idEtudiant")
-    private int idEtudiant;
-    @Basic
-    @Column(name = "Statut")
+
+    @EmbeddedId
+    private prensenterId idPresence;
+
+    @ManyToOne
+    @MapsId("idOc")
+    private Occurence occurence;
+
+    @ManyToOne
+    @MapsId("idE")
+    private Etudiant etudiant;
+
+    @ManyToOne
+    @MapsId("idJ")
+    private Justificatif justificatif;
+
     private String statut;
 
-    public int getIdOc() {
-        return idOc;
+    @Embeddable
+    public static class prensenterId implements Serializable {
+        private Integer idOc;
+        private Integer idE;
+        private Integer idJ;
+
     }
 
-    public void setIdOc(int idOc) {
-        this.idOc = idOc;
+    public prensenterId getIdPresence() {
+        return idPresence;
     }
 
-    public int getIdJustif() {
-        return idJustif;
+    public void setIdPresence(prensenterId idPresence) {
+        this.idPresence = idPresence;
     }
 
-    public void setIdJustif(int idJustif) {
-        this.idJustif = idJustif;
+    public Occurence getOccurence() {
+        return occurence;
     }
 
-    public int getIdEtudiant() {
-        return idEtudiant;
+    public void setOccurence(Occurence occurence) {
+        this.occurence = occurence;
     }
 
-    public void setIdEtudiant(int idEtudiant) {
-        this.idEtudiant = idEtudiant;
+    public Etudiant getEtudiant() {
+        return etudiant;
+    }
+
+    public void setEtudiant(Etudiant etudiant) {
+        this.etudiant = etudiant;
+    }
+
+    public Justificatif getJustificatif() {
+        return justificatif;
+    }
+
+    public void setJustificatif(Justificatif justificatif) {
+        this.justificatif = justificatif;
     }
 
     public String getStatut() {
@@ -53,27 +71,14 @@ public class Presenter {
         this.statut = statut;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Presenter presenter = (Presenter) o;
-
-        if (idOc != presenter.idOc) return false;
-        if (idJustif != presenter.idJustif) return false;
-        if (idEtudiant != presenter.idEtudiant) return false;
-        if (statut != null ? !statut.equals(presenter.statut) : presenter.statut != null) return false;
-
-        return true;
+    public Presenter(Occurence occurence, Etudiant etudiant, Justificatif justificatif, String statut) {
+        this.occurence = occurence;
+        this.etudiant = etudiant;
+        this.justificatif = justificatif;
+        this.statut = statut;
     }
+    public Presenter(){
 
-    @Override
-    public int hashCode() {
-        int result = idOc;
-        result = 31 * result + idJustif;
-        result = 31 * result + idEtudiant;
-        result = 31 * result + (statut != null ? statut.hashCode() : 0);
-        return result;
     }
 }
+

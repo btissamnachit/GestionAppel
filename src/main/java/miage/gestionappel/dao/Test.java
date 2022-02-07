@@ -1,6 +1,5 @@
 package miage.gestionappel.dao;
 
-import miage.gestionappel.metier.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

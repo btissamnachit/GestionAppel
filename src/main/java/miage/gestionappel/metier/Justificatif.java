@@ -1,33 +1,55 @@
 package miage.gestionappel.metier;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
-@Entity
+@Entity(name="Justificatif")
 public class Justificatif {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "idJustif")
-    private int idJustif;
-    @Basic
+    @Column(name = "idJ")
+    private int idJ;
+
     @Column(name = "StatutJustif")
-    private Byte statutJustif;
-    @Basic
+    private boolean statutJustif;
+
     @Column(name = "URLJ")
     private String urlj;
 
-    public int getIdJustif() {
-        return idJustif;
+    @OneToMany(mappedBy = "justificatif")
+    Set<Presenter> presences = new HashSet<>();
+
+    public Justificatif() {
     }
 
-    public void setIdJustif(int idJustif) {
-        this.idJustif = idJustif;
+    public Justificatif(int idJ, boolean statutJustif, String urlj, Set<Presenter> presences) {
+        this.idJ = idJ;
+        this.statutJustif = statutJustif;
+        this.urlj = urlj;
+        this.presences = presences;
     }
 
-    public Byte getStatutJustif() {
+    public Justificatif(boolean statutJustif, String urlj, Set<Presenter> presences) {
+        this.statutJustif = statutJustif;
+        this.urlj = urlj;
+        this.presences = presences;
+    }
+
+    public int getIdJ() {
+        return idJ;
+    }
+
+    public void setIdJ(int idJ) {
+        this.idJ = idJ;
+    }
+
+    public boolean isStatutJustif() {
         return statutJustif;
     }
 
-    public void setStatutJustif(Byte statutJustif) {
+    public void setStatutJustif(boolean statutJustif) {
         this.statutJustif = statutJustif;
     }
 
@@ -39,25 +61,33 @@ public class Justificatif {
         this.urlj = urlj;
     }
 
+    public Set<Presenter> getPresences() {
+        return presences;
+    }
+
+    public void setPresences(Set<Presenter> presences) {
+        this.presences = presences;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Justificatif that = (Justificatif) o;
-
-        if (idJustif != that.idJustif) return false;
-        if (statutJustif != null ? !statutJustif.equals(that.statutJustif) : that.statutJustif != null) return false;
-        if (urlj != null ? !urlj.equals(that.urlj) : that.urlj != null) return false;
-
-        return true;
+        return idJ == that.idJ;
     }
 
     @Override
     public int hashCode() {
-        int result = idJustif;
-        result = 31 * result + (statutJustif != null ? statutJustif.hashCode() : 0);
-        result = 31 * result + (urlj != null ? urlj.hashCode() : 0);
-        return result;
+        return Objects.hash(idJ);
+    }
+
+    @Override
+    public String toString() {
+        return "Justificatif{" +
+                "idJ=" + idJ +
+                ", statutJustif=" + statutJustif +
+                ", urlj='" + urlj + '\'' +
+                '}';
     }
 }

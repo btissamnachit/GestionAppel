@@ -3,31 +3,69 @@ package miage.gestionappel.metier;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
-@Entity
+@Entity(name= "Occurence")
 public class Occurence {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "idOc")
+    @Column(name = "IdOc")
     private int idOc;
-    @Basic
+
     @Column(name = "DateOc")
     private Date dateOc;
-    @Basic
+
     @Column(name = "HeureDebutOc")
     private Time heureDebutOc;
-    @Basic
+
     @Column(name = "HeureFinOc")
     private Time heureFinOc;
-    @Basic
+
     @Column(name = "AppelValide")
-    private byte appelValide;
-    @Basic
-    @Column(name = "idC")
-    private Integer idC;
-    @Basic
-    @Column(name = "idP")
-    private Integer idP;
+    private boolean appelValide;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "IdP")
+    private Professeur professeur;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "IdC")
+    private Cours cours;
+
+    @OneToMany(mappedBy = "occurence")
+    Set<Presenter> presences = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "Participer", joinColumns = @JoinColumn(name = "IdOc"), inverseJoinColumns = @JoinColumn(name = "IdG"))
+    private Set<Groupe> groupes = new HashSet<>();
+
+    public Occurence() {
+    }
+
+    public Occurence(int idOc, Date dateOc, Time heureDebutOc, Time heureFinOc, boolean appelValide, Professeur professeur, Cours cours, Set<Presenter> presences, Set<Groupe> groupes) {
+        this.idOc = idOc;
+        this.dateOc = dateOc;
+        this.heureDebutOc = heureDebutOc;
+        this.heureFinOc = heureFinOc;
+        this.appelValide = appelValide;
+        this.professeur = professeur;
+        this.cours = cours;
+        this.presences = presences;
+        this.groupes = groupes;
+    }
+
+    public Occurence(Date dateOc, Time heureDebutOc, Time heureFinOc, boolean appelValide, Professeur professeur, Cours cours, Set<Presenter> presences, Set<Groupe> groupes) {
+        this.dateOc = dateOc;
+        this.heureDebutOc = heureDebutOc;
+        this.heureFinOc = heureFinOc;
+        this.appelValide = appelValide;
+        this.professeur = professeur;
+        this.cours = cours;
+        this.presences = presences;
+        this.groupes = groupes;
+    }
 
     public int getIdOc() {
         return idOc;
@@ -61,58 +99,67 @@ public class Occurence {
         this.heureFinOc = heureFinOc;
     }
 
-    public byte getAppelValide() {
+    public boolean getAppelValide() {
         return appelValide;
     }
 
-    public void setAppelValide(byte appelValide) {
+    public void setAppelValide(boolean appelValide) {
         this.appelValide = appelValide;
     }
 
-    public Integer getIdC() {
-        return idC;
+    public Professeur getProfesseur() {
+        return professeur;
     }
 
-    public void setIdC(Integer idC) {
-        this.idC = idC;
+    public void setProfesseur(Professeur professeur) {
+        this.professeur = professeur;
     }
 
-    public Integer getIdP() {
-        return idP;
+    public Cours getCours() {
+        return cours;
     }
 
-    public void setIdP(Integer idP) {
-        this.idP = idP;
+    public void setCours(Cours cours) {
+        this.cours = cours;
+    }
+
+    public Set<Presenter> getPresences() {
+        return presences;
+    }
+
+    public void setPresences(Set<Presenter> presences) {
+        this.presences = presences;
+    }
+
+    public Set<Groupe> getGroupes() {
+        return groupes;
+    }
+
+    public void setGroupes(Set<Groupe> groupes) {
+        this.groupes = groupes;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Occurence occurence = (Occurence) o;
-
-        if (idOc != occurence.idOc) return false;
-        if (appelValide != occurence.appelValide) return false;
-        if (dateOc != null ? !dateOc.equals(occurence.dateOc) : occurence.dateOc != null) return false;
-        if (heureDebutOc != null ? !heureDebutOc.equals(occurence.heureDebutOc) : occurence.heureDebutOc != null)
-            return false;
-        if (heureFinOc != null ? !heureFinOc.equals(occurence.heureFinOc) : occurence.heureFinOc != null) return false;
-        if (idC != null ? !idC.equals(occurence.idC) : occurence.idC != null) return false;
-        if (idP != null ? !idP.equals(occurence.idP) : occurence.idP != null) return false;
-
-        return true;
+        return idOc == occurence.idOc;
     }
 
     @Override
     public int hashCode() {
-        int result = idOc;
-        result = 31 * result + (dateOc != null ? dateOc.hashCode() : 0);
-        result = 31 * result + (heureDebutOc != null ? heureDebutOc.hashCode() : 0);
-        result = 31 * result + (heureFinOc != null ? heureFinOc.hashCode() : 0);
-        result = 31 * result + (int) appelValide;
-        result = 31 * result + (idC != null ? idC.hashCode() : 0);
-        result = 31 * result + (idP != null ? idP.hashCode() : 0);
-        return result;
+        return Objects.hash(idOc);
+    }
+
+    @Override
+    public String toString() {
+        return "Occurence{" +
+                "idOc=" + idOc +
+                ", dateOc=" + dateOc +
+                ", heureDebutOc=" + heureDebutOc +
+                ", heureFinOc=" + heureFinOc +
+                ", appelValide=" + appelValide +
+                '}';
     }
 }

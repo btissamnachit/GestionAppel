@@ -4,19 +4,19 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
     <persistence-unit name="GestionAppel_PU" transaction-type="RESOURCE_LOCAL">
-        <class>miage.gestionappel.metier.Appartenir</class>
+
         <class>miage.gestionappel.metier.Cours</class>
-        <class>miage.gestionappel.metier.Enseigner</class>
+
         <class>miage.gestionappel.metier.Etudiant</class>
         <class>miage.gestionappel.metier.Groupe</class>
-        <class>miage.gestionappel.metier.Inscrire</class>
+
         <class>miage.gestionappel.metier.Justificatif</class>
         <class>miage.gestionappel.metier.Occurence</class>
-        <class>miage.gestionappel.metier.Participer</class>
+
         <class>miage.gestionappel.metier.Presenter</class>
         <class>miage.gestionappel.metier.Professeur</class>
         <class>miage.gestionappel.metier.Scolarite</class>
-        <class>miage.gestionappel.metier.Surveiller</class> <!-- Transaction gérée au niveau de l'ORM -->
+         <!-- Transaction gérée au niveau de l'ORM -->
         <properties>
             <property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml" />
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3307/db_22107723_2"/>
