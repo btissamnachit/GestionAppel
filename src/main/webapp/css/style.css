@@ -87,12 +87,8 @@ p {
 
 abbr[data-original-title], abbr[title] {
     text-decoration: underline;
-    -webkit-text-decoration: underline dotted;
-    text-decoration: underline dotted;
     cursor: help;
     border-bottom: 0;
-    -webkit-text-decoration-skip-ink: none;
-    text-decoration-skip-ink: none
 }
 
 address {
@@ -2410,7 +2406,7 @@ textarea.form-control {
 
 .btn.focus, .btn:focus {
     outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(78, 115, 223, .25)
+    box-shadow: rgba(231, 47, 40, 0.76);
 }
 
 .btn.disabled, .btn:disabled {
@@ -2427,37 +2423,37 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: rgba(231, 74, 68, 0.76);
-    border-color: rgba(231, 74, 68, 0.76)
+    background-color: rgb(206, 45, 45);
+    border-color: rgb(179, 19, 29)
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: rgba(231, 47, 40, 0.76);
-    border-color: rgba(231, 43, 36, 0.76)
+    background-color: rgba(241, 49, 41, 0.76);
+    border-color: rgba(241, 49, 41, 0.76);
 }
 
 .btn-primary.focus, .btn-primary:focus {
     color: #fff;
-    background-color: #2e59d9;
-    border-color: #2653d4;
-    box-shadow: 0 0 0 .2rem rgba(105, 136, 228, .5)
+    background-color: rgba(231, 47, 40, 0.76);
+    border-color: rgba(231, 47, 40, 0.76);
+    box-shadow: rgba(231, 47, 40, 0.76);
 }
 
 .btn-primary.disabled, .btn-primary:disabled {
     color: #fff;
-    background-color: #4e73df;
-    border-color: #4e73df
+    background-color: rgba(231, 47, 40, 0.76);
+    border-color: rgba(231, 47, 40, 0.76);
 }
 
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: #2653d4;
-    border-color: #244ec9
+    background-color: rgba(231, 47, 40, 0.76);
+    border-color: rgba(231, 47, 40, 0.76);
 }
 
 .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show > .btn-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(105, 136, 228, .5)
+    box-shadow: rgba(231, 47, 40, 0.76);
 }
 
 .btn-secondary {
@@ -3901,14 +3897,12 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     background-color: #4e73df;
     border: 0;
     border-radius: 1rem;
-    -ms-transition: background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     transition: background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     appearance: none
 }
 
 @media (prefers-reduced-motion: reduce) {
     .custom-range::-ms-thumb {
-        -ms-transition: none;
         transition: none
     }
 }
@@ -4581,7 +4575,6 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     }
 
     .card-deck .card {
-        flex: 1 0 0%;
         margin-right: .75rem;
         margin-bottom: 0;
         margin-left: .75rem
@@ -5694,10 +5687,8 @@ a.close.disabled {
 .modal-dialog-centered::before {
     display: block;
     height: calc(100vh - 1rem);
-    height: -webkit-min-content;
-    height: -moz-min-content;
     height: min-content;
-    content: ""
+    content: "";
 }
 
 .modal-dialog-centered.modal-dialog-scrollable {
@@ -5814,13 +5805,11 @@ a.close.disabled {
 
     .modal-dialog-centered::before {
         height: calc(100vh - 3.5rem);
-        height: -webkit-min-content;
-        height: -moz-min-content;
-        height: min-content
+        height: min-content;
     }
 
     .modal-sm {
-        max-width: 300px
+        max-width: 300px;
     }
 }
 
@@ -9808,7 +9797,6 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 .text-hide {
-    font: 0/0 a;
     color: transparent;
     text-shadow: none;
     background-color: transparent;
@@ -10006,16 +9994,14 @@ a:focus {
     animation-name: growIn;
     -webkit-animation-duration: .2s;
     animation-duration: .2s;
-    -webkit-animation-timing-function: transform cubic-bezier(.18, 1.25, .4, 1), opacity cubic-bezier(0, 1, .4, 1);
-    animation-timing-function: transform cubic-bezier(.18, 1.25, .4, 1), opacity cubic-bezier(0, 1, .4, 1)
 }
 
 @-webkit-keyframes fadeIn {
     0% {
-        opacity: 0
+        opacity: 0;
     }
     100% {
-        opacity: 1
+        opacity: 1;
     }
 }
 
@@ -10033,12 +10019,9 @@ a:focus {
     animation-name: fadeIn;
     -webkit-animation-duration: .2s;
     animation-duration: .2s;
-    -webkit-animation-timing-function: opacity cubic-bezier(0, 1, .4, 1);
-    animation-timing-function: opacity cubic-bezier(0, 1, .4, 1);
 }
 
-body {
-    background-image: url("/image/img_3.jpg");
+.bg-gradient-primary {
 }
 
 .bg-gradient-secondary {
@@ -10274,7 +10257,7 @@ body {
     border: 0;
     font-weight: 900;
     content: '\f105';
-    font-family: 'Font Awesome 5 Free'
+    font-family: 'Font Awesome 5 Free';
 }
 
 .sidebar .nav-item.dropdown.show .dropdown-toggle::after, .topbar .nav-item.dropdown.show .dropdown-toggle::after {
@@ -10550,7 +10533,7 @@ body {
     font-weight: 900;
     content: '\f104';
     font-family: 'Font Awesome 5 Free';
-    margin-right: .1rem
+    margin-right: .1rem;
 }
 
 .sidebar #sidebarToggle:hover {
@@ -10569,7 +10552,7 @@ body {
 .sidebar.toggled #sidebarToggle::after {
     content: '\f105';
     font-family: 'Font Awesome 5 Free';
-    margin-left: .25rem
+    margin-left: .25rem;
 }
 
 .sidebar.toggled .sidebar-card {
@@ -10722,9 +10705,7 @@ body {
         animation-name: growIn;
         -webkit-animation-duration: .2s;
         animation-duration: .2s;
-        -webkit-animation-timing-function: transform cubic-bezier(.18, 1.25, .4, 1), opacity cubic-bezier(0, 1, .4, 1);
-        animation-timing-function: transform cubic-bezier(.18, 1.25, .4, 1), opacity cubic-bezier(0, 1, .4, 1)
-    }
+        }
 
     .sidebar.toggled .nav-item .collapse .collapse-inner {
         box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15);
@@ -11012,9 +10993,9 @@ body {
 }
 
 .bg-login-image {
-    background: url(https://source.unsplash.com/K4mSJ7kc0As/600x800);
+    background: url("../image/logo.png");
     background-position: center;
-    background-size: cover
+    background-size: cover;
 }
 
 .bg-register-image {
