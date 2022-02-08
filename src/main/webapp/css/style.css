@@ -190,7 +190,7 @@ svg {
 }
 
 table {
-    border-collapse: collapse
+    border-collapse: collapse;
 }
 
 caption {
@@ -1620,6 +1620,16 @@ pre code {
     width: 100%;
     margin-bottom: 1rem;
     color: #858796
+}
+
+.tableJustificatif {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .table td, .table th {
