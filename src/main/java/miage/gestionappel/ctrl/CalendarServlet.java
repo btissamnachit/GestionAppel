@@ -35,7 +35,7 @@ public class CalendarServlet extends HttpServlet {
             out.println("<?xml version=\"1.0\"?>");
             out.println("<Calendar>");
             OccurenceDao dao = new OccurenceDao();
-            List<Occurence> occurenceList = dao.getOccurenceProfesseur(idP, dateFocus);
+            List<Occurence> occurenceList = dao.getAll();
             out.println("<day>" + occurenceList);
             out.println("<event>" + occurenceList + "</event>");
             out.println("</day>");
