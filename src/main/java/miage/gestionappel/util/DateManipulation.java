@@ -4,8 +4,9 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 
 public class DateManipulation {
     private LocalDate dateNow = LocalDate.now();
@@ -44,18 +45,21 @@ public class DateManipulation {
         this.endOfTheWeek = endOfTheWeek;
     }
 
-    public HashMap<String, Date> getWeekDetails() {
-        HashMap<String, Date> weekDetails = new HashMap<>();
-        DateTime start = this.startOfTheWeek;
+    public List<Date> getAllDateOfWeek() {
+        List<Date> dateList = new ArrayList<>();
+        DateTime iterator = this.startOfTheWeek;
         DateTime end = this.endOfTheWeek;
-        while (start.isBefore(end)) {
-            String dayName = dateFormat.format(start);
-            weekDetails.put(dayName, start.toDate());
-            start.plusDays(1);
+        while (iterator.isBefore(end)) {
+            dateList.add(iterator.toDate());
+            iterator.plusDays(1);
         }
         String dayName = dateFormat.format(end);
-        weekDetails.put(dayName, end.toDate());
-        return weekDetails;
+        dateList.add(end.toDate());
+        return dateList;
+    }
+
+    public String getDateName(Date date) {
+        return dateFormat.format(date);
     }
 
 }
