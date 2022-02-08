@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 import java.util.List;
 import java.util.Optional;
 
-public class ProfesseurDao implements Dao {
+public class ProfesseurDao implements Dao<Professeur> {
     @Override
     public Optional<Professeur> get(int id) {
 
@@ -21,58 +21,47 @@ public class ProfesseurDao implements Dao {
 
     @Override
     public List<Professeur> getAll() {
-
-
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
-            List<Professeur> list1 = session.createSQLQuery("select * from Professeur ").list();
+            List<Professeur> professeurs = session.createQuery("From Professeur ").list();
 
-            return list1;
+            return professeurs;
         }
     }
 
     @Override
-    public void save(Object professeur) {
+    public void save(Professeur professeur) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            session.save((Professeur) professeur);
+
+            session.save(professeur);
             t.commit();
-
         }
     }
 
     @Override
-    public void update(Object p, String[] params) {
+    public void update(Professeur professeur, String[] params) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-
-            Professeur professeur = (Professeur) p;
 
             professeur.setNomP(params[0]);
             professeur.setPrenomP(params[1]);
             professeur.setMailP(params[2]);
             session.update(professeur);
             t.commit();
-
-
         }
     }
 
     @Override
 
-    public void delete(Object p) {
+    public void delete(Professeur professeur) {
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
 
-            Professeur professeur = (Professeur) p;
-
             session.remove(professeur);
             t.commit();
-
         }
     }
-
-
 }
 
