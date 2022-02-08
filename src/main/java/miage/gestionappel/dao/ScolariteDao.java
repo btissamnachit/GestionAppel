@@ -4,17 +4,13 @@ import miage.gestionappel.metier.Scolarite;
 import org.hibernate.Session;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 public class ScolariteDao implements Dao<Scolarite>{
     @Override
-    public Optional<Scolarite> get(int id) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
-        {
+    public Scolarite get(int id) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
-            Scolarite scolarite = session.get(Scolarite.class, id);
-            return Optional.ofNullable(scolarite);
+            return session.get(Scolarite.class, id);
         }
     }
 

@@ -67,6 +67,14 @@ public class Occurence {
         this.groupes = groupes;
     }
 
+    public Occurence(Date dateOc, Time heureDebutOc, Time heureFinOc, Professeur professeur, Cours cours) {
+        this.dateOc = dateOc;
+        this.heureDebutOc = heureDebutOc;
+        this.heureFinOc = heureFinOc;
+        this.professeur = professeur;
+        this.cours = cours;
+    }
+
     public int getIdOc() {
         return idOc;
     }

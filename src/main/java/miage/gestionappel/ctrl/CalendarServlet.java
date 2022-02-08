@@ -1,6 +1,6 @@
 package miage.gestionappel.ctrl;
 
-import miage.gestionappel.dao.OccurenceDao;
+import com.google.gson.Gson;
 import miage.gestionappel.metier.Occurence;
 import miage.gestionappel.metier.Professeur;
 import miage.gestionappel.util.DateManipulation;
@@ -23,23 +23,16 @@ public class CalendarServlet extends HttpServlet {
         Professeur professeur = (Professeur) session.getAttribute("user");
         Set<Occurence> occurencesList = professeur.getOccurences();
         List<Date> weekDetails = getFocusWeekDetails(request);
+        HashMap<Date, List<Occurence>> timeTable = getWeekClasses(weekDetails, occurencesList);
 
-
-        response.setContentType("application/xml;charset=UTF-8");
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /*----- Ecriture de la page XML -----*/
-            out.println("<?xml version=\"1.0\"?>");
-            out.println("<Calendar>");
-            OccurenceDao dao = new OccurenceDao();
-            List<Occurence> occurenceList = dao.getAll();
-            out.println("<day>" + occurenceList);
-            out.println("<event>" + occurenceList + "</event>");
-            out.println("</day>");
-            out.println("</Calendar>");
+            Gson gson = new Gson();
+            out.print(gson.toJson(timeTable));
+            out.flush();
         }
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,7 +42,9 @@ public class CalendarServlet extends HttpServlet {
     protected List<Date> getFocusWeekDetails(HttpServletRequest request) {
         LocalDate dateFocus = (LocalDate) request.getAttribute("startOfWeek");
         DateManipulation dm = new DateManipulation();
-        dm.setDateNow(dateFocus);
+        if (dateFocus != null) {
+            dm.setDateNow(dateFocus);
+        }
         return dm.getAllDateOfWeek();
     }
 

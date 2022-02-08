@@ -2,21 +2,17 @@ package miage.gestionappel.dao;
 
 import miage.gestionappel.metier.Etudiant;
 import miage.gestionappel.metier.Presenter;
-import miage.gestionappel.metier.Scolarite;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
-import java.util.Optional;
 
 public class PresenterDao  implements Dao<Presenter>{
     @Override
-    public Optional<Presenter> get(int id) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
-        {
+    public Presenter get(int id) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
-            Presenter presence = session.get(Presenter.class, id);
-            return Optional.ofNullable(presence);
+            return session.get(Presenter.class, id);
         }
     }
 

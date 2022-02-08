@@ -1,21 +1,18 @@
 package miage.gestionappel.dao;
 
 import miage.gestionappel.metier.Cours;
-import miage.gestionappel.metier.Occurence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CoursDao implements Dao<Cours>{
 
     @Override
-    public Optional<Cours> get(int id) {
-        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+    public Cours get(int id) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
-            Cours cours = session.get(Cours.class, id);
-            return Optional.ofNullable(cours);
+            return session.get(Cours.class, id);
         }
     }
 

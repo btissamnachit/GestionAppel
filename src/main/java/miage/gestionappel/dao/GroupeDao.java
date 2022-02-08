@@ -1,23 +1,19 @@
 package miage.gestionappel.dao;
 
-import miage.gestionappel.metier.Cours;
 import miage.gestionappel.metier.Etudiant;
 import miage.gestionappel.metier.Groupe;
-import miage.gestionappel.metier.Occurence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
-import java.util.Optional;
 
 public class GroupeDao implements Dao<Groupe> {
 
     @Override
-    public Optional<Groupe> get(int id) {
+    public Groupe get(int id) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
-            Groupe groupe = session.get(Groupe.class, id);
-            return Optional.ofNullable(groupe);
+            return session.get(Groupe.class, id);
         }
     }
 

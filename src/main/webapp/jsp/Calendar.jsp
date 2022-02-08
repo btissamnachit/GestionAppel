@@ -13,8 +13,6 @@
 <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
     <div class="cd-schedule__timeline">
         <ul>
-            <li><span>08:00</span></li>
-            <li><span>08:30</span></li>
             <li><span>09:00</span></li>
             <li><span>09:30</span></li>
             <li><span>10:00</span></li>
@@ -48,7 +46,6 @@
                             <em class="cd-schedule__name">Abs Circuit</em>
                         </a>
                     </li>
-
                     <li class="cd-schedule__event">
                         <a data-start="11:00" data-end="12:30" data-content="event-rowing-workout" data-event="event-2"
                            href="#0">
