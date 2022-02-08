@@ -41,13 +41,26 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Liste des Etudiants</h1>
 
-    <form>
+    <%
+    /*----- Récupérer le paramétre cours -----*/
+
+        String cours = request.getParameter("cours");
+        if (cours == null){
+            cours ="";
+        }
+
+    %>
+
+    <form
+    action= "ctrlListeCour"
+    method="GET"
+    name="Récupérer">
 
         <div class="small mb-1">Veuiller selectionner le cours</div>
         <div class="dropdown mb-4">
             <button class="btn btn-primary dropdown-toggle" type="button"
                     id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
+                    aria-expanded="false" name="cours" value="<%=cours%%>">
                 Choix cours
             </button>
             <div class="dropdown-menu animated--fade-in"
