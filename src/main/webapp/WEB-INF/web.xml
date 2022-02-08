@@ -41,6 +41,10 @@
         <jsp-file>/jsp/ListeEtudiants.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>ListeEtudiantsSceance</servlet-name>
+        <jsp-file>/jsp/ListeEtudiantsSceance.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>ConnexionServlet</servlet-name>
         <servlet-class>miage.gestionappel.ctrl.ConnexionServlet</servlet-class>
     </servlet>
@@ -74,6 +78,10 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListeEtudiants</servlet-name>
+        <url-pattern>/listeetudiants</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListeEtudiantsSceance</servlet-name>
         <url-pattern>/listeetudiants</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
