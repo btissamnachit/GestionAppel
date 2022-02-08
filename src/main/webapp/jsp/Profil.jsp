@@ -20,6 +20,8 @@
 
 
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
+
+<%@ include file="AccueilProf.jsp" %>
 <body>
 <div class="container rounded bg-white mt-5">
     <div class="row">

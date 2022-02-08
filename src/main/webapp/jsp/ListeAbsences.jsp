@@ -19,6 +19,7 @@
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
+<%@ include file="AccueilProf.jsp" %>
 <body>
 <div>
     <select class="custom-select">
