@@ -21,12 +21,10 @@ public class CalendarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        LocalDate dateFocus = (LocalDate) request.getAttribute("week");
-        DateManipulation dm = new DateManipulation();
-        dm.setDateNow(dateFocus);
-        HashMap<String, Date> weekDetails = dm.getWeekDetails();
         Professeur professeur = (Professeur) session.getAttribute("user");
         int idP = professeur.getIdP();
+        HashMap<String, Date> weekDetails = getFocusWeekDetails(request);
+
 
         response.setContentType("application/xml;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -35,7 +33,7 @@ public class CalendarServlet extends HttpServlet {
             out.println("<?xml version=\"1.0\"?>");
             out.println("<Calendar>");
             OccurenceDao dao = new OccurenceDao();
-            List<Occurence> occurenceList = dao.getOccurenceProfesseur(idP, dateFocus);
+            List<Occurence> occurenceList = dao.getAll();
             out.println("<day>" + occurenceList);
             out.println("<event>" + occurenceList + "</event>");
             out.println("</day>");
@@ -47,5 +45,19 @@ public class CalendarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    }
+
+    protected HashMap<String, Date> getFocusWeekDetails(HttpServletRequest request) {
+        LocalDate dateFocus = (LocalDate) request.getAttribute("week");
+        DateManipulation dm = new DateManipulation();
+        dm.setDateNow(dateFocus);
+        return dm.getWeekDetails();
+    }
+
+    protected HashMap<Date, Occurence> getWeekClasses() {
+        HashMap<Date, Occurence> weekClasses = new HashMap<>();
+        OccurenceDao dao = new OccurenceDao();
+        List<Occurence> occurenceList = dao.getAll();
+        return weekClasses;
     }
 }
