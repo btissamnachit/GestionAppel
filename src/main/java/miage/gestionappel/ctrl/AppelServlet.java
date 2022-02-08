@@ -1,6 +1,7 @@
 package miage.gestionappel.ctrl;
 
 import miage.gestionappel.dao.OccurenceDao;
+import miage.gestionappel.metier.Groupe;
 import miage.gestionappel.metier.Occurence;
 import miage.gestionappel.metier.Presenter;
 
@@ -13,31 +14,43 @@ import java.util.Optional;
 import java.util.Set;
 
 public class AppelServlet extends HttpServlet {
+
+    OccurenceDao occurenceDao = new OccurenceDao();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        OccurenceDao occurenceDao = new OccurenceDao();
-
+        HttpSession session = request.getSession(true);
         String cours = request.getParameter("cours");
+
         int idOccurence = Integer.parseInt(request.getParameter("idOccurence"));
-        System.out.println(idOccurence);
+
         Occurence occurence = occurenceDao.getOc(idOccurence);
-      /*  Presenter presence =
-
-        Set<Presenter> presences = occurence.getPresences();
-        System.out.println("hhhhhh : "+presences.toString());
-
-        for (Presenter p: presences ){
-            System.out.println("hhhhhh : "+p.getEtudiant().getNomE());
+        if (occurence.getAppelValide()) {
+            Set<Presenter> presences = occurence.getPresences();
+            request.setAttribute("presences", presences);
+        } else {
+            Set<Groupe> groupes = occurence.getGroupes();
+            request.setAttribute("groupes", groupes);
         }
-
-        request.setAttribute("presences", presences);
-        request.getRequestDispatcher("/listeEtudiantsSeance").forward(request,response);
-
-*/
+        session.setAttribute("occurence", occurence);
+        request.setAttribute("cours", cours);
+        request.setAttribute("isValide", occurence.getAppelValide());
+        request.getRequestDispatcher("/listeEtudiantsSeance").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        String action = request.getParameter("action");
+        switch (action) {
+            case "Enregistrer":
+                Occurence occurence = (Occurence) session.getAttribute("occurence");
+                occurence.setAppelValide(true);
+                occurenceDao.update(occurence,null);
+                break;
+            case "Retour":
+                // vers emploi du temps
+                break;
 
+        }
     }
 }
