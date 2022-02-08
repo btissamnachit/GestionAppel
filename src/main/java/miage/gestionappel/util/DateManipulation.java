@@ -11,7 +11,7 @@ public class DateManipulation {
     private LocalDate dateNow = LocalDate.now();
     private DateTime startOfTheWeek;
     private DateTime endOfTheWeek;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE");
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE");
 
 
     public DateManipulation() {
