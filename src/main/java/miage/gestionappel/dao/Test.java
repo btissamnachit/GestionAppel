@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.text.ParseException;
+import java.util.List;
 
 public class Test {
     public static void createEtudiant(){
@@ -19,19 +20,15 @@ public class Test {
             t.commit();
         }
     }
-    public static void createUser(){
-        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
-            //ouverture d'une transaction
-            Transaction t = session.beginTransaction();
-
-            User user = new User("btissam.nachir@ut1-capitole.fr","btissama");
-
-            session.save(user);
-            t.commit();
-        }
-    }
     public static void main (String[] args) throws ParseException
     {
-        Test.createUser();
+        //Test.createEtudiant();
+
+        GroupeDao gd = new GroupeDao();
+
+        gd.getListeEtudiantCour();
+
+
+
     }
 }
