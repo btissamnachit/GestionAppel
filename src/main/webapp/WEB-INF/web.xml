@@ -25,8 +25,16 @@
         <jsp-file>/jsp/Calendar.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>DepotJustificatif</servlet-name>
-        <jsp-file>/jsp/DepotJustificatif.jsp</jsp-file>
+        <servlet-name>RecapPresenceProf</servlet-name>
+        <jsp-file>/jsp/RecapPresenceProf.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>AccueilProf</servlet-name>
+        <jsp-file>/jsp/AccueilProf.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>ListeAbsences</servlet-name>
+        <jsp-file>/jsp/ListeAbsences.jsp</jsp-file>
     </servlet>
     <servlet>
         <servlet-name>ConnexionServlet</servlet-name>
@@ -49,8 +57,16 @@
         <url-pattern>/calendar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DepotJustificatif</servlet-name>
-        <url-pattern>/depotjustificatif</url-pattern>
+        <servlet-name>RecapPresenceProf</servlet-name>
+        <url-pattern>/recappresenceprof</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccueilProf</servlet-name>
+        <url-pattern>/accueilprof</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListeAbsences</servlet-name>
+        <url-pattern>/listeabsences</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ConnexionServlet</servlet-name>

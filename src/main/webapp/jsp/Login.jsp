@@ -5,7 +5,7 @@
   Time: 13:49
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"  %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,15 +42,38 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Se connecter</h1>
                                 </div>
-                                <form class="user">
+                                <div>
+                                <%
+                                    String msg_a = (String)request.getAttribute("msg_a");
+                                    if(msg_a != null){
+                                %>
+                                        <div class="alert alert-primary" ><%=msg_a%></div>
+                                <%
+                                    }
+
+                                    String msg_e = (String)request.getAttribute("msg_e");
+                                    if(msg_e != null){
+                                %>
+                                        <div class="alert alert-danger" ><%=msg_e%></div>
+                                <%
+                                    }
+                                %>
+                                </div>
+                                <form class="user" action="${pageContext.request.contextPath}/connexion" method="post">
                                     <div class="form-group">
+                                        <%
+                                            String email = request.getParameter("email");
+                                            if(email == null){
+                                                email = "";
+                                            }
+                                        %>
                                         <input type="email" class="form-control form-control-user"
                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                               placeholder="Entrez votre mail...">
+                                               placeholder="Entrez votre mail..." name="email" value="<%= email %>">
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user"
-                                               id="exampleInputPassword" placeholder="Mot de passe">
+                                               id="exampleInputPassword" placeholder="Mot de passe" name="motdepasse">
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
@@ -58,13 +81,13 @@
                                             <label class="custom-control-label" for="customCheck">Se souvenir de moi</label>
                                         </div>
                                     </div>
-                                    <a href="index.html" class="btn btn-primary btn-user btn-block">
+                                    <button class="btn btn-primary btn-user btn-block" type="submit">
                                         Se connecter
-                                    </a>
+                                    </button>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Mot de passe oublié ?</a>
+                                    <a class="small" href="">Mot de passe oublié ?</a>
                                 </div>
 
                             </div>
