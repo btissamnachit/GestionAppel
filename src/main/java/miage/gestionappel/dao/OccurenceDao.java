@@ -4,12 +4,8 @@ import miage.gestionappel.metier.Occurence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
-import java.util.SimpleTimeZone;
 
 public class OccurenceDao implements Dao<Occurence> {
     @Override
@@ -63,4 +59,5 @@ public class OccurenceDao implements Dao<Occurence> {
             t.commit();
         }
     }
+
 }

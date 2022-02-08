@@ -43,23 +43,23 @@
                                     <h1 class="h4 text-gray-900 mb-4">Se connecter</h1>
                                 </div>
                                 <div>
-                                <%
-                                    String msg_a = (String)request.getAttribute("msg_a");
-                                    if(msg_a != null){
-                                %>
-                                        <div class="alert alert-primary" ><%=msg_a%></div>
-                                <%
-                                    }
+                                    <%
+                                        String msg_a = (String)request.getAttribute("msg_a");
+                                        if(msg_a != null){
+                                    %>
+                                    <div class="alert alert-primary" ><%=msg_a%></div>
+                                    <%
+                                        }
 
-                                    String msg_e = (String)request.getAttribute("msg_e");
-                                    if(msg_e != null){
-                                %>
-                                        <div class="alert alert-danger" ><%=msg_e%></div>
-                                <%
-                                    }
-                                %>
+                                        String msg_e = (String)request.getAttribute("msg_e");
+                                        if(msg_e != null){
+                                    %>
+                                    <div class="alert alert-danger" ><%=msg_e%></div>
+                                    <%
+                                        }
+                                    %>
                                 </div>
-                                <form class="user" action="${pageContext.request.contextPath}/connexion" method="post">
+                                <form class="user" action="${pageContext.request.contextPath}/connexionServlet" method="post">
                                     <div class="form-group">
                                         <%
                                             String email = request.getParameter("email");
