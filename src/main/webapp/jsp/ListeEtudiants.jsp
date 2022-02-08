@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page import="miage.gestionappel.dao.GroupeDao"%>
+
+
 <html>
 <head>
     <title>Title</title>
@@ -52,7 +55,7 @@
     %>
 
     <form
-    action= "ctrlListeCour"
+    action= "listeCoursServlet"
     method="GET"
     name="Récupérer">
 

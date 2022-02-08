@@ -69,7 +69,7 @@ public class GroupeDao implements Dao<Groupe> {
                     "and a.IdG = g.IdG " +
                     "and g.IdG = i.IdG " +
                     "and i.IdC = c.idC " +
-                    "and  c.NomC = 'Management agile' ").list();
+                    "and  c.NomC = ? ").list();
 
             GroupeDao.affichage(listeEtudiant);
         }
