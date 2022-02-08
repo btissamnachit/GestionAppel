@@ -59,7 +59,7 @@
                                     }
                                 %>
                                 </div>
-                                <form class="user" action="${pageContext.request.contextPath}/connexion" method="post">
+                                <form class="user" action="${pageContext.request.contextPath}/connexionServlet" method="post">
                                     <div class="form-group">
                                         <%
                                             String email = request.getParameter("email");
