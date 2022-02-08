@@ -21,11 +21,11 @@ public class Etudiant {
     @Column(name = "MailE")
     private String mailE;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "Appartenir", joinColumns = @JoinColumn(name = "IdE"), inverseJoinColumns = @JoinColumn(name = "IdG"))
     private Set<Groupe> groupes = new HashSet<>();
 
-    @OneToMany(mappedBy = "etudiant")
+    @OneToMany(mappedBy = "etudiant", fetch = FetchType.EAGER)
     Set<Presenter> presences = new HashSet<>();
     public Etudiant() {
     }

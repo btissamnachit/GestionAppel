@@ -1,11 +1,14 @@
 package miage.gestionappel.dao;
 
+import miage.gestionappel.metier.Cours;
 import miage.gestionappel.metier.Etudiant;
 import miage.gestionappel.metier.Groupe;
+import miage.gestionappel.metier.Occurence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
+import java.util.Optional;
 
 public class GroupeDao implements Dao<Groupe> {
 
@@ -13,7 +16,8 @@ public class GroupeDao implements Dao<Groupe> {
     public Groupe get(int id) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
-            return session.get(Groupe.class, id);
+            Groupe groupe = session.get(Groupe.class, id);
+            return groupe;
         }
     }
 

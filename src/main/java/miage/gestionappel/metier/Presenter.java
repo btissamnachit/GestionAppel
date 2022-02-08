@@ -9,16 +9,15 @@ public class Presenter {
     @EmbeddedId
     private prensenterId idPresence;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("idOc")
     private Occurence occurence;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("idE")
     private Etudiant etudiant;
 
-    @ManyToOne
-    @MapsId("idJ")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Justificatif justificatif;
 
     private String statut;
@@ -27,7 +26,6 @@ public class Presenter {
     public static class prensenterId implements Serializable {
         private Integer idOc;
         private Integer idE;
-        private Integer idJ;
 
     }
 
@@ -71,10 +69,9 @@ public class Presenter {
         this.statut = statut;
     }
 
-    public Presenter(Occurence occurence, Etudiant etudiant, Justificatif justificatif, String statut) {
+    public Presenter(Occurence occurence, Etudiant etudiant, String statut) {
         this.occurence = occurence;
         this.etudiant = etudiant;
-        this.justificatif = justificatif;
         this.statut = statut;
     }
     public Presenter(){

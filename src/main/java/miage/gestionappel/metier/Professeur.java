@@ -21,10 +21,10 @@ public class Professeur {
     @Column(name = "MailP")
     private String mailP;
 
-    @OneToMany(mappedBy = "professeur", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "professeur", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Occurence> occurences = new HashSet<>();
 
-    @ManyToMany(mappedBy = "professeurs")
+    @ManyToMany(mappedBy = "professeurs", fetch = FetchType.EAGER)
     private Set<Cours> cours = new HashSet<>();
 
     public Professeur() {

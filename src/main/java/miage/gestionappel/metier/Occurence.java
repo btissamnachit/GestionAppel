@@ -34,10 +34,10 @@ public class Occurence {
     @JoinColumn(name = "IdC")
     private Cours cours;
 
-    @OneToMany(mappedBy = "occurence")
+    @OneToMany(mappedBy = "occurence", fetch = FetchType.EAGER)
     Set<Presenter> presences = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "Participer", joinColumns = @JoinColumn(name = "IdOc"), inverseJoinColumns = @JoinColumn(name = "IdG"))
     private Set<Groupe> groupes = new HashSet<>();
 

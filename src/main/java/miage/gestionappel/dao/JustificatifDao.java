@@ -1,17 +1,21 @@
 package miage.gestionappel.dao;
 
 import miage.gestionappel.metier.Justificatif;
+import miage.gestionappel.metier.Presenter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
+import java.util.Optional;
 
 public class JustificatifDao implements Dao<Justificatif> {
     @Override
     public Justificatif get(int id) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+        {
             session.beginTransaction();
-            return session.get(Justificatif.class, id);
+            Justificatif justificatif = session.get(Justificatif.class, id);
+            return justificatif;
         }
     }
 

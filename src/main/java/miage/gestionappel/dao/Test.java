@@ -1,59 +1,63 @@
 package miage.gestionappel.dao;
 
-import com.google.gson.Gson;
 import miage.gestionappel.metier.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.sql.Time;
 import java.text.ParseException;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Test {
-    public static void createEtudiant(){
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            //ouverture d'une transaction
-            Transaction t = session.beginTransaction();
-
-            Etudiant etudiant = new Etudiant("NACHIT", "Btissam", "btissam.nachir@ut1-capitole.fr");
-            Scolarite s1 = new Scolarite("informatique");
-            Cours c1 = new Cours("Programmation", s1);
-            Professeur p1 = new Professeur("Ravat", "Frank", "xxx@xxx.fr");
-            Date date = new Date();
-            Time debut1 = Time.valueOf("12:10:15");
-            Time fin1 = Time.valueOf("12:30:15");
-            Time debut2 = Time.valueOf("14:10:15");
-            Time fin2 = Time.valueOf("14:30:15");
-            Occurence o1 = new Occurence(date, debut1, fin1, p1, c1);
-            Occurence o2 = new Occurence(date, debut2, fin2, p1, c1);
-            session.save(s1);
-            session.save(etudiant);
-            session.save(c1);
-            session.save(p1);
-            session.save(o1);
-            session.save(o2);
-            t.commit();
-            Gson gson = new Gson();
-            System.out.println(gson.toJson(p1.getOccurences()));
-        }
-    }
     public static void createUser(){
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+            Transaction t = session.beginTransaction();
+            User user1 = new User("btissam.nachit@ut1-capitole.fr","NACHIT","Btissam","Etudiant");
+            session.save(user1);
+            User user2 = new User("Eric.Andonoff@ut-capitole.fr","NACHIT","Btissam","Etudiant");
+            session.save(user1);
+            t.commit();
+        }
+    }
+    public static void createEtudiant(){
+        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
             //ouverture d'une transaction
             Transaction t = session.beginTransaction();
 
-            User user = new User("btissam.nachir@ut1-capitole.fr", "btissama");
-
-            session.save(user);
+            Etudiant etudiant1 = new Etudiant("NACHIT","Btissam","btissam.nachit@ut1-capitole.fr");
+            session.save(etudiant1);
+            Etudiant etudiant2 = new Etudiant("MANA","Anis","anis.mana@ut1-capitole.fr");
+            session.save(etudiant2);
+            Etudiant etudiant3 = new Etudiant("MARIE-SAINT","Miguel","miguel.marie-saint@ut1-capitole.fr");
+            session.save(etudiant3);
             t.commit();
         }
     }
 
-    public static void main(String[] args) throws ParseException {
-        Gson gson = new Gson();
-        OccurenceDao dao = new OccurenceDao();
-        gson.toJson(dao.get(3459));
 
+    public static void createOccurence(){
+        OccurenceDao occurenceDao = new OccurenceDao();
+        EtudiantDao etudiantDao = new EtudiantDao();
+        PresenterDao presenterDao = new PresenterDao();
+        GroupeDao groupeDao = new GroupeDao();
+        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+            //ouverture d'une transaction
+            Transaction t = session.beginTransaction();
+            Occurence occurence = occurenceDao.get(3451);
+            Etudiant etudiant = etudiantDao.get(21901858);
+            Groupe groupe = groupeDao.get(1);
+            Set<Groupe> groupes = new HashSet<>();
+            groupes.add(groupe);
+            occurence.setGroupes(groupes);
+            session.update(occurence);
+            t.commit();
+        }
+    }
 
+    public static void main (String[] args) throws ParseException
+    {
+        Test.createOccurence();
     }
 }

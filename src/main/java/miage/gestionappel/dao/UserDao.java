@@ -1,9 +1,12 @@
 package miage.gestionappel.dao;
 
+import miage.gestionappel.metier.Occurence;
 import miage.gestionappel.metier.User;
 import org.hibernate.Session;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDao  implements Dao<User>  {
 
@@ -12,9 +15,10 @@ public class UserDao  implements Dao<User>  {
 
     @Override
     public User get(int id) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
             session.beginTransaction();
-            return session.get(User.class, id);
+            User user = session.get(User.class, id);
+            return user;
         }
     }
 

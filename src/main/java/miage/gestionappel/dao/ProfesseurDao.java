@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ProfesseurDao implements Dao<Professeur> {
     @Override
@@ -13,7 +14,8 @@ public class ProfesseurDao implements Dao<Professeur> {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
 
-            return session.get(Professeur.class, id);
+            Professeur professeur = session.get(Professeur.class, id);
+            return professeur;
         }
     }
 

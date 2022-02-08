@@ -5,13 +5,23 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
+import java.util.Optional;
 
 public class OccurenceDao implements Dao<Occurence> {
     @Override
     public Occurence get(int id) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
             session.beginTransaction();
-            return session.get(Occurence.class, id);
+            Occurence occurence = session.get(Occurence.class, id);
+            return occurence;
+        }
+    }
+
+    public Occurence getOc(int id) {
+        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+            session.beginTransaction();
+            Occurence occurence = session.get(Occurence.class, id);
+            return occurence;
         }
     }
 

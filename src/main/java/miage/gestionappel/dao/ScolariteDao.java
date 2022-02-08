@@ -4,13 +4,17 @@ import miage.gestionappel.metier.Scolarite;
 import org.hibernate.Session;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 public class ScolariteDao implements Dao<Scolarite>{
     @Override
     public Scolarite get(int id) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+        {
             session.beginTransaction();
-            return session.get(Scolarite.class, id);
+            Scolarite scolarite = session.get(Scolarite.class, id);
+            return scolarite;
         }
     }
 

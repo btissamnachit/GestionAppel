@@ -4,18 +4,30 @@ import miage.gestionappel.metier.Etudiant;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 
 public class EtudiantDao implements Dao<Etudiant> {
      @Override
-     public Etudiant get(int id) {
+    public Etudiant get(int id) {
 
-         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-             session.beginTransaction();
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            session.beginTransaction();
 
-             return session.get(Etudiant.class, id);
-         }
-     }
+            Etudiant etudiant = session.get(Etudiant.class, id);
+            return etudiant;
+        }
+    }
+    public Etudiant getE(int id) {
+
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            session.beginTransaction();
+
+            Etudiant etudiant = session.get(Etudiant.class, id);
+            return etudiant;
+        }
+    }
 
     @Override
     public List<Etudiant> getAll() {
