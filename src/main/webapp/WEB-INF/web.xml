@@ -41,8 +41,8 @@
         <jsp-file>/jsp/ListeEtudiants.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>ListeEtudiantsSceance</servlet-name>
-        <jsp-file>/jsp/ListeEtudiantsSceance.jsp</jsp-file>
+        <servlet-name>ListeEtudiantsSeance</servlet-name>
+        <jsp-file>/jsp/ListeEtudiantsSeance.jsp</jsp-file>
     </servlet>
     <servlet>
         <servlet-name>ConnexionServlet</servlet-name>
@@ -81,8 +81,8 @@
         <url-pattern>/listeetudiants</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ListeEtudiantsSceance</servlet-name>
-        <url-pattern>/listeetudiants</url-pattern>
+        <servlet-name>ListeEtudiantsSeance</servlet-name>
+        <url-pattern>/listeEtudiantsSeance</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ConnexionServlet</servlet-name>

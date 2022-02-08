@@ -16,6 +16,7 @@
         <class>miage.gestionappel.metier.Presenter</class>
         <class>miage.gestionappel.metier.Professeur</class>
         <class>miage.gestionappel.metier.Scolarite</class>
+        <class>miage.gestionappel.metier.User</class>
          <!-- Transaction gérée au niveau de l'ORM -->
         <properties>
             <property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml" />
