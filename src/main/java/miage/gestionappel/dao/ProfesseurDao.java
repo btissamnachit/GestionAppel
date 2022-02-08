@@ -9,13 +9,13 @@ import java.util.Optional;
 
 public class ProfesseurDao implements Dao<Professeur> {
     @Override
-    public Optional<Professeur> get(int id) {
+    public Professeur get(int id) {
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
 
             Professeur professeur = session.get(Professeur.class, id);
-            return Optional.ofNullable(professeur);
+            return professeur;
         }
     }
 

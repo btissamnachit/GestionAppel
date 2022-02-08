@@ -9,12 +9,12 @@ import java.util.Set;
 
 public class ScolariteDao implements Dao<Scolarite>{
     @Override
-    public Optional<Scolarite> get(int id) {
+    public Scolarite get(int id) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
             session.beginTransaction();
             Scolarite scolarite = session.get(Scolarite.class, id);
-            return Optional.ofNullable(scolarite);
+            return scolarite;
         }
     }
 

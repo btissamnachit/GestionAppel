@@ -9,11 +9,19 @@ import java.util.Optional;
 
 public class OccurenceDao implements Dao<Occurence> {
     @Override
-    public Optional<Occurence> get(int id) {
+    public Occurence get(int id) {
         try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
             session.beginTransaction();
             Occurence occurence = session.get(Occurence.class, id);
-            return Optional.ofNullable(occurence);
+            return occurence;
+        }
+    }
+
+    public Occurence getOc(int id) {
+        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+            session.beginTransaction();
+            Occurence occurence = session.get(Occurence.class, id);
+            return occurence;
         }
     }
 

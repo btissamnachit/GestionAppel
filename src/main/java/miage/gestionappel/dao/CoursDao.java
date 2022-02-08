@@ -11,11 +11,11 @@ import java.util.Optional;
 public class CoursDao implements Dao<Cours>{
 
     @Override
-    public Optional<Cours> get(int id) {
+    public Cours get(int id) {
         try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
             session.beginTransaction();
             Cours cours = session.get(Cours.class, id);
-            return Optional.ofNullable(cours);
+            return cours;
         }
     }
 

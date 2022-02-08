@@ -14,11 +14,11 @@ public class UserDao  implements Dao<User>  {
     }
 
     @Override
-    public Optional<User> get(int id) {
+    public User get(int id) {
         try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
             session.beginTransaction();
             User user = session.get(User.class, id);
-            return Optional.ofNullable(user);
+            return user;
         }
     }
 

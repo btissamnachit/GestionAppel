@@ -15,7 +15,7 @@ public class Scolarite {
     @Column(name = "LibelleS")
     private String libelleS;
 
-    @OneToMany(mappedBy = "scolarite", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "scolarite", fetch = FetchType.EAGER)
     private Set<Cours> cours = new HashSet(0);
 
     public Scolarite() {
