@@ -35,7 +35,7 @@
                     <h6 class="text-right">Edit Profile</h6>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-6"><input type="text" class="form-control" placeholder="first name" value="John"></div>
+                    <div class="col-md-6"><input type="text" class="form-control" placeholder="first name" value="${sessionScope.role}"></div>
                     <div class="col-md-6"><input type="text" class="form-control" value="Doe" placeholder="Doe"></div>
                 </div>
                 <div class="row mt-3">

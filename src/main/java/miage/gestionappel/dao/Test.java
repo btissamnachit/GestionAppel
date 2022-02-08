@@ -58,6 +58,15 @@ public class Test {
 
     public static void main (String[] args) throws ParseException
     {
-        Test.createOccurence();
+        ProfesseurDao pd = new ProfesseurDao();
+
+        Professeur p = new Professeur();
+
+        p = (Professeur)pd.getByEmail("nathalie.valles-parlangeau@ut-capitole.fr");
+
+
+        String nomp = p.getNomP();
+
+        System.out.println("ddfdffdf : " + p.getCours());
     }
 }
