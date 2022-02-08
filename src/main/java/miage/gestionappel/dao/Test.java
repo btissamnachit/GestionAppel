@@ -39,20 +39,10 @@ public class Test {
 
     public static void createOccurence(){
         OccurenceDao occurenceDao = new OccurenceDao();
-        EtudiantDao etudiantDao = new EtudiantDao();
-        PresenterDao presenterDao = new PresenterDao();
-        GroupeDao groupeDao = new GroupeDao();
-        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
-            //ouverture d'une transaction
-            Transaction t = session.beginTransaction();
-            Occurence occurence = occurenceDao.get(3451);
-            Etudiant etudiant = etudiantDao.get(21901858);
-            Groupe groupe = groupeDao.get(1);
-            Set<Groupe> groupes = new HashSet<>();
-            groupes.add(groupe);
-            occurence.setGroupes(groupes);
-            session.update(occurence);
-            t.commit();
+
+        Occurence occurence = occurenceDao.getOc(3451);
+        for (Presenter p: occurence.getPresences() ){
+            System.out.println("hhhhhh : "+p.getEtudiant().getNomE());
         }
     }
 

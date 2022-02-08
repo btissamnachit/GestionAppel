@@ -5,7 +5,7 @@
   Time: 15:29
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -25,7 +25,7 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <form>
+    <form action='/appelServlet' method="POST">
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Cours : [Séance : ]</h1>
 
@@ -56,29 +56,54 @@
                         </tr>
                         </tfoot>
                         <tbody>
-                        <c:forEach items="${presences}" var="presence">
-                        <tr>
-                            <td>Shou Itou</td>
-                            <td>Regional Marketing</td>
-                            <td>Tokyo</td>
-                            <td>btissam.nachit@fgdgdgsdgdgd</td>
-                            <td>
-                                <label for="statut"> </label>
-                                <select id="statut" name="statut"
-                                        class="form-control form-control-lg center">
-                                    <option value="Present" selected>Présent</option>
-                                    <option value="Absent">Absent</option>
-                                    <option value="En retard">En retard</option>
-                                </select>
-                            </td>
-                        </tr>
-                        </c:forEach>
+                        <c:if test="${isValide}">
+                            <c:forEach items="${presences}" var="presence">
+                                <tr>
+                                    <td>${presence.getEtudiant().getIdE()}</td>
+                                    <td>${presence.getEtudiant().getNomE()}</td>
+                                    <td>${presence.getEtudiant().getPrenomE()}</td>
+                                    <td>${presence.getEtudiant().getMailE()}</td>
+                                    <td>
+                                        <c:when test="${presence.getStatut() = 'present'}">Présent
+                                        </c:when>
+                                        <c:when test="${presence.getStatut() = 'absent'}">Absent
+                                        </c:when>
+                                        <c:when test="${presence.getStatut() = 'en retard'}">En retard
+                                        </c:when>
+                                        <c:when test="${presence.getStatut() = 'absence jutifie'}">Absence justifié
+                                        </c:when>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:if>
+                        <c:if test="${!isValide}">
+                            <c:forEach items="${groupes}" var="groupe">
+                                <c:forEach items="${groupe.getEtudiants()}" var="etudiant">
+                                    <tr>
+                                        <td>${etudiant.getIdE()}</td>
+                                        <td>${etudiant.getNomE()}</td>
+                                        <td>${etudiant.getPrenomE()}</td>
+                                        <td>${etudiant.getMailE()}</td>
+                                        <td>
+                                            <label for="statut"> </label>
+                                            <select id="statut" name="statut"
+                                                    class="form-control form-control-lg center">
+                                                <option value="Present" selected>Présent</option>
+                                                <option value="Absent">Absent</option>
+                                                <option value="En retard">En retard</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </c:forEach>
+                        </c:if>
                         </tbody>
                     </table>
-                    <div class="d-flex justify-content-end">
-                        <button class="btn btn-lg btn-primary" type="submit">
-                            Enregistrer
-                        </button>
+                    <div class="d-flex justify-content-end row">
+                        <input class="btn btn-lg btn-secondary" type="submit"  name="action" value="Retour"/>
+                        <c:if test="${!isValide}">
+                            <input  class="btn btn-lg btn-primary" type="submit" name="action" value="Enregistrer"/>
+                        </c:if>
                     </div>
                 </div>
             </div>
