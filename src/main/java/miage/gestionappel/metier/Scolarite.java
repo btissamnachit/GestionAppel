@@ -27,9 +27,8 @@ public class Scolarite {
         this.cours = cours;
     }
 
-    public Scolarite(String libelleS, Set<Cours> cours) {
+    public Scolarite(String libelleS) {
         this.libelleS = libelleS;
-        this.cours = cours;
     }
 
     public int getIdS() {

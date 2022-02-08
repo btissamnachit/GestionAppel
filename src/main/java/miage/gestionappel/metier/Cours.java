@@ -41,13 +41,10 @@ public class Cours {
         this.groupes = groupes;
     }
 
-    public Cours(int idC, String nomC, Set<Professeur> professeurs, Set<Occurence> occurences, Scolarite scolarite, Set<Groupe> groupes) {
+    public Cours(String nomC, Scolarite scolarite) {
         this.idC = idC;
         this.nomC = nomC;
-        this.professeurs = professeurs;
-        this.occurences = occurences;
         this.scolarite = scolarite;
-        this.groupes = groupes;
     }
 
     public int getIdC() {

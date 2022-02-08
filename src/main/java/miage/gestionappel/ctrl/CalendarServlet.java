@@ -1,6 +1,6 @@
 package miage.gestionappel.ctrl;
 
-import miage.gestionappel.dao.OccurenceDao;
+import com.google.gson.Gson;
 import miage.gestionappel.metier.Occurence;
 import miage.gestionappel.metier.Professeur;
 import miage.gestionappel.util.DateManipulation;
@@ -13,51 +13,55 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CalendarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         Professeur professeur = (Professeur) session.getAttribute("user");
-        int idP = professeur.getIdP();
-        HashMap<String, Date> weekDetails = getFocusWeekDetails(request);
+        Set<Occurence> occurencesList = professeur.getOccurences();
+        List<Date> weekDetails = getFocusWeekDetails(request);
+        HashMap<Date, List<Occurence>> timeTable = getWeekClasses(weekDetails, occurencesList);
 
-
-        response.setContentType("application/xml;charset=UTF-8");
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /*----- Ecriture de la page XML -----*/
-            out.println("<?xml version=\"1.0\"?>");
-            out.println("<Calendar>");
-            OccurenceDao dao = new OccurenceDao();
-            List<Occurence> occurenceList = dao.getAll();
-            out.println("<day>" + occurenceList);
-            out.println("<event>" + occurenceList + "</event>");
-            out.println("</day>");
-            out.println("</Calendar>");
+            Gson gson = new Gson();
+            out.print(gson.toJson(timeTable));
+            out.flush();
         }
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
-    protected HashMap<String, Date> getFocusWeekDetails(HttpServletRequest request) {
-        LocalDate dateFocus = (LocalDate) request.getAttribute("week");
+    protected List<Date> getFocusWeekDetails(HttpServletRequest request) {
+        LocalDate dateFocus = (LocalDate) request.getAttribute("startOfWeek");
         DateManipulation dm = new DateManipulation();
-        dm.setDateNow(dateFocus);
-        return dm.getWeekDetails();
+        if (dateFocus != null) {
+            dm.setDateNow(dateFocus);
+        }
+        return dm.getAllDateOfWeek();
     }
 
-    protected HashMap<Date, Occurence> getWeekClasses() {
-        HashMap<Date, Occurence> weekClasses = new HashMap<>();
-        OccurenceDao dao = new OccurenceDao();
-        List<Occurence> occurenceList = dao.getAll();
+    protected HashMap<Date, List<Occurence>> getWeekClasses(List<Date> weekDates, Set<Occurence> occurencesList) {
+        HashMap<Date, List<Occurence>> weekClasses = new HashMap<>();
+        for (Date date : weekDates) {
+            List<Occurence> dayClasses = getDayClasses(date, occurencesList);
+            weekClasses.put(date, dayClasses);
+        }
         return weekClasses;
     }
+
+    protected List<Occurence> getDayClasses(Date dDay, Set<Occurence> occurencesList) {
+        List<Occurence> dayClasses = new ArrayList<>();
+        dayClasses = occurencesList.stream().filter(occurence -> occurence.getDateOc() == dDay).collect(Collectors.toList());
+        return dayClasses;
+    }
+
+
 }

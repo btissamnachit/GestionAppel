@@ -39,12 +39,10 @@ public class Professeur {
         this.cours = cours;
     }
 
-    public Professeur(String nomP, String prenomP, String mailP, Set<Occurence> occurences, Set<Cours> cours) {
+    public Professeur(String nomP, String prenomP, String mailP) {
         this.nomP = nomP;
         this.prenomP = prenomP;
         this.mailP = mailP;
-        this.occurences = occurences;
-        this.cours = cours;
     }
 
     public int getIdP() {
