@@ -11,12 +11,12 @@ import java.util.Optional;
 
 public class PresenterDao  implements Dao<Presenter>{
     @Override
-    public Optional<Presenter> get(int id) {
+    public Presenter get(int id) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
             session.beginTransaction();
             Presenter presence = session.get(Presenter.class, id);
-            return Optional.ofNullable(presence);
+            return presence;
         }
     }
 

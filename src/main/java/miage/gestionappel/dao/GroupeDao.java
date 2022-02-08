@@ -13,11 +13,11 @@ import java.util.Optional;
 public class GroupeDao implements Dao<Groupe> {
 
     @Override
-    public Optional<Groupe> get(int id) {
+    public Groupe get(int id) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
             Groupe groupe = session.get(Groupe.class, id);
-            return Optional.ofNullable(groupe);
+            return groupe;
         }
     }
 

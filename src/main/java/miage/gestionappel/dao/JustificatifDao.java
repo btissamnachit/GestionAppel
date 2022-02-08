@@ -10,12 +10,12 @@ import java.util.Optional;
 
 public class JustificatifDao implements Dao<Justificatif> {
     @Override
-    public Optional<Justificatif> get(int id) {
+    public Justificatif get(int id) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
             session.beginTransaction();
             Justificatif justificatif = session.get(Justificatif.class, id);
-            return Optional.ofNullable(justificatif);
+            return justificatif;
         }
     }
 

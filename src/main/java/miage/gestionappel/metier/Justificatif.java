@@ -18,7 +18,7 @@ public class Justificatif {
     @Column(name = "URLJ")
     private String urlj;
 
-    @OneToMany(mappedBy = "justificatif")
+    @OneToMany(mappedBy = "justificatif", fetch = FetchType.EAGER)
     Set<Presenter> presences = new HashSet<>();
 
     public Justificatif() {

@@ -13,8 +13,6 @@
 <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
     <div class="cd-schedule__timeline">
         <ul>
-            <li><span>08:00</span></li>
-            <li><span>08:30</span></li>
             <li><span>09:00</span></li>
             <li><span>09:30</span></li>
             <li><span>10:00</span></li>
@@ -43,18 +41,18 @@
                 <div class="cd-schedule__top-info"><span>Monday</span></div>
                 <ul>
                     <li class="cd-schedule__event">
+                        <a data-start="11:00" data-end="12:30" data-content="event-rowing-workout" data-event="event-2"
+                           href="#0">
+                            <em class="cd-schedule__name">Rowing Workout</em>
+                        </a>
+                    </li>
+                    <li class="cd-schedule__event">
                         <a data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1"
                            href="#0">
                             <em class="cd-schedule__name">Abs Circuit</em>
                         </a>
                     </li>
 
-                    <li class="cd-schedule__event">
-                        <a data-start="11:00" data-end="12:30" data-content="event-rowing-workout" data-event="event-2"
-                           href="#0">
-                            <em class="cd-schedule__name">Rowing Workout</em>
-                        </a>
-                    </li>
 
                     <li class="cd-schedule__event">
                         <a data-start="14:00" data-end="15:15" data-content="event-yoga-1" data-event="event-3" href="#0">

@@ -21,10 +21,10 @@ public class Professeur {
     @Column(name = "MailP")
     private String mailP;
 
-    @OneToMany(mappedBy = "professeur", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "professeur", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Occurence> occurences = new HashSet<>();
 
-    @ManyToMany(mappedBy = "professeurs")
+    @ManyToMany(mappedBy = "professeurs", fetch = FetchType.EAGER)
     private Set<Cours> cours = new HashSet<>();
 
     public Professeur() {
@@ -39,12 +39,10 @@ public class Professeur {
         this.cours = cours;
     }
 
-    public Professeur(String nomP, String prenomP, String mailP, Set<Occurence> occurences, Set<Cours> cours) {
+    public Professeur(String nomP, String prenomP, String mailP) {
         this.nomP = nomP;
         this.prenomP = prenomP;
         this.mailP = mailP;
-        this.occurences = occurences;
-        this.cours = cours;
     }
 
     public int getIdP() {

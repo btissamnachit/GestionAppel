@@ -15,18 +15,18 @@ public class Cours {
     @Column(name = "NomC")
     private String nomC;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "Enseigner", joinColumns = @JoinColumn(name = "IdC"), inverseJoinColumns = @JoinColumn(name = "IdP"))
     private Set<Professeur> professeurs = new HashSet<>();
 
-    @OneToMany(mappedBy = "cours",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cours",fetch = FetchType.EAGER)
     private Set<Occurence> occurences = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "IdS")
     private Scolarite scolarite;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "Inscrire", joinColumns = @JoinColumn(name = "IdC"), inverseJoinColumns = @JoinColumn(name = "IdG"))
     private Set<Groupe> groupes = new HashSet<>();
 
@@ -41,13 +41,10 @@ public class Cours {
         this.groupes = groupes;
     }
 
-    public Cours(int idC, String nomC, Set<Professeur> professeurs, Set<Occurence> occurences, Scolarite scolarite, Set<Groupe> groupes) {
+    public Cours(String nomC, Scolarite scolarite) {
         this.idC = idC;
         this.nomC = nomC;
-        this.professeurs = professeurs;
-        this.occurences = occurences;
         this.scolarite = scolarite;
-        this.groupes = groupes;
     }
 
     public int getIdC() {

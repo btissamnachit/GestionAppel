@@ -10,13 +10,22 @@ import java.util.Optional;
 
 public class EtudiantDao implements Dao<Etudiant> {
      @Override
-    public Optional<Etudiant> get(int id) {
+    public Etudiant get(int id) {
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
 
             Etudiant etudiant = session.get(Etudiant.class, id);
-            return Optional.ofNullable(etudiant);
+            return etudiant;
+        }
+    }
+    public Etudiant getE(int id) {
+
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            session.beginTransaction();
+
+            Etudiant etudiant = session.get(Etudiant.class, id);
+            return etudiant;
         }
     }
 
