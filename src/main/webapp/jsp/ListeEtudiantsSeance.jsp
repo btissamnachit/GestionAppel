@@ -5,7 +5,7 @@
   Time: 15:29
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -59,9 +59,11 @@
                             <td>Shou Itou</td>
                             <td>Regional Marketing</td>
                             <td>Tokyo</td>
-                            <td>20</td>
+                            <td>btissam.nachit@fgdgdgsdgdgd</td>
                             <td>
-                                <select id="statut" name="statut" class="form-select form-select-lg mb-3">
+                                <label for="statut"> </label>
+                                <select id="statut" name="statut"
+                                        class="form-control form-control-lg center">
                                     <option value="Present" selected>Présent</option>
                                     <option value="Absent">Absent</option>
                                     <option value="En retard">En retard</option>
@@ -82,8 +84,6 @@
     </form>
 </div>
 <!-- /.container-fluid -->
-
-</div>
 <!-- End of Main Content -->
 
 </body>
