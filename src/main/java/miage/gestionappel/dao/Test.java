@@ -58,15 +58,36 @@ public class Test {
 
     public static void main (String[] args) throws ParseException
     {
-        ProfesseurDao pd = new ProfesseurDao();
+//
+//        ProfesseurDao pf = new ProfesseurDao();
+//        Professeur p ;
+//        p = pf.getByEmail("nathalie.valles-parlangeau@ut-capitole.fr");
+//        Set<Cours> lc =  p.getCours();
+//        System.out.println("résultat1 : " + lc);
+//        ArrayList<Cours> liste = new ArrayList<Cours>(lc);
+//        System.out.println("résultat2 : " + liste);
+//        ArrayList<String> lnomcours = new ArrayList<>();
+//        System.out.println("résultat3 : " + lnomcours);
+//        for (int i = 0; i < liste.size(); i++) {
+//            String nomC = liste.get(i).getNomC();
+//            System.out.println("résultat4 : " + nomC);
+//            lnomcours.add(nomC);
+//            System.out.println("résultat5 : " + lnomcours);
+//
+//            for(int j=0; j < lnomcours.size();j++) {
+//                System.out.println("résultat6 : " + lnomcours.get(j));
+//            }
+//        }
 
-        Professeur p = new Professeur();
+        ProfesseurDao professeurDao = new ProfesseurDao();
+        Professeur professeur = new Professeur();
 
-        p = (Professeur)pd.getByEmail("nathalie.valles-parlangeau@ut-capitole.fr");
+        professeur = professeurDao.getByEmail("nathalie.valles-parlangeau@ut-capitole.fr");
 
+        Set<Cours> cours = professeur.getCours();
 
-        String nomp = p.getNomP();
-
-        System.out.println("ddfdffdf : " + p.getCours());
+        for (Cours c : cours) {
+            System.out.println("résultat : " + c.getNomC());
+        }
     }
 }

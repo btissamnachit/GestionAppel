@@ -6,14 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@page import="miage.gestionappel.dao.GroupeDao" %>
-<%@ page import="miage.gestionappel.metier.Cours" %>
-<%@ page import="java.util.List" %>
-<%@ page import="miage.gestionappel.dao.ProfesseurDao" %>
-<%@ page import="miage.gestionappel.metier.Professeur" %>
-<%@ page import="miage.gestionappel.metier.Groupe" %>
-<%@ page import="java.util.Set" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 <html>
@@ -50,50 +43,20 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Liste des Etudiants</h1>
-
     <%
-
         String email = (String) session.getAttribute("email");
-        System.out.println(email);
-        ProfesseurDao pf = new ProfesseurDao();
-        Professeur p ;
-        p = pf.getByEmail(email);
-        Set<Cours> lc =  p.getCours();
-        ArrayList<Cours> list = new ArrayList<Cours>(lc);
-        List<String> lnomcours = null;
-        for (int i = 0; i < list.size(); i++) {
-            lnomcours.add(list.get(i).getNomC());
-        }
-        System.out.println("<form action=\"listeCoursServlet\" method=\"GET\" name=\"Récupérer\">");
-        System.out.println("<div class=\"small mb-1\">Veuiller selectionner le cours</div>");
-        System.out.println("<div class=\"dropdown mb-4\">");
-        System.out.println("<button class=\"btn btn-primary dropdown-toggle\" type=\"button\">");
-        System.out.println("id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\"");
-        System.out.println("aria-expanded=\"false\" name=\"cours\" value=\"\">");
-        System.out.println("Choix cours");
-        System.out.println("</button>\n" +
-                "            <div class=\"dropdown-menu animated--fade-in\"\n" +
-                "                 aria-labelledby=\"dropdownMenuButton\">\n");
-        System.out.println("<form action=\"listeCoursServlet\" method=\"GET\" name=\"Récupérer\">");
-        System.out.println("<form action=\"listeCoursServlet\" method=\"GET\" name=\"Récupérer\">");
+        request.getParameter("email");
+    %>
+
+        <label for="NomC">Choisir une mati&eacute;re:</label>
+
+        <select id="NomC" name="NomC" class="form-control form-control-lg center">
+
+            <option value="NomC" selected><c:forEach items="${cours}" var="cours"></option></c:forEach>
+
+        </select>
 
 
-
-                for(int i=0; i < lnomcours.size();i++){
-                    System.out.println("<a class=\"dropdown-item\" href=\"#\">");
-
-                    System.out.println(lnomcours.get(i));
-                    System.out.println("</a>");
-                        }
-                %>
-
-                <a class="dropdown-item" href="#">Agile</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </div>
-
-    </form>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
