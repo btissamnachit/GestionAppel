@@ -64,10 +64,11 @@ public class GroupeDao implements Dao<Groupe> {
             Transaction t = session.beginTransaction();
 
             listeEtudiant = session.createSQLQuery("select e.nomE, e.prenomE " +
-                    "from Etudiant e, Appartenir a, Groupe g, Cours c " +
+                    "from Etudiant e, Appartenir a, Groupe g, Inscrire i, Cours c " +
                     "where e.IdE = a.IdE " +
                     "and a.IdG = g.IdG " +
-                    "and g.IdC = c.idC " +
+                    "and g.IdG = i.IdG " +
+                    "and i.IdC = c.idC " +
                     "and  c.NomC = 'Management agile' ").list();
 
             GroupeDao.affichage(listeEtudiant);
