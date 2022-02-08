@@ -24,6 +24,14 @@
         <servlet-name>Calendar</servlet-name>
         <jsp-file>/jsp/Calendar.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>ListeAbsences</servlet-name>
+        <jsp-file>/jsp/ListeAbsences.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>RecapPresenceProf</servlet-name>
+        <jsp-file>/jsp/RecapPresenceProf.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>Calendar</servlet-name>
         <url-pattern>/calendar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListeAbsences</servlet-name>
+        <url-pattern>/listeabsences</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecapPresenceProf</servlet-name>
+        <url-pattern>/recappresenceprof</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>login</welcome-file>
