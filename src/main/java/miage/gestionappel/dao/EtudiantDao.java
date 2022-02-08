@@ -19,15 +19,6 @@ public class EtudiantDao implements Dao<Etudiant> {
             return etudiant;
         }
     }
-    public Etudiant getE(int id) {
-
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            session.beginTransaction();
-
-            Etudiant etudiant = session.get(Etudiant.class, id);
-            return etudiant;
-        }
-    }
 
     @Override
     public List<Etudiant> getAll() {
