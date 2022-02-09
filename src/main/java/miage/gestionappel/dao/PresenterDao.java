@@ -3,6 +3,7 @@ package miage.gestionappel.dao;
 import miage.gestionappel.metier.Etudiant;
 import miage.gestionappel.metier.Presenter;
 import miage.gestionappel.metier.Scolarite;
+import miage.gestionappel.metier.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -38,8 +39,7 @@ public class PresenterDao  implements Dao<Presenter>{
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
             Transaction t = session.beginTransaction();
-            Etudiant etudiant = session.get(Etudiant.class,presence.getEtudiant().getIdE());
-            etudiant.addPresence(presence);
+            session.save(presence);
             t.commit();
         }
     }
@@ -49,8 +49,24 @@ public class PresenterDao  implements Dao<Presenter>{
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
             Transaction t = session.beginTransaction();
-            presence.setStatut(params[0]);
+            if(params != null) {
+                presence.setStatut(params[0]);
+            }
             t.commit();
+        }
+    }
+
+    public void saveOrUpdate(Presenter presence) {
+        System.out.println("heere1");
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+        {
+            System.out.println("heere2");
+            Transaction t = session.beginTransaction();
+            System.out.println(presence.getStatut());
+            session.saveOrUpdate(presence);
+            System.out.println("still heere");
+            t.commit();
+            System.out.println("finish");
         }
     }
 

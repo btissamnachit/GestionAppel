@@ -51,8 +51,9 @@ public class OccurenceDao implements Dao<Occurence> {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
             Transaction t = session.beginTransaction();
-            occurence.setAppelValide(Boolean.parseBoolean(params[0]));
-
+            if(params != null){
+                occurence.setAppelValide(Boolean.parseBoolean(params[0]));
+            }
             session.update(occurence);
             t.commit();
         }
