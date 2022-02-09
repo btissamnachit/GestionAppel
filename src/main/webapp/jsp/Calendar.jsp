@@ -203,5 +203,6 @@
 
 <script src="assets/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
 <script src="assets/js/main.js"></script>
+<script src="assets/js/dateCompletion.js"></script>
 </body>
 </html>
