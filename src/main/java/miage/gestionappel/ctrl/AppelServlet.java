@@ -1,9 +1,9 @@
 package miage.gestionappel.ctrl;
 
+import miage.gestionappel.dao.EtudiantDao;
 import miage.gestionappel.dao.OccurenceDao;
-import miage.gestionappel.metier.Groupe;
-import miage.gestionappel.metier.Occurence;
-import miage.gestionappel.metier.Presenter;
+import miage.gestionappel.dao.PresenterDao;
+import miage.gestionappel.metier.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -14,8 +14,10 @@ import java.util.Optional;
 import java.util.Set;
 
 public class AppelServlet extends HttpServlet {
-
     OccurenceDao occurenceDao = new OccurenceDao();
+    PresenterDao presenterDao = new PresenterDao();
+    EtudiantDao etudiantDao = new EtudiantDao();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
@@ -28,6 +30,8 @@ public class AppelServlet extends HttpServlet {
             Set<Presenter> presences = occurence.getPresences();
             request.setAttribute("presences", presences);
         } else {
+            Set<Presenter> presences = occurence.getPresences();
+            request.setAttribute("presences", presences);
             Set<Groupe> groupes = occurence.getGroupes();
             request.setAttribute("groupes", groupes);
         }
@@ -40,12 +44,21 @@ public class AppelServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
+        Occurence occurence = (Occurence) session.getAttribute("occurence");
         String action = request.getParameter("action");
         switch (action) {
+            case "EnregistrerEtudiant":
+                String statut = request.getParameter("statut");
+                int idEtudiant = Integer.parseInt(request.getParameter("idEtudiant"));
+                Etudiant etudiant = etudiantDao.get(idEtudiant);
+                PrensenterId prensenterId = new PrensenterId(occurence.getIdOc(),idEtudiant);
+                Presenter presenter = new Presenter(prensenterId,occurence,etudiant,statut);
+                presenterDao.saveOrUpdate(presenter);
+                break;
             case "Enregistrer":
-                Occurence occurence = (Occurence) session.getAttribute("occurence");
                 occurence.setAppelValide(true);
                 occurenceDao.update(occurence,null);
+                // vers emploi du temps
                 break;
             case "Retour":
                 // vers emploi du temps

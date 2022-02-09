@@ -1,6 +1,9 @@
 package miage.gestionappel.ctrl;
+import miage.gestionappel.dao.CoursDao;
 import miage.gestionappel.dao.ProfesseurDao;
 import miage.gestionappel.metier.Cours;
+import miage.gestionappel.metier.Etudiant;
+import miage.gestionappel.metier.Groupe;
 import miage.gestionappel.metier.Professeur;
 import javax.servlet.ServletException;
 import java.io.IOException;
@@ -12,26 +15,41 @@ import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 
 public class ListeCoursServlet extends HttpServlet {
-
+    ProfesseurDao professeurDao = new ProfesseurDao();
+    CoursDao coursDao = new CoursDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
-
         HttpSession session = request.getSession(true);
-        String email = (String) session.getAttribute("email");
-        request.getParameter("email");
+        // String email = (String) session.getAttribute("email");
+        String action = request.getParameter("action");
+        if(action!= null && action == "listEtudiantsCours"){
+            int idCours = Integer.parseInt(request.getParameter("idCours"));
+            Cours cours = coursDao.get(idCours);
+            Set<Groupe> groupes = cours.getGroupes();
+            for (Groupe g : groupes){
+                Set<Etudiant> etudiants = g.getEtudiants();
+                request.setAttribute("etudiants",etudiants);
+            }
 
-        ProfesseurDao professeurDao = new ProfesseurDao();
-        Professeur professeur = professeurDao.getByEmail(email);
+        }else {
+            ProfesseurDao professeurDao = new ProfesseurDao();
+            Professeur professeur = professeurDao.getByEmail("nathalie.valles-parlangeau@ut-capitole.fr");
 
-        Set<Cours> cours = professeur.getCours();
-        request.setAttribute("cours", cours);
+            Set<Cours> cours = professeur.getCours();
+            request.setAttribute("cours", cours);
 
-        for (Cours c : cours) {
-            System.out.println("résultat : " + c.getNomC());
+            for (Cours c : cours) {
+                Set<Groupe> groupes = c.getGroupes();
+                for (Groupe g : groupes){
+                    Set<Etudiant> etudiants = g.getEtudiants();
+                    request.setAttribute("etudiants",etudiants);
+                }
+            }
+            request.getRequestDispatcher("/listeetudiants").forward(request, response);
         }
-        request.getRequestDispatcher("/listeetudiants").forward(request, response);
+
         }
 
         @Override
