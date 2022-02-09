@@ -34,7 +34,9 @@
     <title>UT1 Capitole</title>
 
     <!-- Custom styles for this template-->
-    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
+<%--    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">--%>
+
+    <link href="${pageContext.request.contextPath}/assets/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 <%@ include file="Menu.jsp" %>
 <body>
