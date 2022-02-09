@@ -75,25 +75,25 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <c:if test="${sessionScope.role == 'etudiant'}">
                         <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Gestion des cours:</h6>
-                        <a class="collapse-item" href="listeabsences">Consulter mes absences</a>
-                        <a class="collapse-item" href="listeabsences">Depot de justificatif</a>
-                        <a class="collapse-item" href="calendar">Mon Calendrier</a>
-                        <a class="collapse-item" href="recappresenceprof">Récapitulatif de presence</a>
-                        <div class="collapse-divider"></div>
+                            <h6 class="collapse-header">Gestion des cours:</h6>
+                            <a class="collapse-item" href="listeabsences">Consulter mes absences</a>
+                            <a class="collapse-item" href="listeabsences">Depot de justificatif</a>
+                            <a class="collapse-item" href="/calendar">Mon Calendrier</a>
+                            <a class="collapse-item" href="recappresenceprof">Récapitulatif de presence</a>
+                            <div class="collapse-divider"></div>
                         </div>
                     </c:if>
                     <c:if test="${sessionScope.role == 'professeur'}">
 
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Gestion des cours:</h6>
-                        <a class="collapse-item" href="listeCoursServlet">Mes cours</a>
-                        <a class="collapse-item" href="calendar">Mon Calendrier</a>
-                        <a class="collapse-item" href="recappresenceprof">Appel du cours</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Liste des etudiants :</h6>
-                        <a class="collapse-item" href="listeetudiants">Liste des Etudiants</a>
-                    </div>
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Gestion des cours:</h6>
+                            <a class="collapse-item" href="listeCoursServlet">Mes cours</a>
+                            <a class="collapse-item" href="calendarServlet?week=thisWeek">Mon Calendrier</a>
+                            <a class="collapse-item" href="recappresenceprof">Appel du cours</a>
+                            <div class="collapse-divider"></div>
+                            <h6 class="collapse-header">Liste des etudiants :</h6>
+                            <a class="collapse-item" href="listeetudiants">Liste des Etudiants</a>
+                        </div>
                     </c:if>
                 </div>
             </div>

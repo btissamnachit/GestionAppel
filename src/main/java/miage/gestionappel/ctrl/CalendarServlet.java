@@ -1,7 +1,5 @@
 package miage.gestionappel.ctrl;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import miage.gestionappel.metier.Occurence;
 import miage.gestionappel.metier.Professeur;
 import miage.gestionappel.util.DateManipulation;
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,43 +18,45 @@ public class CalendarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        Professeur professeur = (Professeur) session.getAttribute("user");
+        Professeur professeur = (Professeur) session.getAttribute("professeur");
         Set<Occurence> occurencesList = professeur.getOccurences();
-        List<Date> weekDetails = getFocusWeekDetails(request);
         DateManipulation dm = new DateManipulation();
-        JsonObject timeTable = new JsonObject();
-        JsonArray eventsOfTheWeek = new JsonArray();
-        for (Date weekDate : weekDetails) {
-            JsonArray eventsOfTheDay = new JsonArray();
-            getDayClasses(weekDate, occurencesList).forEach(cours -> {
-                JsonObject event = new JsonObject();
-                event.addProperty("event", cours.getCours().getNomC());
-                event.addProperty("dataStart", String.valueOf(cours.getHeureDebutOc()));
-                event.addProperty("dataEnd", String.valueOf(cours.getHeureFinOc()));
-                eventsOfTheDay.add(event);
-            });
-            eventsOfTheWeek.add(eventsOfTheDay);
-        }
-        timeTable.add("timeTable", eventsOfTheWeek);
-        response.setCharacterEncoding("UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            out.print(timeTable);
+        setFocusWeek(request, dm);
+        List<Date> weekDetails = getFocusWeekDetails(dm);
+
+        String action = request.getParameter("week");
+        switch (action) {
+            case "thisWeek":
+                request.setAttribute("week", dm.getDateNow());
+                request.setAttribute("timetable", getWeekClasses(weekDetails, occurencesList));
+                request.getRequestDispatcher("calendar").forward(request, response);
+            case "precedent":
+                dm.removeOneWeek();
+                request.setAttribute("week", dm.getDateNow());
+                request.setAttribute("timetable", getWeekClasses(weekDetails, occurencesList));
+                request.getRequestDispatcher("calendar").forward(request, response);
+            case "suivant":
+                dm.addOneWeek();
+                request.setAttribute("week", dm.getDateNow());
+                request.setAttribute("timetable", getWeekClasses(weekDetails, occurencesList));
+                request.getRequestDispatcher("calendar").forward(request, response);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
+
+    protected void setFocusWeek(HttpServletRequest request, DateManipulation dm) {
+        if (request.getAttribute("week") != null) {
+            LocalDate week = (LocalDate) request.getAttribute("week");
+            dm.setDateNow(week);
+        }
 
     }
 
-    protected List<Date> getFocusWeekDetails(HttpServletRequest request) {
-        LocalDate dateFocus = (LocalDate) request.getAttribute("startOfWeek");
-        DateManipulation dm = new DateManipulation();
-        if (dateFocus != null) {
-            dm.setDateNow(dateFocus);
-        }
+    protected List<Date> getFocusWeekDetails(DateManipulation dm) {
         return dm.getAllDateOfWeek();
     }
 
