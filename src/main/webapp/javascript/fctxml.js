@@ -18,6 +18,28 @@ function enregistrerStatut() {
 
 }
 
+function listEtudiantCours() {
+    let cours = this.value;
+    alert(cours);
+    let idEtudiant = this.previousElementSibling.value;
+    alert(statut + idEtudiant);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/listCoursServlet?action=listEtudiantsCours&idCours="+cours, true);
+
+    alert("gfgffddf")
+
+    xhr.onload = function () {
+
+        if (xhr.status === 200){
+            //this.insertAdjacentHTML('afterend', 'chergé!');
+            alert(xhr.responseXML)
+        }
+
+    };
+    xhr.send();
+}
+
 
 /**
  * Lancement après le chargement du DOM.
@@ -26,5 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('.statutEtudiant').forEach(item => {
 
         item.addEventListener("change", enregistrerStatut);
-    })
+    });
+
+
+    document.getElementById("selectCours").addEventListener("change",listEtudiantCours);
+
 })
