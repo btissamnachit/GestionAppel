@@ -68,16 +68,18 @@ public class Test {
 //                System.out.println("résultat6 : " + lnomcours.get(j));
 //            }
 //        }
+//
+//        ProfesseurDao professeurDao = new ProfesseurDao();
+//        Professeur professeur = new Professeur();
+//
+//        professeur = professeurDao.getByEmail("nathalie.valles-parlangeau@ut-capitole.fr");
+//
+//        Set<Cours> cours = professeur.getCours();
+//
+//        for (Cours c : cours) {
+//            System.out.println("résultat : " + c.getNomC());
+//        }
 
-        ProfesseurDao professeurDao = new ProfesseurDao();
-        Professeur professeur = new Professeur();
-
-        professeur = professeurDao.getByEmail("nathalie.valles-parlangeau@ut-capitole.fr");
-
-        Set<Cours> cours = professeur.getCours();
-
-        for (Cours c : cours) {
-            System.out.println("résultat : " + c.getNomC());
-        }
+        Test.createUser();
     }
 }
