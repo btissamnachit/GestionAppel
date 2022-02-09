@@ -39,25 +39,45 @@ public class Test {
 
     public static void createOccurence(){
         OccurenceDao occurenceDao = new OccurenceDao();
-        EtudiantDao etudiantDao = new EtudiantDao();
-        PresenterDao presenterDao = new PresenterDao();
-        GroupeDao groupeDao = new GroupeDao();
-        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
-            //ouverture d'une transaction
-            Transaction t = session.beginTransaction();
-            Occurence occurence = occurenceDao.get(3451);
-            Etudiant etudiant = etudiantDao.get(21901858);
-            Groupe groupe = groupeDao.get(1);
-            Set<Groupe> groupes = new HashSet<>();
-            groupes.add(groupe);
-            occurence.setGroupes(groupes);
-            session.update(occurence);
-            t.commit();
+
+        Occurence occurence = occurenceDao.getOc(3451);
+        for (Presenter p: occurence.getPresences() ){
+            System.out.println("hhhhhh : "+p.getEtudiant().getNomE());
         }
     }
 
     public static void main (String[] args) throws ParseException
     {
-        Test.createOccurence();
+//
+//        ProfesseurDao pf = new ProfesseurDao();
+//        Professeur p ;
+//        p = pf.getByEmail("nathalie.valles-parlangeau@ut-capitole.fr");
+//        Set<Cours> lc =  p.getCours();
+//        System.out.println("résultat1 : " + lc);
+//        ArrayList<Cours> liste = new ArrayList<Cours>(lc);
+//        System.out.println("résultat2 : " + liste);
+//        ArrayList<String> lnomcours = new ArrayList<>();
+//        System.out.println("résultat3 : " + lnomcours);
+//        for (int i = 0; i < liste.size(); i++) {
+//            String nomC = liste.get(i).getNomC();
+//            System.out.println("résultat4 : " + nomC);
+//            lnomcours.add(nomC);
+//            System.out.println("résultat5 : " + lnomcours);
+//
+//            for(int j=0; j < lnomcours.size();j++) {
+//                System.out.println("résultat6 : " + lnomcours.get(j));
+//            }
+//        }
+
+        ProfesseurDao professeurDao = new ProfesseurDao();
+        Professeur professeur = new Professeur();
+
+        professeur = professeurDao.getByEmail("nathalie.valles-parlangeau@ut-capitole.fr");
+
+        Set<Cours> cours = professeur.getCours();
+
+        for (Cours c : cours) {
+            System.out.println("résultat : " + c.getNomC());
+        }
     }
 }

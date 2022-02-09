@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <html>
 <head>
     <title>Title</title>
@@ -40,25 +43,20 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Liste des Etudiants</h1>
+    <%
+        String email = (String) session.getAttribute("email");
+        request.getParameter("email");
+    %>
 
-    <form>
+        <label for="NomC">Choisir une mati&eacute;re:</label>
 
-        <div class="small mb-1">Veuiller selectionner le cours</div>
-        <div class="dropdown mb-4">
-            <button class="btn btn-primary dropdown-toggle" type="button"
-                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                Choix cours
-            </button>
-            <div class="dropdown-menu animated--fade-in"
-                 aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#" active >Agile</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </div>
+        <select id="NomC" name="NomC" class="form-control form-control-lg center">
 
-    </form>
+            <option value="NomC" selected><c:forEach items="${cours}" var="cours"></option></c:forEach>
+
+        </select>
+
+
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
