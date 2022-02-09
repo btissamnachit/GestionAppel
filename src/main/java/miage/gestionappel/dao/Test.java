@@ -4,6 +4,11 @@ import miage.gestionappel.metier.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,8 +51,19 @@ public class Test {
         }
     }
 
+    public static void createPresenter(){
+        OccurenceDao occurenceDao = new OccurenceDao();
+        PresenterDao presenterDao = new PresenterDao();
+        EtudiantDao etudiantDao = new EtudiantDao();
+        Occurence occurence = occurenceDao.get(3452);
+        Etudiant etudiant = etudiantDao.get(1);
+        System.out.println(etudiant.toString());
+        Presenter presenter = new Presenter(occurence,etudiant,"absent");
+        presenterDao.saveOrUpdate(presenter);
+    }
+
     public static void main (String[] args) throws ParseException
     {
-        Test.createOccurence();
+        Test.createPresenter();
     }
 }

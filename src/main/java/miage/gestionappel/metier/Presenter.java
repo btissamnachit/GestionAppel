@@ -2,12 +2,13 @@ package miage.gestionappel.metier;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity(name="Presenter")
 public class Presenter {
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EmbeddedId
-    private prensenterId idPresence;
+    private PrensenterId idPresence;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("idOc")
@@ -22,18 +23,27 @@ public class Presenter {
 
     private String statut;
 
-    @Embeddable
-    public static class prensenterId implements Serializable {
-        private Integer idOc;
-        private Integer idE;
-
+    public Presenter() {
     }
 
-    public prensenterId getIdPresence() {
+    public Presenter(PrensenterId idPresence, Occurence occurence, Etudiant etudiant, String statut) {
+        this.idPresence = idPresence;
+        this.occurence = occurence;
+        this.etudiant = etudiant;
+        this.statut = statut;
+    }
+
+    public Presenter(Occurence occurence, Etudiant etudiant, String statut) {
+        this.occurence = occurence;
+        this.etudiant = etudiant;
+        this.statut = statut;
+    }
+
+    public PrensenterId getIdPresence() {
         return idPresence;
     }
 
-    public void setIdPresence(prensenterId idPresence) {
+    public void setIdPresence(PrensenterId idPresence) {
         this.idPresence = idPresence;
     }
 
@@ -69,13 +79,17 @@ public class Presenter {
         this.statut = statut;
     }
 
-    public Presenter(Occurence occurence, Etudiant etudiant, String statut) {
-        this.occurence = occurence;
-        this.etudiant = etudiant;
-        this.statut = statut;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Presenter presenter = (Presenter) o;
+        return Objects.equals(idPresence, presenter.idPresence);
     }
-    public Presenter(){
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(idPresence);
     }
 }
 
