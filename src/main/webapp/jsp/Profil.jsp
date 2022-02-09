@@ -21,7 +21,7 @@
 
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 
-<%@ include file="AccueilProf.jsp" %>
+<%@ include file="Menu.jsp" %>
 <body>
 <div class="container rounded bg-white mt-5">
     <div class="row">
@@ -37,15 +37,15 @@
                     <h6 class="text-right">Edit Profile</h6>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-6"><input type="text" class="form-control" placeholder="first name" value="${sessionScope.role}"></div>
-                    <div class="col-md-6"><input type="text" class="form-control" value="Doe" placeholder="Doe"></div>
+                    <div class="col-md-6"><input type="text" class="form-control" placeholder="first name" value="${sessionScope.nom}"></div>
+                    <div class="col-md-6"><input type="text" class="form-control" value="${sessionScope.prenom}" placeholder="Doe"></div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-6"><input type="text" class="form-control" placeholder="Email" value="john_doe12@bbb.com"></div>
+                    <div class="col-md-6"><input type="text" class="form-control" placeholder="Email" value="${sessionScope.mail}"></div>
                     <div class="col-md-6"><input type="text" class="form-control" value="+19685969668" placeholder="Phone number"></div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-6"><input type="text" class="form-control" placeholder="address" value="D-113, right avenue block, CA,USA"></div>
+                    <div class="col-md-6"><input type="text" class="form-control" placeholder="address" value="${sessionScope.role}"></div>
                     <div class="col-md-6"><input type="text" class="form-control" value="USA" placeholder="Country"></div>
                 </div>
                 <div class="row mt-3">
