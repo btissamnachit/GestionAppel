@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -30,7 +30,7 @@
 
     <link href="${pageContext.request.contextPath}/assets/css/sb-admin-2.min.css" rel="stylesheet">
 <%--    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">--%>
-    <link href="${pageContext.request.contextPath}/assets/css/all.min.css" rel="stylesheet" type="text/css">
+<%--    <link href="${pageContext.request.contextPath}/assets/css/all.min.css" rel="stylesheet" type="text/css">--%>
     <!-- Custom styles for this template-->
 
 <%--    <link href="${pageContext.request.contextPath}/css/fonts.css" rel="stylesheet">--%>
@@ -66,15 +66,6 @@
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item active">
-            <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-               aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Menu</span>
-            </a>
-            <div id="collapsePages" class="collapse show" aria-labelledby="headingPages"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
                     <c:if test="${sessionScope.role == 'etudiant'}">
         <li class="nav-item">
             <a class="nav-link" href="listeabsences">

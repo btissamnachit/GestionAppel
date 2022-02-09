@@ -2427,20 +2427,20 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #4e73df;
-    border-color: #4e73df
+    background-color: rgba(241, 49, 41, 0.76);
+    border-color: rgba(241, 49, 41, 0.76);
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #2e59d9;
-    border-color: #2653d4
+    background-color: rgba(241, 49, 41, 0.76);
+    border-color: rgba(241, 49, 41, 0.76)
 }
 
 .btn-primary.focus, .btn-primary:focus {
     color: #fff;
-    background-color: #2e59d9;
-    border-color: #2653d4;
+    background-color: rgba(241, 49, 41, 0.76);
+    border-color: rgba(241, 49, 41, 0.76);
     box-shadow: 0 0 0 .2rem rgba(105, 136, 228, .5)
 }
 
@@ -2452,8 +2452,8 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: #2653d4;
-    border-color: #244ec9
+    background-color: rgba(241, 49, 41, 0.76);
+    border-color: rgba(241, 49, 41, 0.76)
 }
 
 .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show > .btn-primary.dropdown-toggle:focus {
@@ -10034,13 +10034,13 @@ a:focus {
     -webkit-animation-duration: .2s;
     animation-duration: .2s;
     -webkit-animation-timing-function: opacity cubic-bezier(0, 1, .4, 1);
-    animation-timing-function: opacity cubic-bezier(0, 1, .4, 1)
+    animation-timing-function: opacity cubic-bezier(0, 1, .4, 1);
 }
 
 .bg-gradient-primary {
     background-color: rgba(241, 49, 41, 0.76);
-    background-image: linear-gradient(180deg, rgba(241, 49, 41, 0.76) 10%, rgba(241, 49, 41, 0.76) 100%);
-    background-size: cover
+    background-image: linear-gradient(rgba(241, 49, 41, 0.76) 10%, rgb(34, 74, 190) 100%);
+    background-size: cover;
 }
 
 .bg-gradient-secondary {
