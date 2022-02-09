@@ -69,23 +69,6 @@ public class Test {
 //            }
 //        }
 
-        ProfesseurDao professeurDao = new ProfesseurDao();
-        Professeur professeur = new Professeur();
-
-        professeur = professeurDao.getByEmail("nathalie.valles-parlangeau@ut-capitole.fr");
-
-        Set<Cours> cours = professeur.getCours();
-
-        for (Cours c : cours) {
-            Set<Groupe> groupes = c.getGroupes();
-            for (Groupe g : groupes) {
-                Set<Etudiant> etudiants = g.getEtudiants();
-
-                for (Etudiant e : etudiants) {
-                    System.out.println(e.getNomE());
-                }
-            }
-        }
-
+   Test.createUser();
     }
 }

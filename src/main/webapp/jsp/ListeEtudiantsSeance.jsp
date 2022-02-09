@@ -20,6 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
+
+<%@ include file="Menu.jsp" %>
 <body>
 
 
@@ -27,13 +29,14 @@
 <div class="container-fluid">
     <form action='/appelServlet' method="POST">
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Cours : ${cours} [Séance : ]</h1>
+        <h1 class="h3 mb-2 text-gray-800">Cours : ${cours} [${occurence.getDateOc()}: de ${occurence.getHeureDebutOc()} à ${occurence.getHeureFinOc()}]</h1>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Liste des Etudiants </h6>
             </div>
+            <div id="alert"></div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable">
@@ -75,6 +78,7 @@
                                             </c:when>
                                         </c:choose>
                                     </td>
+                                    <td></td>
                                 </tr>
                             </c:forEach>
                         </c:if>
@@ -138,7 +142,10 @@
                     <div class="d-flex justify-content-end row">
                         <a href="/appelServlet?action=Retour" class="btn btn-lg btn-secondary"> Retour </a>
                         <c:if test="${!isValide}">
-                            <input class="btn btn-lg btn-primary" type="submit" name="action" value="Enregistrer"/>
+                            <input class="btn btn-lg btn-primary" type="submit" name="action" value="Valider"/>
+                        </c:if>
+                        <c:if test="${isValide}">
+                            <input class="btn btn-lg btn-dark" type="submit" name="action" value="Imprimer"/>
                         </c:if>
                     </div>
                 </div>

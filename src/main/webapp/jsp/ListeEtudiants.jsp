@@ -40,61 +40,57 @@
 <body>
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <form action='/listeCoursServlet' method="GET">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Liste des Etudiants</h1>
 
-        <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Liste des Etudiants</h1>
+    <label for="selectCours">Choisir une mati&eacute;re:</label>
 
-        <label for="selectCours">Choisir une mati&eacute;re:</label>
+    <select id="selectCours" name="NomC" class="form-control form-control-lg center ">
+        <option>-- Choisir une mati&eacute;re --</option>
+        <c:forEach items="${cours}" var="cours">
+            <option value="${cours.getIdC()}">${cours.getNomC()}</option>
+        </c:forEach>
+    </select>
+    <select id="selectOccurences" name="NomC" class="form-control form-control-lg center">
+        <option>----</option>
+    </select>
 
-        <select id="selectCours" name="NomC" class="form-control form-control-lg center">
-            <option>-- Choisir une mati&eacute;re --</option>
-            <c:forEach items="${cours}" var="cours">
-                <option value="${cours.getIdC()}">${cours.getNomC()}</option>
-            </c:forEach>
-        </select>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Liste des etudiants</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Identifiant</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Statut</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Identifiant</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Statut</th>
+                    </tr>
+                    </tfoot>
+                    <tbody id="listEtudiant">
+                    <tr>
+                        <td colspan="4"><b class="text-sm-center">La liste est vide, vous pouvez choisir le cours à afficher.</b></td>
 
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Liste des etudiants</h6>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>Identifiant</th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Email</th>
-
-                        </tr>
-                        </thead>
-                        <tfoot>
-                        <tr>
-                            <th>Identifiant</th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Email</th>
-                        </tr>
-                        </tfoot>
-                        <tbody>
-
-                            <c:forEach items="${etudiants}" var="etudiants">
-                            <tr>
-                                <td>${etudiants.getIdE()}</td>
-                                <td>${etudiants.getNomE()}</td>
-                                <td>${etudiants.getPrenomE()}</td>
-                                <td>${etudiants.getMailE()}</td>
-                            </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </form>
+    </div>
 </div>
 <!-- /.container-fluid -->
 

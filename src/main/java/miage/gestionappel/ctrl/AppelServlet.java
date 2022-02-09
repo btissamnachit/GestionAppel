@@ -55,7 +55,7 @@ public class AppelServlet extends HttpServlet {
                 Presenter presenter = new Presenter(prensenterId,occurence,etudiant,statut);
                 presenterDao.saveOrUpdate(presenter);
                 break;
-            case "Enregistrer":
+            case "Valider":
                 occurence.setAppelValide(true);
                 occurenceDao.update(occurence,null);
                 // vers emploi du temps
