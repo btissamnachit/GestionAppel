@@ -1,8 +1,12 @@
 package miage.gestionappel.ctrl;
 
 import com.google.protobuf.Message;
+import miage.gestionappel.dao.EtudiantDao;
 import miage.gestionappel.dao.ExceptionDao;
+import miage.gestionappel.dao.ProfesseurDao;
 import miage.gestionappel.dao.UserDao;
+import miage.gestionappel.metier.Etudiant;
+import miage.gestionappel.metier.Professeur;
 import miage.gestionappel.metier.User;
 
 import javax.servlet.*;
@@ -38,6 +42,27 @@ public class ConnexionServlet extends HttpServlet {
                 session.setAttribute("prenom", user.getPrenomU());
                 session.setAttribute("email", user.getMailU());
                 session.setAttribute("role", user.getRoleU());
+
+
+                if (user.getRoleU() == "professeur"){
+
+                    ProfesseurDao professeurDao = new ProfesseurDao();
+
+                    Professeur professeur = professeurDao.getByEmail(email);
+
+                    session.setAttribute("professeur", professeur);
+
+                }
+                else if (user.getRoleU() == "etudiant"){
+
+                    EtudiantDao etudiantDao = new EtudiantDao();
+
+                    Etudiant etudiant = etudiantDao.getByEmail(email);
+
+                    session.setAttribute("etudiant", etudiant);
+
+                }
+
                 System.out.println("hello "+session.getAttribute("nom"));
                 request.getRequestDispatcher("profil").forward(request, response);
             } catch (ExceptionDao e) {

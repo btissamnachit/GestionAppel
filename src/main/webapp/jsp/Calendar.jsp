@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/stylecalendar.css">
     <title>Schedule Template | CodyHouse</title>
 </head>
-<%@ include file="AccueilProf.jsp" %>
+<%@ include file="Menu.jsp" %>
 <body>
 
 <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
@@ -204,5 +204,6 @@
 
 <script src="assets/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
 <script src="assets/js/main.js"></script>
+<script src="assets/js/dateCompletion.js"></script>
 </body>
 </html>
