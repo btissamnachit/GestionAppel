@@ -1,6 +1,8 @@
 package miage.gestionappel.ctrl;
 import miage.gestionappel.dao.ProfesseurDao;
 import miage.gestionappel.metier.Cours;
+import miage.gestionappel.metier.Etudiant;
+import miage.gestionappel.metier.Groupe;
 import miage.gestionappel.metier.Professeur;
 import javax.servlet.ServletException;
 import java.io.IOException;
@@ -30,6 +32,12 @@ public class ListeCoursServlet extends HttpServlet {
 
         for (Cours c : cours) {
             System.out.println("résultat : " + c.getNomC());
+            Set<Groupe> groupes = c.getGroupes();
+            for (Groupe g : groupes){
+                Set<Etudiant> etudiants = g.getEtudiants();
+
+            }
+
         }
         request.getRequestDispatcher("/listeetudiants").forward(request, response);
         }
