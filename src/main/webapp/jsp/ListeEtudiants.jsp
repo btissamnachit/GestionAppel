@@ -36,6 +36,7 @@
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
+<%@ include file="Menu.jsp" %>
 <body>
 <!-- Begin Page Content -->
 <div class="container-fluid">

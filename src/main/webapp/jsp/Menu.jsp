@@ -87,7 +87,7 @@
 
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestion des cours:</h6>
-                        <a class="collapse-item" href="listeabsences">Mes cours</a>
+                        <a class="collapse-item" href="listeCoursServlet">Mes cours</a>
                         <a class="collapse-item" href="calendar">Mon Calendrier</a>
                         <a class="collapse-item" href="recappresenceprof">Appel du cours</a>
                         <div class="collapse-divider"></div>
