@@ -28,6 +28,17 @@ public class ProfesseurDao implements Dao<Professeur> {
             return professeurs;
         }
     }
+    public Professeur getByEmail(String email) {
+
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            session.beginTransaction();
+
+            List<Professeur> professeurList =  session.createQuery("FROM Professeur WHERE mailP = :mail")
+                    .setParameter("mail", email)
+                    .list();
+            return  professeurList.get(0);
+        }
+    }
 
     @Override
     public void save(Professeur professeur) {

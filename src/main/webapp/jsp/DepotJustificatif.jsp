@@ -11,6 +11,7 @@
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 
 </head>
+<%@ include file="Menu.jsp" %>
 <body>
 <div class="tableJustificatif">
     <form action=""

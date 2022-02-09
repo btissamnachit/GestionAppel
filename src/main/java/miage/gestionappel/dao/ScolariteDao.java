@@ -31,6 +31,7 @@ public class ScolariteDao implements Dao<Scolarite>{
         return list_scolarites;
     }
 
+
     @Override
     public void save(Scolarite scolarite) {
 

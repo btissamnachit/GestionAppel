@@ -1,6 +1,7 @@
 package miage.gestionappel.ctrl;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import miage.gestionappel.metier.Occurence;
 import miage.gestionappel.metier.Professeur;
 import miage.gestionappel.util.DateManipulation;
@@ -23,14 +24,26 @@ public class CalendarServlet extends HttpServlet {
         Professeur professeur = (Professeur) session.getAttribute("user");
         Set<Occurence> occurencesList = professeur.getOccurences();
         List<Date> weekDetails = getFocusWeekDetails(request);
-        HashMap<Date, List<Occurence>> timeTable = getWeekClasses(weekDetails, occurencesList);
-
-        response.setContentType("application/json");
+        DateManipulation dm = new DateManipulation();
+        JsonObject timeTable = new JsonObject();
+        JsonArray eventsOfTheWeek = new JsonArray();
+        for (Date weekDate : weekDetails) {
+            JsonArray eventsOfTheDay = new JsonArray();
+            getDayClasses(weekDate, occurencesList).forEach(cours -> {
+                JsonObject event = new JsonObject();
+                event.addProperty("event", cours.getCours().getNomC());
+                event.addProperty("dataStart", String.valueOf(cours.getHeureDebutOc()));
+                event.addProperty("dataEnd", String.valueOf(cours.getHeureFinOc()));
+                eventsOfTheDay.add(event);
+            });
+            eventsOfTheWeek.add(eventsOfTheDay);
+        }
+        timeTable.add("timeTable", eventsOfTheWeek);
         response.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            Gson gson = new Gson();
-            out.print(gson.toJson(timeTable));
-            out.flush();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            out.print(timeTable);
         }
     }
 

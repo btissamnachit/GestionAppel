@@ -2,33 +2,38 @@ function getTimeTable() {
 
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "calendarServlet");
-    const semaine = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"]
+    xhr.responseType = 'json';
 
-    // On précise ce que l'on va faire quand on aura reçu la réponse du serveur.
+    const semaine = ["lundi", "mardi", "mercredi", "jeudi", "vendredi"]
     xhr.onload = function () {
-        // Si la requête http s'est bien passée.
-
         if (xhr.status === 200) {
-            var noeudJours = xhr.responseXML.getElementsByTagName("Calendar>")
-            // Elément html que l'on va mettre à jour.
+            var jSon = xhr.response;
             var elt = document.getElementById("cd-schedule__events")
-            var timeTable = "<ul>"
-            for (let i = 0; i < noeudJours.length; i++) {
-                timeTable += "<li id='cd-schedule__group' className='cd-schedule__group'> " +
-                    "<div className='cd-schedule__top-info'><span> " + semaine[i] + "</span></div> <ul>"
-                for (let j = 0; j < noeudJours[i].childNodes.length; i++) {
-                    var cours = noeudJours[i].childNodes[j].nodeValue;
+            var String = "<ul>"
+            for (let jourSemaine = 0; jourSemaine < jSon.timeTable.length; jourSemaine++) {
+                timeTable += "<li id='cd-schedule__group' class='cd-schedule__group'> " +
+                    "<div class='cd-schedule__top-info'><span> " + semaine[jourSemaine] + "</span></div> <ul>"
+                for (let cours = 0; cours < jSon.timeTable[jourSemaine].length; cours++) {
+                    var event = jSon.timeTable[jourSemaine][cours].event;
+                    var dataStart = jSon['timeTable'][jourSemaine][cours]['dataStart'];
+                    var dataEnd = jSon['timeTable'][jourSemaine][cours]['dataEnd'];
+                    String += "<li class='cd-schedule__event'> <a data-start='" + dataStart +
+                        "' data-end='" + dataEnd + "' data-content='event-rowing-workout' " +
+                        "data-event='event-2' href='#0'> <em class='cd-schedule__name'>" + event + "</em> </a> </li>"
                 }
-
-                selectedList += "<li>" + citation + "</li>";
+                String += "</ul></li>"
             }
-            selectedList += "</ul>"
-            elt.innerHTML = selectedList;
+            String += "</ul>"
+            elt.innerHTML = String;
 
         }
     };
-
-    // Envoie de la requête.
     xhr.send();
+
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.addEventListener("load", getTimeTable);
+
+});

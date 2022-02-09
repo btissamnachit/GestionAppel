@@ -1,6 +1,7 @@
 package miage.gestionappel.dao;
 
 import miage.gestionappel.metier.Etudiant;
+import miage.gestionappel.metier.Professeur;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -27,6 +28,19 @@ public class EtudiantDao implements Dao<Etudiant> {
             List<Etudiant> etudiantList = session.createQuery("From Etudiant ").list();
 
             return etudiantList;
+        }
+    }
+
+
+    public Etudiant getByEmail(String email) {
+
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            session.beginTransaction();
+
+            List<Etudiant> etudiantList =  session.createQuery("FROM Etudiant WHERE mailE = :mail")
+                    .setParameter("mail", email)
+                    .list();
+            return  etudiantList.get(0);
         }
     }
 

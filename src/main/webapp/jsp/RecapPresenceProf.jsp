@@ -30,6 +30,7 @@
     <title>UT1 Capitole</title>
 
 </head>
+<%@ include file="Menu.jsp" %>
 <body>
 
 <div class="container-fluid">

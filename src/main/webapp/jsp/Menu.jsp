@@ -6,12 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <<!DOCTYPE html>
 <html lang="en">
 
 <head>
 
     <meta charset="utf-8">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -27,8 +30,8 @@
     <!-- Custom styles for this template-->
 
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
-
-<%--    <link href="${pageContext.request.contextPath}/assets/css/sb-admin-2.min.css" rel="stylesheet">--%>
+    <link href="${pageContext.request.contextPath}/css/fonts.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -45,7 +48,7 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">Gestion d'Appel </div>
+            <div class="sidebar-brand-text mx-3">Gestion d'Appel</div>
         </a>
 
         <!-- Divider -->
@@ -70,31 +73,45 @@
             <div id="collapsePages" class="collapse show" aria-labelledby="headingPages"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Mes cours:</h6>
-                    <a class="collapse-item" href="login.html">Mes cours</a>
-                    <a class="collapse-item" href="register.html">Mes fiches d'Appel</a>
-                    <a class="collapse-item" href="forgot-password.html">Mon Calendrier</a>
-                    <a class="collapse-item" href="forgot-password.html">Récapitulatif des absences</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages  :</h6>
-                    <a class="collapse-item" href="404.html">page 1</a>
-                    <a class="collapse-item active" href="blank.html">Page 2</a>
+                    <c:if test="${sessionScope.role == 'etudiant'}">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Gestion des cours:</h6>
+                        <a class="collapse-item" href="listeabsences">Consulter mes absences</a>
+                        <a class="collapse-item" href="listeabsences">Depot de justificatif</a>
+                        <a class="collapse-item" href="calendar">Mon Calendrier</a>
+                        <a class="collapse-item" href="recappresenceprof">Récapitulatif de presence</a>
+                        <div class="collapse-divider"></div>
+                        </div>
+                    </c:if>
+                    <c:if test="${sessionScope.role == 'professeur'}">
+
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Gestion des cours:</h6>
+                        <a class="collapse-item" href="listeCoursServlet">Mes cours</a>
+                        <a class="collapse-item" href="calendar">Mon Calendrier</a>
+                        <a class="collapse-item" href="recappresenceprof">Appel du cours</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Liste des etudiants :</h6>
+                        <a class="collapse-item" href="listeetudiants">Liste des Etudiants</a>
+                    </div>
+                    </c:if>
                 </div>
             </div>
         </li>
+
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
             <a class="nav-link" href="charts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
+                <span>Reglages</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="tables.html">
                 <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
+                <span>Autres?</span></a>
         </li>
 
         <!-- Divider -->
@@ -144,9 +161,9 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Prenom Nom</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">${sessionScope.prenom} ${sessionScope.nom}</span>
                             <img class="img-profile rounded-circle"
-                                 src="img/undraw_profile.svg">
+                                 src="${pageContext.request.contextPath}/image/undraw_profile.svg">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -177,62 +194,25 @@
 
                 <!-- Page Heading -->
 
-                Blanc page
+                <%--            </div>--%>
+                <%--            <!-- /.container-fluid -->--%>
 
-            </div>
-            <!-- /.container-fluid -->
+                <%--        </div>--%>
+                <%--        <!-- End of Main Content -->--%>
 
-        </div>
-        <!-- End of Main Content -->
+                <%--    </div>--%>
+                <%--    <!-- End of Content Wrapper -->--%>
 
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2020</span>
-                </div>
-            </div>
-        </footer>
-        <!-- End of Footer -->
+                <%--</div>--%>
 
-    </div>
-    <!-- End of Content Wrapper -->
 
-</div>
-<!-- End of Page Wrapper -->
+                <script src="${pageContext.request.contextPath}/assets/chart.js/jquery.min.js"></script>
+                <script src="${pageContext.request.contextPath}/assets/chart.js/bootstrap.bundle.min.js"></script>
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
+                <!-- Core plugin JavaScript-->
+                <script src="${pageContext.request.contextPath}/assets/chart.js/jquery.easing.min.js"></script>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="${pageContext.request.contextPath}/assets/chart.js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/chart.js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="${pageContext.request.contextPath}/assets/chart.js/jquery.easing.min.js"></script>
-
-<script src="${pageContext.request.contextPath}/assets/chart.js/sb-admin-2.min.js"></script>
+                <script src="${pageContext.request.contextPath}/assets/chart.js/sb-admin-2.min.js"></script>
 
 </body>
 
