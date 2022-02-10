@@ -78,7 +78,7 @@ public class CoursDao implements Dao<Cours>{
 
     public float moyenneAbscence(Cours cours) {
         if (nbAbsence(cours) != 0) {
-            return (float) (nbAbsence(cours) / nbOccurence(cours));
+            return (float) (nbAbsence(cours) / nbOccurence(cours) * 100);
         } else {
             return 0F;
         }
@@ -92,7 +92,7 @@ public class CoursDao implements Dao<Cours>{
             List<Etudiant> etudiants = etudiantDao.getAll();
             for (Etudiant etudiant : etudiants) {
                 List<Occurence> absences = etudiantDao.getAbsencesCours(etudiant, cours);
-                if (absences.size() > 3) {
+                if (absences.size() >= 3) {
                     etudiantsAbsenteistes.add(etudiant);
                 }
             }
