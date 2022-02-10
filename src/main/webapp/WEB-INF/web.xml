@@ -56,6 +56,10 @@
         <servlet-name>ListeCoursServlet</servlet-name>
         <servlet-class>miage.gestionappel.ctrl.ListeCoursServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CalendarServlet</servlet-name>
+        <servlet-class>miage.gestionappel.ctrl.CalendarServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>ListeCoursServlet</servlet-name>
         <url-pattern>/listeCoursServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CalendarServlet</servlet-name>
+        <url-pattern>/calendarServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>login</welcome-file>
