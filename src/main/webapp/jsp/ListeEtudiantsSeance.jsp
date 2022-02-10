@@ -163,6 +163,6 @@
     function imprimer_page(){
         window.print();
     }
-</script
+</script>
 </html>
 <script type="text/JavaScript" src="${pageContext.request.contextPath}/javascript/fctxml.js"></script>
