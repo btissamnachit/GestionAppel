@@ -55,7 +55,7 @@
                     out.println("<span>" + date + "</span></div><ul>");
                     for (Occurence cours : timeTable.get(date)) {
                         String dataEvent = cours.getAppelValide() ? "event-1" : "event-2";
-                        String appelUrl = "appelServlet?idOccurence=" + cours.getIdOc();
+                        String appelUrl = "appelServlet?idOccurence=" + cours.getIdOc()+"&cours="+cours.getCours().getNomC();
                         out.println("<li class=\"cd-schedule__event\">");
                         out.println("<a data-start=\"" + cours.getHeureDebutOc());
                         out.println("\"data-end=\" " + cours.getHeureFinOc());

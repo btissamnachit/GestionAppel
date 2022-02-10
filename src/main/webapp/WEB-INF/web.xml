@@ -53,6 +53,10 @@
         <servlet-class>miage.gestionappel.ctrl.ConnexionServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DeconnexionServlet</servlet-name>
+        <servlet-class>miage.gestionappel.ctrl.DeconnexionServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ListeCoursServlet</servlet-name>
         <servlet-class>miage.gestionappel.ctrl.ListeCoursServlet</servlet-class>
     </servlet>
@@ -115,6 +119,10 @@
     <servlet-mapping>
         <servlet-name>ConnexionServlet</servlet-name>
         <url-pattern>/connexionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeconnexionServlet</servlet-name>
+        <url-pattern>/deconnexionServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListeCoursServlet</servlet-name>

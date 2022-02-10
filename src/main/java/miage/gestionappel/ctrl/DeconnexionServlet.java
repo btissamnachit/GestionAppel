@@ -9,16 +9,16 @@ import java.io.IOException;
 public class DeconnexionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         session.removeAttribute("nom");
         session.removeAttribute("prenom");
         session.removeAttribute("email");
         session.removeAttribute("role");
-        request.getRequestDispatcher("login").forward(request,response);
+        request.getRequestDispatcher("/").forward(request,response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 }
