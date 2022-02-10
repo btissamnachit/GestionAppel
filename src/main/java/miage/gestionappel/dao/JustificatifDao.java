@@ -34,8 +34,14 @@ public class JustificatifDao implements Dao<Justificatif> {
 
     @Override
     public void save(Justificatif justificatif) {
-
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+        {
+            Transaction t = session.beginTransaction();
+            session.save(justificatif);
+            t.commit();
+        }
     }
+
 
     @Override
     public void update(Justificatif justificatif, String[] params) {
