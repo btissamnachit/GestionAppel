@@ -57,6 +57,10 @@
         <servlet-class>miage.gestionappel.ctrl.ListeCoursServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ListeAbsenceServlet</servlet-name>
+        <servlet-class>miage.gestionappel.ctrl.ListeAbsenceServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ProfilServlet</servlet-name>
         <servlet-class>miage.gestionappel.ctrl.ProfilServlet</servlet-class>
     </servlet>
@@ -91,6 +95,10 @@
     <servlet-mapping>
         <servlet-name>ListeAbsences</servlet-name>
         <url-pattern>/listeabsences</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListeAbsenceServlet</servlet-name>
+        <url-pattern>/listeabsenceservlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListeEtudiants</servlet-name>
