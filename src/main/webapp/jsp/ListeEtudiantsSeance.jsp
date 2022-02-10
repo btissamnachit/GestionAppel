@@ -19,15 +19,19 @@
 
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/print.css" type="text/css" media="print" />
 </head>
 
 <%@ include file="Menu.jsp" %>
+
 <body>
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <form action='/appelServlet' method="POST">
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Cours : ${cours} [${occurence.getDateOc()}: de ${occurence.getHeureDebutOc()} à ${occurence.getHeureFinOc()}]</h1>
+        <h1 class="h3 mb-2 text-gray-800">Cours : ${cours}                ${date} de ${debut}
+            à ${fin}</h1>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -36,7 +40,7 @@
             </div>
             <div id="alert"></div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="">
                     <table class="table table-bordered" id="dataTable">
                         <thead>
                         <tr>
@@ -64,19 +68,7 @@
                                     <td>${presence.getEtudiant().getNomE()}</td>
                                     <td>${presence.getEtudiant().getPrenomE()}</td>
                                     <td>${presence.getEtudiant().getMailE()}</td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${presence.getStatut() == 'present'}">Présent
-                                            </c:when>
-                                            <c:when test="${presence.getStatut() == 'absent'}">Absent
-                                            </c:when>
-                                            <c:when test="${presence.getStatut() == 'en retard'}">En retard
-                                            </c:when>
-                                            <c:when test="${presence.getStatut() == 'absence jutifie'}">Absence justifié
-                                            </c:when>
-                                        </c:choose>
-                                    </td>
-                                    <td></td>
+                                    <td>${presence.getStatut()}</td>
                                 </tr>
                             </c:forEach>
                         </c:if>
@@ -93,30 +85,32 @@
                                             <input type="hidden" value="${etudiant.getIdE()}">
                                             <c:set var="target" value="false" scope="page"></c:set>
                                             <select id="statutEtudiant" name="statut"
-                                                    class="statutEtudiant form-control form-control-lg center" required>
-                                                <option>-- Choisissez un statut --</option>
+                                                    class="statutEtudiant form-control form-control-lg center" required="required">
+                                                <option  value="">-- Choisissez un statut --</option>
                                                 <c:forEach items="${presences}" var="presence">
+
                                                     <c:if test="${presence.getEtudiant().getIdE() == etudiant.getIdE()}">
+
                                                         <c:set var="target" value="true" scope="page"></c:set>
                                                         <c:choose>
-                                                            <c:when test="${presence.getStatut() == 'present'}">
-                                                                <option value="Present" selected>Présent</option>
+                                                            <c:when test="${presence.getStatut() == 'Present'}">
+                                                                <option value="Present" selected="selected">Présent </option>
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <option value="Present">Présent</option>
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <c:choose>
-                                                            <c:when test="${presence.getStatut() == 'absent'}">
-                                                                <option value="Absent" selected>Absent</option>
+                                                            <c:when test="${presence.getStatut() == 'Absent'}">
+                                                                <option value="Absent" selected="selected">Absent </option>
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <option value="Absent">Absent</option>
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <c:choose>
-                                                            <c:when test="${presence.getStatut() == 'en retard'}">
-                                                                <option value="En retard" selected>En retard</option>
+                                                            <c:when test="${presence.getStatut() == 'En retard'}">
+                                                                <option value="En retard" selected="selected">En retard</option>
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <option value="En retard">En retard</option>
@@ -138,12 +132,12 @@
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-end row">
-                        <a href="calendarServlet?week=thisWeek" class="btn btn-lg btn-secondary"> Retour </a>
+                        <a href="calendarServlet?week=thisWeek" class="btn btn-lg btn-secondary" id = "retour"> Retour </a>
                         <c:if test="${!isValide}">
-                            <input class="btn btn-lg btn-primary" type="submit" name="action" value="Valider"/>
+                            <input class="btn btn-lg btn-primary" type="submit" id = "valider" name="action" value="Valider"/>
                         </c:if>
                         <c:if test="${isValide}">
-                            <input class="btn btn-lg btn-dark" type="submit" name="action" value="Imprimer"/>
+                            <input class="btn btn-lg btn-dark" type="button" id = "impression" onclick="imprimer_page()" name="impression" value="Imprimer"/>
                         </c:if>
                     </div>
                 </div>
@@ -156,5 +150,11 @@
 <!-- End of Main Content -->
 
 </body>
-</html>
+<script type="text/javascript">
+    function imprimer_page(){
+        window.print();
+    }
+</script>
 <script type="text/JavaScript" src="${pageContext.request.contextPath}/javascript/fctxml.js"></script>
+</html>
+
