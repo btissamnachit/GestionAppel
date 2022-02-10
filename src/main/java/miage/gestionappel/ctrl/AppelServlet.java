@@ -52,6 +52,7 @@ public class AppelServlet extends HttpServlet {
         String action = request.getParameter("action");
         switch (action) {
             case "EnregistrerEtudiant":
+
                 String statut = request.getParameter("statut");
                 System.out.println("stt "+statut);
                 int idEtudiant = Integer.parseInt(request.getParameter("idEtudiant"));
