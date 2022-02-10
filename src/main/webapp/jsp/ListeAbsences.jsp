@@ -42,11 +42,11 @@
            data-toolbar="#toolbar">
         <thead>
         <tr>
-            <th data-field="state" data-checkbox="true"></th>
-            <th data-field="prenom" data-filter-control="select" data-sortable="true">Cour</th>
-            <th data-field="date" data-filter-control="select" data-sortable="true">Date</th>
-            <th data-field="examen" data-filter-control="select" data-sortable="true">Heure de debut</th>
-            <th data-field="examen" data-filter-control="select" data-sortable="true">Heure de fin</th>
+<%--            <th data-field="state" data-checkbox="true"></th>--%>
+            <th data-field="cour" data-filter-control="select" data-sortable="true">Cour</th>
+            <th data-field="datecour " data-filter-control="select" data-sortable="true">Date</th>
+            <th data-field="heuredebut" data-filter-control="select" data-sortable="true">Heure de debut</th>
+            <th data-field="heurefin" data-filter-control="select" data-sortable="true">Heure de fin</th>
 
         </tr>
         </thead>
@@ -58,8 +58,8 @@
                     int i = 0;
                     for (Occurence o : occurences) {
                         out.println("<tr>");
-                        out.println("\n" +
-                                "                <td class=\"bs-checkbox\"><input data-index=\"" + i + "\"name=\"btSelectItem\" type=\"checkbox\"></td>");
+//                        out.println("\n" +
+//                                "                <td class=\"bs-checkbox\"><input data-index=\"" + i + "\"name=\"btSelectItem\" type=\"checkbox\"></td>");
                         out.println("<td>" + o.getCours().getNomC() + "</td>");
                         out.println("<td>" + o.getDateOc() + "</td>");
                         out.println("<td>" + o.getHeureDebutOc() + "</td>");
