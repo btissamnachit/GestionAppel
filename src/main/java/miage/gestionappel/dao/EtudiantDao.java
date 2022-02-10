@@ -1,13 +1,12 @@
 package miage.gestionappel.dao;
 
+import miage.gestionappel.metier.Cours;
 import miage.gestionappel.metier.Etudiant;
-import miage.gestionappel.metier.Professeur;
+import miage.gestionappel.metier.Occurence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Optional;
 
 public class EtudiantDao implements Dao<Etudiant> {
      @Override
@@ -79,6 +78,30 @@ public class EtudiantDao implements Dao<Etudiant> {
             t.commit();
 
         }
+    }
+
+    public List<Occurence> getAbsencesCours(Etudiant etudiant, Cours cours) {
+        List<Occurence> absences = null;
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            absences = session.createQuery(" select Occurence FROM Occurence as Oc,Presenter as P,Etudiant E " +
+                            "WHERE Oc.cours.idC= :cours " +
+                            "and Oc.idOc = P.occurence.idOc and  P.etudiant.idE = :etudiant and P.statut = 'Absent'")
+                    .setParameter("cours", cours.getIdC())
+                    .setParameter("etudiant", etudiant.getIdE()).list();
+        }
+        return absences;
+    }
+
+    public List<Occurence> getAllAbsence(Etudiant etudiant) {
+        List<Occurence> listAbsences = null;
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            listAbsences = session.createQuery(" from Presenter " +
+                            "WHERE Presenter.etudiant.idE = :etudiant and Presenter .statut = 'Absent'")
+                    .setParameter("etudiant", etudiant.getIdE()).list();
+        }
+        return listAbsences;
+
+
     }
 
 
