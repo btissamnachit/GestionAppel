@@ -25,8 +25,14 @@
 <body>
 <div class="container rounded bg-white mt-5">
     <div class="row">
+        <form action="profilservlet" name ="form" method="POST" enctype="multipart/form-data">
         <div class="col-md-4 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" src="https://i.imgur.com/0eg0aG0.jpg" width="90"><span class="font-weight-bold">John Doe</span><span class="text-black-50">john_doe12@bbb.com</span><span>United States</span></div>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5" id="photoprofil"><img class="rounded-circle mt-5" src="${pageContext.request.contextPath}/imagephoto" width="90"><span class="font-weight-bold">${sessionScope.prenom} ${sessionScope.nom} </span><span class="text-black-50">${sessionScope.mail}</span><span>${sessionScope.role}</span>
+                <tr>
+                    <th>Changer la photo</th>
+                    <td><input type="file" id="ajaxfile" name="fichier"/></td>
+                </tr>
+            </div>
         </div>
         <div class="col-md-8">
             <div class="p-3 py-5">
@@ -52,10 +58,35 @@
                     <div class="col-md-6"><input type="text" class="form-control" placeholder="Bank Name" value="Bank of America"></div>
                     <div class="col-md-6"><input type="text" class="form-control" value="043958409584095" placeholder="Account Number"></div>
                 </div>
-                <div class="mt-5 text-right"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+                <div class="mt-5 text-right"><button onclick="uploadFile()"  class="btn btn-primary profile-button" type="submit" value="envoyer">Save Profile</button></div>
             </div>
         </div>
+        </form>
     </div>
 </div>
+
+<script>
+    async function uploadFile() {
+        let formData = new FormData();
+        formData.append("file", ajaxfile.files[0]);
+        await fetch('profilservlet', {
+            method: "POST",
+            body: formData
+        });
+        alert('The file upload with Ajax and Java was a success!');
+    }
+</script>
+
+<script>
+    async function refreshFile() {
+        let formData = new FormData();
+        formData.append("file", ajaxfile.files[0]);
+        await fetch('profilservlet', {
+            method: "POST",
+            body: formData
+        });
+        alert('The file upload with Ajax and Java was a success!');
+    }
+</script>
 </body>
 </html>
