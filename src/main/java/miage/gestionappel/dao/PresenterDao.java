@@ -57,16 +57,12 @@ public class PresenterDao  implements Dao<Presenter>{
     }
 
     public void saveOrUpdate(Presenter presence) {
-        System.out.println("heere1");
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
-            System.out.println("heere2");
             Transaction t = session.beginTransaction();
             System.out.println(presence.getStatut());
             session.saveOrUpdate(presence);
-            System.out.println("still heere");
             t.commit();
-            System.out.println("finish");
         }
     }
 

@@ -83,6 +83,7 @@ public class EtudiantDao implements Dao<Etudiant> {
     public List<Occurence> getAbsencesCours(Etudiant etudiant, Cours cours) {
         List<Occurence> absences = null;
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
             absences = session.createQuery(" select Occurence FROM Occurence as Oc,Presenter as P,Etudiant E " +
                             "WHERE Oc.cours.idC= :cours " +
                             "and Oc.idOc = P.occurence.idOc and  P.etudiant.idE = :etudiant and P.statut = 'Absent'")
@@ -95,9 +96,12 @@ public class EtudiantDao implements Dao<Etudiant> {
     public List<Occurence> getAllAbsence(Etudiant etudiant) {
         List<Occurence> listAbsences = null;
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            listAbsences = session.createQuery(" from Presenter " +
-                            "WHERE Presenter.etudiant.idE = :etudiant and Presenter .statut = 'Absent'")
-                    .setParameter("etudiant", etudiant.getIdE()).list();
+            Transaction t = session.beginTransaction();
+            listAbsences = session.createQuery(" SELECT p.occurence from Presenter p where p.etudiant.idE = :etudiant  AND p.statut = 'Absent'").setParameter("etudiant", etudiant.getIdE()).list();
+
+
+
+            t.commit();
         }
         return listAbsences;
 

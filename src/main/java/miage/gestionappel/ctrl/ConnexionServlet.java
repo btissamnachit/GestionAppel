@@ -59,6 +59,7 @@ public class ConnexionServlet extends HttpServlet {
                     EtudiantDao etudiantDao = new EtudiantDao();
 
                     Etudiant etudiant = etudiantDao.getByEmail(email);
+                    System.out.println(etudiant.toString());
 
                     session.setAttribute("etudiant", etudiant);
 

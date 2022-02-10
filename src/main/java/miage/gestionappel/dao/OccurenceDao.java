@@ -56,6 +56,7 @@ public class OccurenceDao implements Dao<Occurence> {
             }
             session.update(occurence);
             t.commit();
+            System.out.println("finich update");
         }
     }
 

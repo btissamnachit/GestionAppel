@@ -21,39 +21,69 @@
 </head>
 <%@ include file="Menu.jsp" %>
 <body>
-<div>
-    <select class="custom-select">
-        <option selected value="1">January</option>
-        <option value="2">February</option>
-        <option value="3">March</option>
+<div class="container">
+    <h1>Liste des Absences</h1>
 
-        <option value="4">April</option>
+    <div id="toolbar">
+        <select class="form-control">
+            <option value="">Export Basic</option>
+            <option value="all">Export All</option>
+            <option value="selected">Export Selected</option>
+        </select>
+    </div>
 
-        <option value="5">May</option>
+    <table id="table"
+           data-toggle="table"
+           data-search="true"
+           data-filter-control="true"
+           data-show-export="true"
+           data-click-to-select="true"
+           data-toolbar="#toolbar">
+        <thead>
+        <tr>
+            <th data-field="state" data-checkbox="true"></th>
+            <th data-field="prenom" data-filter-control="select" data-sortable="true">Cour</th>
+            <th data-field="date" data-filter-control="select" data-sortable="true">Date</th>
+            <th data-field="examen" data-filter-control="select" data-sortable="true">Heure de debut</th>
+            <th data-field="examen" data-filter-control="select" data-sortable="true">Heure de fin</th>
 
-        <option value="6">June</option>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${absencesetudiant}" var="absence">
 
-        <option value="7">July</option>
+            <tr>
+                <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+                <td>${absence.getCours().getNomC()}----------</td>
+                <td>${absence.getDateOc()}--------------</td>
+                <td>${absence.getHeureDebutOc()}-----------</td>
+                <td>${absence.getHeureFinOc()}---------</td>
+            </tr>
 
-        <option value="8">August</option>
+            <a href="#" class="list-group-item list-group-item-action">[${absence.getDateOc()}: de ${absence.getHeureDebutOc()} à ${absence.getHeureFinOc()}]</a>
 
-        <option value="9">September</option>
+        </c:forEach>
 
-        <option value="10">October</option>
 
-        <option value="11">November</option>
-
-        <option value="12">December</option>
-    </select>
-</div>
-<div class="list-group">
-    <a href="#" class="list-group-item list-group-item-action">
-        Cras justo odio
-    </a>
-    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-    <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-    <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-    <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+        </tbody>
+    </table>
 </div>
 </body>
+<script>
+    //exporte les données sélectionnées
+    var $table = $('#table');
+    $(function () {
+        $('#toolbar').find('select').change(function () {
+            $table.bootstrapTable('refreshOptions', {
+                exportDataType: $(this).val()
+            });
+        });
+    })
+
+    var trBoldBlue = $("table");
+
+    $(trBoldBlue).on("click", "tr", function (){
+        $(this).toggleClass("bold-blue");
+    });
+</script>
 </html>

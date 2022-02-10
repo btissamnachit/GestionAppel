@@ -73,6 +73,28 @@ public class Test {
 
     }
     public static void main(String[] args) throws ParseException, FileNotFoundException {
+
+        EtudiantDao ed = new EtudiantDao();
+        Etudiant etu;
+        etu=ed.getByEmail("anis.mana@ut-capitole.fr");
+
+        List<Occurence> absences = (List<Occurence>) ed.getAllAbsence(etu);
+
+        Occurence occurence = absences.get(0);
+            String s = occurence.getCours().getNomC();
+        System.out.println(s);
+
+
+
+//
+//        for (Occurence absence : absences){
+//
+//            System.out.println (absence.getCours());
+        };
+
+
+
+
 //
 //        ProfesseurDao pf = new ProfesseurDao();
 //        Professeur p ;
@@ -94,5 +116,7 @@ public class Test {
 //            }
 //        }
 
+
+
+
     }
-}
