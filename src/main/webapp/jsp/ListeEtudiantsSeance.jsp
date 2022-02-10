@@ -23,8 +23,6 @@
 
 <%@ include file="Menu.jsp" %>
 <body>
-
-<%@ include file="Menu.jsp" %>
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <form action='/appelServlet' method="POST">

@@ -6,17 +6,16 @@ import miage.gestionappel.dao.PresenterDao;
 import miage.gestionappel.metier.*;
 
 import javax.mail.*;
-import javax.mail.internet.AddressException;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import java.util.Properties;
-import java.util.Set;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.Set;
 
 public class AppelServlet extends HttpServlet {
     OccurenceDao occurenceDao = new OccurenceDao();
@@ -53,13 +52,13 @@ public class AppelServlet extends HttpServlet {
         String action = request.getParameter("action");
         switch (action) {
             case "EnregistrerEtudiant":
-                String statut = request.getParameter("statutEtudiant");
+                String statut = request.getParameter("statut");
                 System.out.println("stt "+statut);
-               /* int idEtudiant = Integer.parseInt(request.getParameter("idEtudiant"));
+                int idEtudiant = Integer.parseInt(request.getParameter("idEtudiant"));
                 Etudiant etudiant = etudiantDao.get(idEtudiant);
                 PrensenterId prensenterId = new PrensenterId(occurence.getIdOc(), idEtudiant);
                 Presenter presenter = new Presenter(prensenterId, occurence, etudiant, statut);
-                presenterDao.saveOrUpdate(presenter);*/
+                presenterDao.saveOrUpdate(presenter);
                 break;
             case "Valider":
                 occurence.setAppelValide(true);
