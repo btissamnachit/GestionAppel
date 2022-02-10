@@ -51,11 +51,17 @@ public class ListeCoursServlet extends HttpServlet {
                 }
             }
         }
-
+        request.setAttribute("cours", coursProfesseur);
+        request.setAttribute("nbAbsence", nbAbsence);
+        request.setAttribute("moyenneAbsence", moyenneAbsence);
+        request.setAttribute("etudiantsAbsenteistes", etudiantsAbsenteistes);
+        request.setAttribute("absenceEtudiantGlobal", absenceEtudiantGlobal);
+        request.getRequestDispatcher("listeetudiants").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
     }
 
 
