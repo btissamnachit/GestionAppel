@@ -54,10 +54,13 @@
                     out.println("<li class=\"cd-schedule__group\"> <div class=\"cd-schedule__top-info\">");
                     out.println("<span>" + date + "</span></div><ul>");
                     for (Occurence cours : timeTable.get(date)) {
+                        String dataEvent = cours.getAppelValide() ? "event-1" : "event-2";
+                        String appelUrl = "appelServlet?idOccurence=" + cours.getIdOc();
                         out.println("<li class=\"cd-schedule__event\">");
                         out.println("<a data-start=\"" + cours.getHeureDebutOc());
                         out.println("\"data-end=\" " + cours.getHeureFinOc());
-                        out.println("\" data-content=\"" + cours.getIdOc() + "\" data-event=\"event-1\" href=\"#0\">");
+                        out.println("\" data-content=\"" + cours.getIdOc() + "\" data-event=\"" + dataEvent + "\" ");
+                        out.println("href=\"" + appelUrl + "\">");
                         out.println("<em class=\"cd-schedule__name\">" + cours.getCours().getNomC() + "</em> </a></li>");
                     }
                     out.println("</ul> </li>");

@@ -23,8 +23,6 @@
 
 <%@ include file="Menu.jsp" %>
 <body>
-
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <form action='/appelServlet' method="POST">
@@ -140,7 +138,7 @@
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-end row">
-                        <a href="/appelServlet?action=Retour" class="btn btn-lg btn-secondary"> Retour </a>
+                        <a href="calendarServlet?week=thisWeek" class="btn btn-lg btn-secondary"> Retour </a>
                         <c:if test="${!isValide}">
                             <input class="btn btn-lg btn-primary" type="submit" name="action" value="Valider"/>
                         </c:if>
