@@ -19,21 +19,25 @@
 
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/print.css" type="text/css" media="print" />
 </head>
+
+<%@ include file="Menu.jsp" %>
+
 <body>
-
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <form action='/appelServlet' method="POST">
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Cours : ${cours} [Séance : ]</h1>
+        <h1 class="h3 mb-2 text-gray-800">Cours : ${cours} [${occurence.getDateOc()}: de ${occurence.getHeureDebutOc()} à ${occurence.getHeureFinOc()}]</h1>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Liste des Etudiants </h6>
             </div>
+            <div id="alert"></div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable">
@@ -75,6 +79,7 @@
                                             </c:when>
                                         </c:choose>
                                     </td>
+                                    <td></td>
                                 </tr>
                             </c:forEach>
                         </c:if>
@@ -136,9 +141,12 @@
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-end row">
-                        <a href="/appelServlet?action=Retour" class="btn btn-lg btn-secondary"> Retour </a>
+                        <a href="calendarServlet?week=thisWeek" class="btn btn-lg btn-secondary" id = "retour"> Retour </a>
                         <c:if test="${!isValide}">
-                            <input class="btn btn-lg btn-primary" type="submit" name="action" value="Enregistrer"/>
+                            <input class="btn btn-lg btn-primary" type="submit" id = "valider" name="action" value="Valider"/>
+                        </c:if>
+                        <c:if test="${isValide}">
+                            <input class="btn btn-lg btn-dark" type="button" id = "impression" onclick="imprimer_page()" name="impression" value="Imprimer"/>
                         </c:if>
                     </div>
                 </div>
@@ -151,5 +159,10 @@
 <!-- End of Main Content -->
 
 </body>
+<script type="text/javascript">
+    function imprimer_page(){
+        window.print();
+    }
+</script
 </html>
 <script type="text/JavaScript" src="${pageContext.request.contextPath}/javascript/fctxml.js"></script>

@@ -2,6 +2,8 @@ package miage.gestionappel.util;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,8 +14,8 @@ public class DateManipulation {
     private LocalDate dateNow;
     private DateTime startOfTheWeek;
     private DateTime endOfTheWeek;
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE");
-
+    private final SimpleDateFormat dateNameFormat = new SimpleDateFormat("EEEE");
+    private final DateTimeFormatter localDateFormat = DateTimeFormat.forPattern("EEE MMM dd HH:mm:ss zzz yyyy");
 
     public DateManipulation() {
         this.dateNow = LocalDate.now();
@@ -28,13 +30,15 @@ public class DateManipulation {
 
     public void setDateNow(LocalDate dateNow) {
         this.dateNow = dateNow;
+        setStartOfTheWeek(dateNow);
+        setEndOfTheWeek();
     }
 
     public DateTime getStartOfTheWeek() {
         return startOfTheWeek;
     }
 
-    public void setStartOfTheWeek(DateTime date) {
+    public void setStartOfTheWeek(LocalDate date) {
         this.startOfTheWeek = new DateTime().withYear(date.getYear()).withWeekOfWeekyear(date.getWeekOfWeekyear())
                 .withDayOfWeek(1);
     }
@@ -43,8 +47,8 @@ public class DateManipulation {
         return endOfTheWeek;
     }
 
-    public void setEndOfTheWeek(DateTime endOfTheWeek) {
-        this.endOfTheWeek = endOfTheWeek;
+    public void setEndOfTheWeek() {
+        this.endOfTheWeek = startOfTheWeek.plusDays(4);
     }
 
     public List<Date> getAllDateOfWeek() {
@@ -57,7 +61,23 @@ public class DateManipulation {
     }
 
     public String getDateName(Date date) {
-        return dateFormat.format(date);
+        return dateNameFormat.format(date);
+    }
+
+    public LocalDate toLocalDate(String date) {
+        return LocalDate.parse(date, localDateFormat);
+    }
+
+    public void addOneWeek() {
+        this.dateNow = dateNow.plusDays(7);
+        setStartOfTheWeek(this.dateNow);
+        setEndOfTheWeek();
+    }
+
+    public void removeOneWeek() {
+        this.dateNow = dateNow.minusDays(7);
+        setStartOfTheWeek(this.dateNow);
+        setEndOfTheWeek();
     }
 
 }

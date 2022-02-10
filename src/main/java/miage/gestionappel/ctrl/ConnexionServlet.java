@@ -1,6 +1,5 @@
 package miage.gestionappel.ctrl;
 
-import com.google.protobuf.Message;
 import miage.gestionappel.dao.EtudiantDao;
 import miage.gestionappel.dao.ExceptionDao;
 import miage.gestionappel.dao.ProfesseurDao;
@@ -9,9 +8,11 @@ import miage.gestionappel.metier.Etudiant;
 import miage.gestionappel.metier.Professeur;
 import miage.gestionappel.metier.User;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class ConnexionServlet extends HttpServlet {
@@ -49,7 +50,7 @@ public class ConnexionServlet extends HttpServlet {
                     ProfesseurDao professeurDao = new ProfesseurDao();
 
                     Professeur professeur = professeurDao.getByEmail(email);
-
+                    System.out.println(professeur.toString());
                     session.setAttribute("professeur", professeur);
 
                 }

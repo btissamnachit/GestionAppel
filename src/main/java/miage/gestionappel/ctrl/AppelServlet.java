@@ -5,12 +5,16 @@ import miage.gestionappel.dao.OccurenceDao;
 import miage.gestionappel.dao.PresenterDao;
 import miage.gestionappel.metier.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
+import java.util.Properties;
 import java.util.Set;
 
 public class AppelServlet extends HttpServlet {
@@ -49,15 +53,22 @@ public class AppelServlet extends HttpServlet {
         switch (action) {
             case "EnregistrerEtudiant":
                 String statut = request.getParameter("statut");
+                System.out.println("stt "+statut);
                 int idEtudiant = Integer.parseInt(request.getParameter("idEtudiant"));
                 Etudiant etudiant = etudiantDao.get(idEtudiant);
-                PrensenterId prensenterId = new PrensenterId(occurence.getIdOc(),idEtudiant);
-                Presenter presenter = new Presenter(prensenterId,occurence,etudiant,statut);
+                PrensenterId prensenterId = new PrensenterId(occurence.getIdOc(), idEtudiant);
+                Presenter presenter = new Presenter(prensenterId, occurence, etudiant, statut);
                 presenterDao.saveOrUpdate(presenter);
                 break;
-            case "Enregistrer":
+            case "Valider":
                 occurence.setAppelValide(true);
-                occurenceDao.update(occurence,null);
+                occurenceDao.update(occurence, null);
+                for (Presenter p : occurence.getPresences()) {
+                    if (p.getStatut() == "absent") {
+                        sendMail(p.getEtudiant(), occurence);
+                    }
+                }
+
                 // vers emploi du temps
                 break;
             case "Retour":
@@ -66,4 +77,61 @@ public class AppelServlet extends HttpServlet {
 
         }
     }
+
+    protected void sendMail(Etudiant etudiant, Occurence occurence) {
+        String to = etudiant.getMailE();
+        String from = "bt.nachit@gmail.com";
+
+        // Assuming you are sending email from through gmails smtp
+        String host = "smtp.gmail.com";
+
+        // Get system properties
+        Properties properties = System.getProperties();
+
+        // Setup mail server
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+
+        // Get the Session object.// and pass username and password
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+
+            protected PasswordAuthentication getPasswordAuthentication() {
+
+                return new PasswordAuthentication("bt.nachit@gmail.com", "BTna1234");
+
+            }
+        });
+        // Used to debug SMTP issues
+        session.setDebug(true);
+
+        try {
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+            // Set Subject: header field
+            message.setSubject("[Capitole UT1] Notification d'absence");
+
+            // Now set the actual message
+            message.setText("Bonjour, Vous etes notifié absent dans la séance de date : " + occurence.getDateOc() + " entre : " + occurence.getHeureDebutOc() + " et " + occurence.getHeureDebutOc());
+
+            System.out.println("sending...");
+            // Send message
+            Transport.send(message);
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+
+    }
+
+
 }
+

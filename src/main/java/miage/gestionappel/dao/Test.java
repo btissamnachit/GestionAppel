@@ -1,9 +1,17 @@
 package miage.gestionappel.dao;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 import miage.gestionappel.metier.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -47,7 +55,24 @@ public class Test {
         }
     }
 
-    public static void main(String[] args) throws ParseException {
+
+    public static final String DEST ="results/pdf/hello_world.pdf";
+
+    public void createPdf (String destination) throws FileNotFoundException {
+
+        FileOutputStream fos = new FileOutputStream(DEST);
+        PdfWriter writer = new PdfWriter(fos);
+
+        PdfDocument pdf = new PdfDocument(writer);
+
+        Document document = new Document(pdf);
+
+        document.add(new Paragraph("Hello World!"));
+
+        document.close();
+
+    }
+    public static void main(String[] args) throws ParseException, FileNotFoundException {
 //
 //        ProfesseurDao pf = new ProfesseurDao();
 //        Professeur p ;
@@ -68,24 +93,6 @@ public class Test {
 //                System.out.println("résultat6 : " + lnomcours.get(j));
 //            }
 //        }
-
-        ProfesseurDao professeurDao = new ProfesseurDao();
-        Professeur professeur = new Professeur();
-
-        professeur = professeurDao.getByEmail("nathalie.valles-parlangeau@ut-capitole.fr");
-
-        Set<Cours> cours = professeur.getCours();
-
-        for (Cours c : cours) {
-            Set<Groupe> groupes = c.getGroupes();
-            for (Groupe g : groupes) {
-                Set<Etudiant> etudiants = g.getEtudiants();
-
-                for (Etudiant e : etudiants) {
-                    System.out.println(e.getNomE());
-                }
-            }
-        }
 
     }
 }

@@ -1,7 +1,9 @@
-function getTimeTable() {
+document.onload = function getTimeTable() {
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "calendarServlet");
+    var date = new date();
+    alert(date);
+    xhr.open("GET", "calendarServlet?date=" + date);
     xhr.responseType = 'json';
 
     const semaine = ["lundi", "mardi", "mercredi", "jeudi", "vendredi"]
@@ -33,7 +35,6 @@ function getTimeTable() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
     document.addEventListener("load", getTimeTable);
 
 });
