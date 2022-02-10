@@ -30,6 +30,8 @@ public class DateManipulation {
 
     public void setDateNow(LocalDate dateNow) {
         this.dateNow = dateNow;
+        setStartOfTheWeek(dateNow);
+        setEndOfTheWeek();
     }
 
     public DateTime getStartOfTheWeek() {

@@ -86,21 +86,21 @@
         </c:if>
         <c:if test="${sessionScope.role == 'professeur'}">
 
-        <li class="nav-item">
-            <a class="nav-link" href="listeCoursServlet">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Mes cours</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="calendar">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Mon emploi du temps</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="listeetudiants">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Liste des étudiants</span></a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link" href="listeCoursServlet">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Mes cours</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="calendarServlet?week=thisWeek">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Mon emploi du temps</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="listeetudiants">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Liste des étudiants</span></a>
+            </li>
 
         </c:if>
 

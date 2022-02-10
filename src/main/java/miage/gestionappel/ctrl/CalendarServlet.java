@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 public class CalendarServlet extends HttpServlet {
     private final SimpleDateFormat comparaisonFormat = new SimpleDateFormat("dd-MM-yyyy");
     private final SimpleDateFormat displayFormat = new SimpleDateFormat("EEEE, dd/MM");
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -30,28 +29,28 @@ public class CalendarServlet extends HttpServlet {
         //Professeur professeur = (Professeur)session.getAttribute("professeur");
         Set<Occurence> occurencesList = professeur.getOccurences();
         DateManipulation dm = new DateManipulation();
-        setFocusWeek(request, dm);
-        List<Date> weekDetails = getFocusWeekDetails(dm);
-        System.out.println(getWeekClasses(weekDetails, occurencesList));
         String action = request.getParameter("week");
         switch (action) {
             case "thisWeek":
-                request.setAttribute("week", dm.getDateNow());
-                request.setAttribute("timetable", getWeekClasses(weekDetails, occurencesList));
-                request.getRequestDispatcher("calendar").forward(request, response);
+                session.setAttribute("week", dm.getDateNow());
+                setFocusWeek(session, dm);
+                break;
             case "precedent":
-                dm.setDateNow((LocalDate) request.getAttribute("week"));
+                dm.setDateNow((LocalDate) session.getAttribute("week"));
                 dm.removeOneWeek();
-                request.setAttribute("week", dm.getDateNow());
-                request.setAttribute("timetable", getWeekClasses(weekDetails, occurencesList));
-                request.getRequestDispatcher("calendar").forward(request, response);
+                session.setAttribute("week", dm.getDateNow());
+                setFocusWeek(session, dm);
+                break;
             case "suivant":
-                dm.setDateNow((LocalDate) request.getAttribute("week"));
+                dm.setDateNow((LocalDate) session.getAttribute("week"));
                 dm.addOneWeek();
-                request.setAttribute("week", dm.getDateNow());
-                request.setAttribute("timetable", getWeekClasses(weekDetails, occurencesList));
-                request.getRequestDispatcher("calendar").forward(request, response);
+                session.setAttribute("week", dm.getDateNow());
+                setFocusWeek(session, dm);
+                break;
         }
+        List<Date> weekDetails = getFocusWeekDetails(dm);
+        request.setAttribute("timetable", getWeekClasses(weekDetails, occurencesList));
+        request.getRequestDispatcher("calendar").forward(request, response);
     }
 
     @Override
@@ -59,9 +58,9 @@ public class CalendarServlet extends HttpServlet {
         doGet(request, response);
     }
 
-    protected void setFocusWeek(HttpServletRequest request, DateManipulation dm) {
-        if (request.getAttribute("week") != null) {
-            LocalDate week = (LocalDate) request.getAttribute("week");
+    protected void setFocusWeek(HttpSession session, DateManipulation dm) {
+        if (session.getAttribute("week") != null) {
+            LocalDate week = (LocalDate) session.getAttribute("week");
             dm.setDateNow(week);
         }
 
