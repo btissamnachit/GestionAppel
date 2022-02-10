@@ -13,14 +13,12 @@
 <%@ include file="Menu.jsp" %>
 <body>
 <div class="nav_button">
-    <button class="favorite styled"
-            href="calendarServlet?week=precedent">
-        Precedent
-    </button>
-    <button class="favorite styled"
-            href="calendarServlet?week=suivant">
-        Suivant
-    </button>
+    <a href="calendarServlet?week=precedent">
+        <button> Precedent</button>
+    </a>
+    <a href="calendarServlet?week=suivant">
+        <button> Suivant</button>
+    </a>
 </div>
 <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
     <div class="cd-schedule__timeline">
@@ -50,17 +48,17 @@
     <div id="cd-schedule__events" class="cd-schedule__events">
         <ul>
             <%
-                HashMap<Date, List<Occurence>> timeTable = (HashMap<Date, List<Occurence>>) request.getAttribute("timetable");
-                Set<Date> dates = timeTable.keySet();
-                for (Date date : dates) {
+                LinkedHashMap<String, List<Occurence>> timeTable = (LinkedHashMap<String, List<Occurence>>) request.getAttribute("timetable");
+                Set<String> dates = timeTable.keySet();
+                for (String date : dates) {
                     out.println("<li class=\"cd-schedule__group\"> <div class=\"cd-schedule__top-info\">");
-                    out.println("<span>" + String.valueOf(date) + "</span></div><ul>");
+                    out.println("<span>" + date + "</span></div><ul>");
                     for (Occurence cours : timeTable.get(date)) {
                         out.println("<li class=\"cd-schedule__event\">");
-                        out.println("<a data-start=\"" + String.valueOf(cours.getHeureDebutOc()));
-                        out.println("\"data-end=\" " + String.valueOf(cours.getHeureDebutOc()));
-                        out.println("\"data-event=\"event-1\" href=\"#0\">");
-                        out.println("<em class=\"cd-schedule__name\">" + cours.getCours().getNomC() + "</em </a></li>");
+                        out.println("<a data-start=\"" + cours.getHeureDebutOc());
+                        out.println("\"data-end=\" " + cours.getHeureFinOc());
+                        out.println("\" data-content=\"" + cours.getIdOc() + "\" data-event=\"event-1\" href=\"#0\">");
+                        out.println("<em class=\"cd-schedule__name\">" + cours.getCours().getNomC() + "</em> </a></li>");
                     }
                     out.println("</ul> </li>");
                 }

@@ -1,5 +1,6 @@
 package miage.gestionappel.ctrl;
 
+import miage.gestionappel.dao.ProfesseurDao;
 import miage.gestionappel.metier.Occurence;
 import miage.gestionappel.metier.Professeur;
 import miage.gestionappel.util.DateManipulation;
@@ -11,19 +12,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CalendarServlet extends HttpServlet {
+    private final SimpleDateFormat comparaisonFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private final SimpleDateFormat displayFormat = new SimpleDateFormat("EEEE, dd/MM");
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         HttpSession session = request.getSession(true);
-        Professeur professeur = (Professeur) session.getAttribute("professeur");
+        String email = (String) session.getAttribute("email");
+        ProfesseurDao dao = new ProfesseurDao();
+        Professeur professeur = dao.getByEmail(email);
+        //Professeur professeur = (Professeur)session.getAttribute("professeur");
         Set<Occurence> occurencesList = professeur.getOccurences();
         DateManipulation dm = new DateManipulation();
         setFocusWeek(request, dm);
         List<Date> weekDetails = getFocusWeekDetails(dm);
-
+        System.out.println(getWeekClasses(weekDetails, occurencesList));
         String action = request.getParameter("week");
         switch (action) {
             case "thisWeek":
@@ -31,11 +40,13 @@ public class CalendarServlet extends HttpServlet {
                 request.setAttribute("timetable", getWeekClasses(weekDetails, occurencesList));
                 request.getRequestDispatcher("calendar").forward(request, response);
             case "precedent":
+                dm.setDateNow((LocalDate) request.getAttribute("week"));
                 dm.removeOneWeek();
                 request.setAttribute("week", dm.getDateNow());
                 request.setAttribute("timetable", getWeekClasses(weekDetails, occurencesList));
                 request.getRequestDispatcher("calendar").forward(request, response);
             case "suivant":
+                dm.setDateNow((LocalDate) request.getAttribute("week"));
                 dm.addOneWeek();
                 request.setAttribute("week", dm.getDateNow());
                 request.setAttribute("timetable", getWeekClasses(weekDetails, occurencesList));
@@ -60,18 +71,19 @@ public class CalendarServlet extends HttpServlet {
         return dm.getAllDateOfWeek();
     }
 
-    protected HashMap<Date, List<Occurence>> getWeekClasses(List<Date> weekDates, Set<Occurence> occurencesList) {
-        HashMap<Date, List<Occurence>> weekClasses = new HashMap<>();
+    protected LinkedHashMap<String, List<Occurence>> getWeekClasses(List<Date> weekDates, Set<Occurence> occurencesList) {
+        LinkedHashMap<String, List<Occurence>> weekClasses = new LinkedHashMap<>();
+        Collections.sort(weekDates);
         for (Date date : weekDates) {
             List<Occurence> dayClasses = getDayClasses(date, occurencesList);
-            weekClasses.put(date, dayClasses);
+            weekClasses.put(displayFormat.format(date), dayClasses);
         }
         return weekClasses;
     }
 
     protected List<Occurence> getDayClasses(Date dDay, Set<Occurence> occurencesList) {
-        List<Occurence> dayClasses = new ArrayList<>();
-        dayClasses = occurencesList.stream().filter(occurence -> occurence.getDateOc() == dDay).collect(Collectors.toList());
+        List<Occurence> dayClasses;
+        dayClasses = occurencesList.stream().filter(occurence -> comparaisonFormat.format(occurence.getDateOc()).equals(comparaisonFormat.format(dDay))).collect(Collectors.toList());
         return dayClasses;
     }
 
