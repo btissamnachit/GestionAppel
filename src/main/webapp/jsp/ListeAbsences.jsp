@@ -1,11 +1,14 @@
-<%--
+<%@ page import="miage.gestionappel.metier.Occurence" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: manaa
   Date: 07/02/2022
   Time: 15:29
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -17,20 +20,14 @@
     <title>UT1 Capitole</title>
 
     <!-- Custom styles for this template-->
-    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/style1.css" rel="stylesheet">
+
+    <link href="${pageContext.request.contextPath}/css/script.js" rel="script">
 </head>
 <%@ include file="Menu.jsp" %>
 <body>
 <div class="container">
     <h1>Liste des Absences</h1>
-
-    <div id="toolbar">
-        <select class="form-control">
-            <option value="">Export Basic</option>
-            <option value="all">Export All</option>
-            <option value="selected">Export Selected</option>
-        </select>
-    </div>
 
     <table id="table"
            data-toggle="table"
@@ -50,40 +47,26 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${absencesetudiant}" var="absence">
 
-            <tr>
-                <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
-                <td>${absence.getCours().getNomC()}----------</td>
-                <td>${absence.getDateOc()}--------------</td>
-                <td>${absence.getHeureDebutOc()}-----------</td>
-                <td>${absence.getHeureFinOc()}---------</td>
-            </tr>
 
-            <a href="#" class="list-group-item list-group-item-action">[${absence.getDateOc()}: de ${absence.getHeureDebutOc()} à ${absence.getHeureFinOc()}]</a>
+            <%
+                    List<Occurence> occurences = (List<Occurence>) request.getAttribute("absencesetudiant");
+                    int i = 0;
+                    for (Occurence o : occurences) {
+                        out.println("<tr>");
+                        out.println("\n" +
+                                "                <td class=\"bs-checkbox\"><input data-index=\"" + i + "\"name=\"btSelectItem\" type=\"checkbox\"></td>");
+                        out.println("<td>" + o.getCours().getNomC() + "</td>");
+                        out.println("<td>" + o.getDateOc() + "</td>");
+                        out.println("<td>" + o.getHeureDebutOc() + "</td>");
+                        out.println("<td>" + o.getHeureFinOc() + "</td>"); }
 
-        </c:forEach>
+            %>
+
 
 
         </tbody>
     </table>
 </div>
 </body>
-<script>
-    //exporte les données sélectionnées
-    var $table = $('#table');
-    $(function () {
-        $('#toolbar').find('select').change(function () {
-            $table.bootstrapTable('refreshOptions', {
-                exportDataType: $(this).val()
-            });
-        });
-    })
-
-    var trBoldBlue = $("table");
-
-    $(trBoldBlue).on("click", "tr", function (){
-        $(this).toggleClass("bold-blue");
-    });
-</script>
 </html>
