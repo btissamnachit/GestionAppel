@@ -1,12 +1,12 @@
 package miage.gestionappel.dao;
 
 import miage.gestionappel.metier.Cours;
+import miage.gestionappel.metier.Etudiant;
 import miage.gestionappel.metier.Occurence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CoursDao implements Dao<Cours>{
 
@@ -51,11 +51,53 @@ public class CoursDao implements Dao<Cours>{
 
     @Override
     public void delete(Cours cours) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
-        {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             session.remove(cours);
             t.commit();
         }
     }
+
+    public int nbAbsence(Cours cours) {
+        int nbAbsences = 0;
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            session.beginTransaction();
+
+            nbAbsences = (int) session.createQuery("select count(*) FROM " +
+                            "Occurence as Oc,Presenter as P WHERE Oc.cours.idC= :cours " +
+                            "and Oc.idOc = P.occurence.idOc and P.statut = 'Absent'")
+                    .setParameter("cours", cours.getIdC()).uniqueResult();
+
+        }
+        return nbAbsences;
+    }
+
+    public int nbOccurence(Cours cours) {
+        return cours.getOccurences().size();
+    }
+
+    public float moyenneAbscence(Cours cours) {
+        if (nbAbsence(cours) != 0) {
+            return (float) (nbAbsence(cours) / nbOccurence(cours));
+        } else {
+            return 0F;
+        }
+    }
+
+    public List<Etudiant> getEtudiantsAbsentistes(Cours cours) {
+        List<Etudiant> etudiantsAbsenteistes = null;
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            session.beginTransaction();
+            EtudiantDao etudiantDao = new EtudiantDao();
+            List<Etudiant> etudiants = etudiantDao.getAll();
+            for (Etudiant etudiant : etudiants) {
+                List<Occurence> absences = etudiantDao.getAbsencesCours(etudiant, cours);
+                if (absences.size() > 3) {
+                    etudiantsAbsenteistes.add(etudiant);
+                }
+            }
+        }
+        return etudiantsAbsenteistes;
+    }
+
 }
