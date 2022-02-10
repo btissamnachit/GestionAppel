@@ -1,6 +1,7 @@
 package miage.gestionappel.metier;
 
 import javax.persistence.*;
+import javax.servlet.http.Part;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -53,7 +54,7 @@ public class Justificatif {
         this.statutJustif = statutJustif;
     }
 
-    public String getUrlj() {
+    public String getUrlj(Part part) {
         return urlj;
     }
 

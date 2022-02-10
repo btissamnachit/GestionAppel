@@ -80,6 +80,4 @@ public class EtudiantDao implements Dao<Etudiant> {
 
         }
     }
-
-
 }

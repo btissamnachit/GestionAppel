@@ -45,7 +45,11 @@ public class CalendarServlet extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             out.print(timeTable);
         }
+
+        this.getServletContext().getRequestDispatcher("/depotjustificatif").forward(request, response);
     }
+
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
