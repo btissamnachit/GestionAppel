@@ -1,6 +1,7 @@
 package miage.gestionappel.ctrl;
 
 import miage.gestionappel.dao.HibernateUtil;
+import miage.gestionappel.dao.JustificatifDao;
 import miage.gestionappel.metier.Justificatif;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -62,13 +63,15 @@ public class DepotJustServlet extends HttpServlet {
         String finPeriode = request.getParameter("finPeriode");
         request.setAttribute("finPeriode", finPeriode);
 
+        String filename = "justificatif_" + description + ".pdf";
+
         Part part = request.getPart("fichier");
         InputStream is = null;
         if (part != null)
             is = part.getInputStream();
 
         try {
-            String filename = "justificatif_" + description + ".pdf";
+
             FileOutputStream fileOutputStream = new FileOutputStream(new File(CHEMIN_FICHIERS + filename));
 
             byte[] buffer = new byte[8192];
@@ -85,17 +88,13 @@ public class DepotJustServlet extends HttpServlet {
             e.printStackTrace();
 
         }
-
         response.sendRedirect("/depotjustificatif");
 
-//        Transaction tx = null;
-//        try (Session session = HibernateUtil.getSessionFactory().openSession()){
-//            tx = session.beginTransaction();
-//            session.persist();
-//            tx.commit();
-//
-//        }catch(Exception e){
 
-        }
+
+
+
     }
+
+}
 
