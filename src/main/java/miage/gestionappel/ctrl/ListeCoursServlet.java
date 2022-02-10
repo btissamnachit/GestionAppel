@@ -104,6 +104,7 @@ public class ListeCoursServlet extends HttpServlet {
 
             out.println("</liste_etudiant>");
         }
+
     }
 
 }
