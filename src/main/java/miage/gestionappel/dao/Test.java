@@ -8,15 +8,11 @@ import miage.gestionappel.metier.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class Test {
     public static void createUser() {
@@ -73,50 +69,29 @@ public class Test {
 
     }
     public static void main(String[] args) throws ParseException, FileNotFoundException {
-
-        EtudiantDao ed = new EtudiantDao();
-        Etudiant etu;
-        etu=ed.getByEmail("anis.mana@ut-capitole.fr");
-
-        List<Occurence> absences = (List<Occurence>) ed.getAllAbsence(etu);
-
-        Occurence occurence = absences.get(0);
-            String s = occurence.getCours().getNomC();
-        System.out.println(s);
-
-
-
-//
-//        for (Occurence absence : absences){
-//
-//            System.out.println (absence.getCours());
-        };
-
-
-
-
-//
-//        ProfesseurDao pf = new ProfesseurDao();
-//        Professeur p ;
-//        p = pf.getByEmail("nathalie.valles-parlangeau@ut-capitole.fr");
-//        Set<Cours> lc =  p.getCours();
-//        System.out.println("résultat1 : " + lc);
-//        ArrayList<Cours> liste = new ArrayList<Cours>(lc);
-//        System.out.println("résultat2 : " + liste);
-//        ArrayList<String> lnomcours = new ArrayList<>();
-//        System.out.println("résultat3 : " + lnomcours);
-//        for (int i = 0; i < liste.size(); i++) {
-//            String nomC = liste.get(i).getNomC();
-//            System.out.println("résultat4 : " + nomC);
-//            lnomcours.add(nomC);
-//            System.out.println("résultat5 : " + lnomcours);
-//
-//            for(int j=0; j < lnomcours.size();j++) {
-//                System.out.println("résultat6 : " + lnomcours.get(j));
-//            }
-//        }
-
-
-
+        CoursDao coursDao = new CoursDao();
+        ProfesseurDao professeurDao = new ProfesseurDao();
+        Cours cours = coursDao.get(1231);
+        EtudiantDao etudiantDao = new EtudiantDao();
+        Professeur professeur = professeurDao.get(2322);
+        System.out.println(coursDao.getEtudiantsAbsentistes(cours));
+        HashMap<Cours, Long> nbAbsence = new HashMap<>();
+        HashMap<Cours, Double> moyenneAbsence = new HashMap<>();
+        HashMap<Cours, List<Etudiant>> etudiantsAbsenteistes = new HashMap<>();
+        HashMap<Etudiant, Integer> absenceEtudiantGlobal = new HashMap<>();
+        long absensesCours = coursDao.nbAbsence(cours);
+        double moyenneAbsenceCours = coursDao.moyenneAbscence(cours);
+        List<Etudiant> etudiantsAbsenteistesCours = coursDao.getEtudiantsAbsentistes(cours);
+        nbAbsence.put(cours, absensesCours);
+        moyenneAbsence.put(cours, moyenneAbsenceCours);
+        etudiantsAbsenteistes.put(cours, etudiantsAbsenteistesCours);
+        for (Etudiant etudiantAbsenteiste : etudiantsAbsenteistesCours) {
+            if (!absenceEtudiantGlobal.entrySet().contains(etudiantAbsenteiste)) {
+                int nbAbsencesEtudiantGlobal = etudiantDao.getAllAbsence(etudiantAbsenteiste).size();
+                absenceEtudiantGlobal.put(etudiantAbsenteiste, nbAbsencesEtudiantGlobal);
+            }
+        }
+        System.out.println(etudiantsAbsenteistes.containsKey(cours));
+    }
 
     }
