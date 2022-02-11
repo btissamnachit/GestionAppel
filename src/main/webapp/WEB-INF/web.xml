@@ -45,6 +45,10 @@
         <jsp-file>/jsp/ListeEtudiantsSeance.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>DepotJustificatif</servlet-name>
+        <jsp-file>/jsp/DepotJustificatif.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>AppelServlet</servlet-name>
         <servlet-class>miage.gestionappel.ctrl.AppelServlet</servlet-class>
     </servlet>
@@ -63,6 +67,10 @@
     <servlet>
         <servlet-name>CalendarServlet</servlet-name>
         <servlet-class>miage.gestionappel.ctrl.CalendarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DepotJustServlet</servlet-name>
+        <servlet-class>miage.gestionappel.ctrl.DepotJustServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
@@ -101,6 +109,10 @@
         <url-pattern>/listeEtudiantsSeance</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>DepotJustificatif</servlet-name>
+        <url-pattern>/depotJustificatif</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AppelServlet</servlet-name>
         <url-pattern>/appelServlet</url-pattern>
     </servlet-mapping>
@@ -119,6 +131,10 @@
     <servlet-mapping>
         <servlet-name>CalendarServlet</servlet-name>
         <url-pattern>/calendarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DepotJustServlet</servlet-name>
+        <url-pattern>/depotJustServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>login</welcome-file>
