@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity(name = "Cours")
 public class Cours {
@@ -73,6 +74,11 @@ public class Cours {
 
     public Set<Occurence> getOccurences() {
         return occurences;
+    }
+
+    public Set<Occurence> getOccurencesValidees() {
+        Set<Occurence> occurencesValidees = this.occurences.stream().filter(Occurence::getAppelValide).collect(Collectors.toSet());
+        return occurencesValidees;
     }
 
     public void setOccurences(Set<Occurence> occurences) {

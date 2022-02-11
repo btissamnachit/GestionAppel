@@ -74,7 +74,7 @@ details summary {
     outline: 0;
 }
 
-details p {
+details table {
     font-size: 0.95rem;
     margin: 0 0 1rem;
     padding-top: 1rem;
