@@ -32,7 +32,7 @@
 <%@ include file="Menu.jsp" %>
 <body>
 <div class="container">
-    <h1>Liste des Absences</h1>
+    <h1>Recapitulatif des Absences</h1>
 
     <div class="accordion" id="accordionExample">
         <div class="card">
