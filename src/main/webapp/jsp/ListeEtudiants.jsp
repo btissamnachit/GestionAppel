@@ -98,6 +98,7 @@
                 }
                 out.println("</details>");
             }
+
         %>
     </section>
 </div>

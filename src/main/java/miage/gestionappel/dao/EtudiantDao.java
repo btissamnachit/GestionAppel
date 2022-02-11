@@ -6,6 +6,8 @@ import miage.gestionappel.metier.Occurence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class EtudiantDao implements Dao<Etudiant> {
@@ -109,6 +111,27 @@ public class EtudiantDao implements Dao<Etudiant> {
 
 
     }
+    public List<Occurence> getAllAbsenceMois(Etudiant etudiant, Date dateexacte) {
+
+        SimpleDateFormat month = new SimpleDateFormat("mm");
+        String mois = month.format(dateexacte);
+        List<Occurence> listAbsences = null;
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            listAbsences = session.createQuery(" SELECT p.occurence from Presenter p where p.etudiant.idE = :etudiant  AND p.statut = 'Absent' AND MONTH(p.occurence.dateOc) = :month").setParameter("etudiant", etudiant.getIdE()).setParameter("month",mois).list();
 
 
-}
+            t.commit();
+        }
+        return listAbsences;
+
+
+    }
+
+
+    }
+
+
+
+
+

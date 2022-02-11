@@ -59,13 +59,11 @@ public class ConnexionServlet extends HttpServlet {
                     EtudiantDao etudiantDao = new EtudiantDao();
 
                     Etudiant etudiant = etudiantDao.getByEmail(email);
-                    System.out.println(etudiant.toString());
 
                     session.setAttribute("etudiant", etudiant);
 
                 }
 
-                System.out.println("hello "+session.getAttribute("nom"));
                 request.getRequestDispatcher("profil").forward(request, response);
             } catch (ExceptionDao e) {
                 request.setAttribute("msg_e", e.getMessage());

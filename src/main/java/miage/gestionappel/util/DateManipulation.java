@@ -22,6 +22,7 @@ public class DateManipulation {
         this.startOfTheWeek = new DateTime().withYear(dateNow.getYear()).withWeekOfWeekyear(dateNow.getWeekOfWeekyear())
                 .withDayOfWeek(1);
         this.endOfTheWeek = startOfTheWeek.plusDays(4);
+
     }
 
     public LocalDate getDateNow() {
@@ -33,6 +34,7 @@ public class DateManipulation {
         setStartOfTheWeek(dateNow);
         setEndOfTheWeek();
     }
+
 
     public DateTime getStartOfTheWeek() {
         return startOfTheWeek;

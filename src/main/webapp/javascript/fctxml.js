@@ -17,6 +17,25 @@ function enregistrerStatut() {
 
 }
 
+function enregistrerStatutJust() {
+    let statut = this.value;
+    let idJustificatif = this.previousElementSibling.value;
+    let divAlert = document.getElementById('alert');
+    divAlert.innerHTML = "<div class=\"d-flex justify-content-center\"><img width='50' src=\"/image/load.svg\"></div>";
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/depotJustServlet", true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send("action=EnregistrerStatutJustificatif&statut="+statut+"&idJustificatif="+idJustificatif);
+
+    xhr.onload = function () {
+        if (xhr.status === 200){
+            divAlert.innerHTML = "";
+        }
+    };
+
+}
+
 function listEtudiantCours() {
     let occurence = this.value;
     let tbody = document.getElementById("listEtudiant");
@@ -81,6 +100,10 @@ document.addEventListener("DOMContentLoaded", () => {
         item.addEventListener("change", enregistrerStatut);
     });
 
+    document.querySelectorAll('.statutJustificatif').forEach(item => {
+
+        item.addEventListener("change", enregistrerStatutJust);
+    });
 
     document.getElementById("selectCours").addEventListener("change",listOccurencesCours);
     document.getElementById("selectOccurences").addEventListener("change",listEtudiantCours);

@@ -13,6 +13,7 @@
     <!-- Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/styleJustif.css" rel="stylesheet">
 
 </head>
 <%@ include file="Menu.jsp" %>
@@ -25,7 +26,7 @@
 
             <div class="card">
 
-        <form method="POST" class="form-card" action="/depotJustServlet" enctype="multipart/form-data">
+        <form method="POST" class="form-card" action="/depotJustServlet?action=EnregistrerJustificatif" enctype="multipart/form-data">
             <div class="row justify-content-between text-left">
                 <div class="form-group col-sm-6 flex-column d-flex nativeDatePicker">
                     <label class="form-control-label px-3">Date de debut <span class="text-danger"> *</span></label>

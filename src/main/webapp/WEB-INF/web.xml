@@ -37,6 +37,10 @@
         <jsp-file>/jsp/ListeAbsences.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>AbsenceAlternant</servlet-name>
+        <jsp-file>/jsp/ListeAbsenceAlternant.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>ListeEtudiants</servlet-name>
         <jsp-file>/jsp/ListeEtudiants.jsp</jsp-file>
     </servlet>
@@ -48,6 +52,15 @@
         <servlet-name>DepotJustificatif</servlet-name>
         <jsp-file>/jsp/DepotJustificatif.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>ConsultationJustif</servlet-name>
+        <jsp-file>/jsp/ConsultationJustif.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>ConsultationJustifEtudiant</servlet-name>
+        <jsp-file>/jsp/ConsultationJustifEtudiant.jsp</jsp-file>
+    </servlet>
+
     <servlet>
         <servlet-name>AppelServlet</servlet-name>
         <servlet-class>miage.gestionappel.ctrl.AppelServlet</servlet-class>
@@ -67,6 +80,10 @@
     <servlet>
         <servlet-name>ListeAbsenceServlet</servlet-name>
         <servlet-class>miage.gestionappel.ctrl.ListeAbsenceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AbsenceAlternantServlet</servlet-name>
+        <servlet-class>miage.gestionappel.ctrl.AbsenceAlternantServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProfilServlet</servlet-name>
@@ -109,8 +126,16 @@
         <url-pattern>/listeabsences</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AbsenceAlternant</servlet-name>
+        <url-pattern>/absencesalternant</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ListeAbsenceServlet</servlet-name>
         <url-pattern>/listeabsenceservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AbsenceAlternantServlet</servlet-name>
+        <url-pattern>/absencealternantservlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListeEtudiants</servlet-name>
@@ -123,6 +148,14 @@
     <servlet-mapping>
         <servlet-name>DepotJustificatif</servlet-name>
         <url-pattern>/depotJustificatif</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultationJustif</servlet-name>
+        <url-pattern>/consultationJustif</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultationJustifEtudiant</servlet-name>
+        <url-pattern>/consultationJustifEtudiant</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AppelServlet</servlet-name>

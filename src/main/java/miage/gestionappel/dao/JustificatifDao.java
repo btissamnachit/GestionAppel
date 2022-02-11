@@ -50,6 +50,7 @@ public class JustificatifDao implements Dao<Justificatif> {
             if(params != null){
                 justificatif.setStatutJustif(params[0]);
             }
+            session.update(justificatif);
             t.commit();
         }
 

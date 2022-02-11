@@ -4,6 +4,7 @@ import miage.gestionappel.metier.Occurence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,12 @@ public class OccurenceDao implements Dao<Occurence> {
             return occurence;
         }
     }
+    public String getMoisOccurence(Occurence occurence) {
+
+        SimpleDateFormat month = new SimpleDateFormat("MM");
+        String montht = month.format(occurence.getDateOc());
+        return montht;
+        }
 
     @Override
     public List<Occurence> getAll() {
