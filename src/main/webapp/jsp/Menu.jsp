@@ -96,12 +96,6 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Mon emploi du temps</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="listeetudiants?">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Liste des étudiants</span></a>
-            </li>
-
         </c:if>
 
 

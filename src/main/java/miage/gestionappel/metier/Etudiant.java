@@ -70,7 +70,7 @@ public class Etudiant {
         this.mailE = mailE;
     }
 
- /*   public Set<Groupe> getGroupes() {
+    public Set<Groupe> getGroupes() {
         return groupes;
     }
 
@@ -85,7 +85,7 @@ public class Etudiant {
     public void setPresences(Set<Presenter> presences) {
         this.presences = presences;
     }
-*/
+
     public void addPresence(Presenter presence) {
         this.presences.add(presence);
      }
