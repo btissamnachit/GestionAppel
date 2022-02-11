@@ -49,6 +49,15 @@
         <jsp-file>/jsp/DepotJustificatif.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>ConsultationJustif</servlet-name>
+        <jsp-file>/jsp/ConsultationJustif.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>ConsultationJustifEtudiant</servlet-name>
+        <jsp-file>/jsp/ConsultationJustifEtudiant.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
         <servlet-name>AppelServlet</servlet-name>
         <servlet-class>miage.gestionappel.ctrl.AppelServlet</servlet-class>
     </servlet>
@@ -123,6 +132,14 @@
     <servlet-mapping>
         <servlet-name>DepotJustificatif</servlet-name>
         <url-pattern>/depotJustificatif</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultationJustif</servlet-name>
+        <url-pattern>/consultationJustif</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultationJustifEtudiant</servlet-name>
+        <url-pattern>/consultationJustifEtudiant</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AppelServlet</servlet-name>

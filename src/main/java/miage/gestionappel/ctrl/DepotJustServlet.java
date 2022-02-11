@@ -3,9 +3,8 @@ package miage.gestionappel.ctrl;
 import miage.gestionappel.dao.EtudiantDao;
 import miage.gestionappel.dao.HibernateUtil;
 import miage.gestionappel.dao.JustificatifDao;
-import miage.gestionappel.metier.Etudiant;
-import miage.gestionappel.metier.Justificatif;
-import miage.gestionappel.metier.Occurence;
+import miage.gestionappel.dao.PresenterDao;
+import miage.gestionappel.metier.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -22,11 +21,14 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 @MultipartConfig(maxFileSize = 16777215)
 public class DepotJustServlet extends HttpServlet {
     EtudiantDao etudiantDao = new EtudiantDao();
+    PresenterDao presenterDao = new PresenterDao();
     SendMail sendMail= new SendMail();
     JustificatifDao justificatifDao = new JustificatifDao();
     private static final long serialVersionUID = 1L;
@@ -36,59 +38,85 @@ public class DepotJustServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String description = request.getParameter("description");
-        request.setAttribute("description", description);
-        String debutPeriode = request.getParameter("debutPeriode");
-        request.setAttribute("debutPeriode", debutPeriode);
-        String finPeriode = request.getParameter("finPeriode");
-        request.setAttribute("finPeriode", finPeriode);
+        HttpSession session = request.getSession(true);
+        String action = request.getParameter("action");
+        String role = (String) session.getAttribute("role");
 
-        OutputStream is = response.getOutputStream();
-
-        try {
-            String filename = "justificatif_"  + description + ".pdf";
-            FileInputStream fileInputStream = new FileInputStream(new File( CHEMIN_FICHIERS+ filename));
-
-            byte[] buffer = new byte[8192];
-            int readBytes = -1;
-
-            while ((readBytes = fileInputStream.read(buffer)) != -1) {
-                is.write(buffer, 0, readBytes);
-            }
-            fileInputStream.close();
-            is.flush();
-            is.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        List<Justificatif> justificatifList = justificatifDao.getAll();
+        request.setAttribute("justificatifs", justificatifList);
+        request.setAttribute("lienJust", CHEMIN_FICHIERS);
+        switch (action){
+            case "Afficher":
+                if(role.equals("scolarite"))
+                request.getRequestDispatcher("/consultationJustif").forward(request, response);
+                else if(role.equals("etudiant")){
+                    String email = (String) session.getAttribute("email");
+                    Etudiant etudiant = etudiantDao.getByEmail(email);
+                    request.setAttribute("etudiant",etudiant);
+                    request.getRequestDispatcher("/consultationJustifEtudiant").forward(request, response);
+                }
+                break;
+            case "AfficherJustificatif":
+                recupererJustificatifEnLocal(request,response);
         }
-        response.sendRedirect("/depotjustificatif");
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            HttpSession session = request.getSession(true);
-            String filename = enregistrerJustificatifEnLocal(request,response);
-            Date dateDebut = new SimpleDateFormat("dd-MM-yy").parse(request.getParameter("debutPeriode"));
-            Date dateFin = new SimpleDateFormat("dd-MM-yy").parse(request.getParameter("finPeriode"));
-            String email = (String) session.getAttribute("email");
-            Etudiant etudiant = etudiantDao.getByEmail(email);
-            Justificatif justificatif = new Justificatif("En cours",CHEMIN_FICHIERS+filename,dateDebut,dateFin,etudiant);
-            justificatifDao.save(justificatif);
+        HttpSession session = request.getSession(true);
+        String action = request.getParameter("action");
+        switch (action) {
+            case "EnregistrerJustificatif":
+                try {
+                    String filename = enregistrerJustificatifEnLocal(request, response);
+                    Date dateDebut = new SimpleDateFormat("dd-MM-yy").parse(request.getParameter("debutPeriode"));
+                    Date dateFin = new SimpleDateFormat("dd-MM-yy").parse(request.getParameter("finPeriode"));
+                    String email = (String) session.getAttribute("email");
+                    Etudiant etudiant = etudiantDao.getByEmail(email);
+                    Justificatif justificatif = new Justificatif("En cours", filename, dateDebut, dateFin, etudiant);
+                    justificatifDao.save(justificatif);
 
-            //envoie de mail à la scolarité
-            String objet = "[Capitole UT1] Notification d'absence";
-            String message = "<!DOCTYPE html>\n" +
-                    "<html>\n" +
-                    "<head>\n" +
-                    "    <title>Message</title>\n" +
-                    "    <meta charset=\"UTF-8\">\n" +
-                    "</head>\n" +
-                    "<body><p>Bonjour,</p><p>L'etudiant "+ etudiant.getNomE()+ " "+ etudiant.getPrenomE() + ",INE : "+etudiant.getIdE()+" a diposé une justificatif pour la période suivante : entre le "+displayFormat.format(dateDebut)+" et le "+displayFormat.format(dateFin)+"</p>";
-            sendMail.sendMail("scolarite@ut-capitole.fr",objet, message);
-        } catch (ParseException e) {
-            e.printStackTrace();
+                    //envoie de mail à la scolarité
+                    String objet = "[Capitole UT1] Notification d'absence";
+                    String message = "<!DOCTYPE html>\n" +
+                            "<html>\n" +
+                            "<head>\n" +
+                            "    <title>Message</title>\n" +
+                            "    <meta charset=\"UTF-8\">\n" +
+                            "</head>\n" +
+                            "<body><p>Bonjour,</p><p>L'etudiant " + etudiant.getNomE() + " " + etudiant.getPrenomE() + ",INE : " + etudiant.getIdE() + " a diposé une justificatif pour la période suivante : entre le " + displayFormat.format(dateDebut) + " et le " + displayFormat.format(dateFin) + "</p>";
+                    sendMail.sendMail("scolarite@ut-capitole.fr", objet, message);
+
+                    String msg_avert = "Votre justificatif a été transmis à la scolarité";
+                    request.setAttribute("msg_a", msg_avert);
+                    List<Justificatif> justificatifList = justificatifDao.getAll();
+                    request.setAttribute("justificatifs", justificatifList);
+                    request.setAttribute("lienJust", CHEMIN_FICHIERS);
+                    request.setAttribute("etudiant", etudiant);
+                    request.getRequestDispatcher("/consultationJustifEtudiant").forward(request, response);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "EnregistrerStatutJustificatif":
+                String statut = request.getParameter("statut");
+                int idJustificatif = Integer.parseInt(request.getParameter("idJustificatif"));
+                Justificatif justificatif = justificatifDao.get(idJustificatif);
+                justificatif.setStatutJustif(statut);
+                justificatifDao.update(justificatif, null);
+                List<Presenter> presenters = presenterDao.getAll();
+                for (Presenter presenter: presenters ) {
+                    if(presenter.getEtudiant().getIdE() == justificatif.getEtudiant().getIdE()){
+                        Occurence occurence = presenter.getOccurence();
+                        if((occurence.getDateOc().compareTo(justificatif.getDateDebut()) >= 0) && (occurence.getDateOc().compareTo(justificatif.getDateFin()) <= 0) ){
+                                presenter.setStatut("Absence justifie");
+                                presenterDao.saveOrUpdate(presenter);
+                        }
+                    }
+                }
+
+                break;
         }
 
     }
@@ -129,6 +157,34 @@ public class DepotJustServlet extends HttpServlet {
         }
         return filename;
     }
+
+
+    protected void recupererJustificatifEnLocal(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+        String description = request.getParameter("description");
+        request.setAttribute("description", description);
+
+        OutputStream is = response.getOutputStream();
+
+        try {
+            String filename = description;
+            FileInputStream fileInputStream = new FileInputStream(new File( CHEMIN_FICHIERS+ filename));
+
+            byte[] buffer = new byte[8192];
+            int readBytes = -1;
+
+            while ((readBytes = fileInputStream.read(buffer)) != -1) {
+                is.write(buffer, 0, readBytes);
+            }
+            fileInputStream.close();
+            is.flush();
+            is.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 
 
