@@ -8,6 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="static java.lang.System.out" %>
+<%@ page import="miage.gestionappel.metier.Cours" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.HashMap" %>
 
 
 <html>
@@ -39,6 +42,14 @@
             Mes cours
         </h1>
         <details>
+            <%
+                Set<Cours> cours = (Set<Cours>) request.getAttribute("cours");
+                HashMap<Cours, Integer> nbAbsences = (HashMap<Cours, Integer>) request.getAttribute("nbAbsence");
+                HashMap<Cours, Float> moyenneAbsence = (HashMap<Cours, Float>) request.getAttribute("moyenneAbsence");
+                request.getAttribute("etudiantsAbsenteistes");
+                request.getAttribute("absenceEtudiantGlobal");
+            %>
+
             <summary>Details</summary>
             <p>
                 Lorem ipsum dolor sit amet, eu alia suscipit mei. Reque iriure delectus vix id, ex sed forensibus

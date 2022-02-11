@@ -68,7 +68,7 @@
         <!-- Nav Item - Pages Collapse Menu -->
                     <c:if test="${sessionScope.role == 'etudiant'}">
         <li class="nav-item">
-            <a class="nav-link" href="listeabsences">
+            <a class="nav-link" href="listeabsenceservlet">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Consulter mes absences</span></a>
         </li>
