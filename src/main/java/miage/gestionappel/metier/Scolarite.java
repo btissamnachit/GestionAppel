@@ -15,15 +15,25 @@ public class Scolarite {
     @Column(name = "LibelleS")
     private String libelleS;
 
+    @Column(name = "MailS")
+    private String mailS;
+
     @OneToMany(mappedBy = "scolarite", fetch = FetchType.EAGER)
     private Set<Cours> cours = new HashSet(0);
 
     public Scolarite() {
     }
 
-    public Scolarite(int idS, String libelleS, Set<Cours> cours) {
+    public Scolarite(int idS, String libelleS, String mailS, Set<Cours> cours) {
         this.idS = idS;
         this.libelleS = libelleS;
+        this.mailS = mailS;
+        this.cours = cours;
+    }
+
+    public Scolarite(String libelleS, String mailS, Set<Cours> cours) {
+        this.libelleS = libelleS;
+        this.mailS = mailS;
         this.cours = cours;
     }
 
@@ -53,6 +63,14 @@ public class Scolarite {
 
     public void setCours(Set<Cours> cours) {
         this.cours = cours;
+    }
+
+    public String getMailS() {
+        return mailS;
+    }
+
+    public void setMailS(String mailS) {
+        this.mailS = mailS;
     }
 
     @Override

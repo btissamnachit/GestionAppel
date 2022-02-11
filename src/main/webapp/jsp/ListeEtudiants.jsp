@@ -11,6 +11,8 @@
 <%@ page import="miage.gestionappel.metier.Cours" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="miage.gestionappel.metier.Etudiant" %>
+<%@ page import="java.util.List" %>
 
 
 <html>
@@ -41,43 +43,62 @@
         <h1>
             Mes cours
         </h1>
-        <details>
-            <%
-                Set<Cours> cours = (Set<Cours>) request.getAttribute("cours");
-                HashMap<Cours, Integer> nbAbsences = (HashMap<Cours, Integer>) request.getAttribute("nbAbsence");
-                HashMap<Cours, Float> moyenneAbsence = (HashMap<Cours, Float>) request.getAttribute("moyenneAbsence");
-                request.getAttribute("etudiantsAbsenteistes");
-                request.getAttribute("absenceEtudiantGlobal");
-            %>
-            <summary>Details</summary>
-            <p>
-                Lorem ipsum dolor sit amet, eu alia suscipit mei. Reque iriure delectus vix id, ex sed forensibus
-                suscipiantur. In eos exerci mollis apeirian, an qui latine alienum. Ad mea libris maluisset, consul
-                assueverit sea ex.
-            </p>
-        </details>
-        <details>
-            <summary>Features</summary>
-            <p>
-                Lorem ipsum dolor sit amet, eu alia suscipit mei. Reque iriure delectus vix id, ex sed forensibus
-                suscipiantur. In eos exerci mollis apeirian, an qui latine alienum. Ad mea libris maluisset, consul
-                assueverit sea ex.
-            </p>
-        </details>
-        <details>
-            <summary>Information
-            </summary>
-            <p>Lorem ipsum dolor sit amet, eu alia suscipit mei. Reque iriure delectus vix id, ex sed forensibus
-                suscipiantur. In eos exerci mollis apeirian, an qui latine alienum. Ad mea libris maluisset, consul
-                assueverit sea ex. </p>
-        </details>
-        <details>
-            <summary>Specifications
-            </summary>
-            <p>Lorem ipsum dolor sit amet, eu alia suscipit mei. Reque iriure delectus vix id, ex sed forensibus
-                suscipiantur. In eos exerci mollis apeirian, an qui latine alienum. Ad mea libris maluisset, consul
-                assueverit sea ex. </p>
-        </details>
+        <%
+            Set<Cours> cours = (Set<Cours>) request.getAttribute("cours");
+            HashMap<Cours, Long> nbAbsences = (HashMap<Cours, Long>) request.getAttribute("nbAbsence");
+            HashMap<Cours, Double> moyenneAbsence = (HashMap<Cours, Double>) request.getAttribute("moyenneAbsence");
+            HashMap<Cours, List<Etudiant>> etudiantsAbsenteistes = (HashMap<Cours, List<Etudiant>>) request.getAttribute("etudiantsAbsenteistes");
+            System.out.println(etudiantsAbsenteistes.keySet());
+            HashMap<Etudiant, Integer> absenceEtudiantGlobal = (HashMap<Etudiant, Integer>) request.getAttribute("absenceEtudiantGlobal");
+            for (Cours matiere : cours) {
+                System.out.println(matiere);
+                out.println("<details><summary> " + matiere.getNomC() + "</summary>");
+                out.println("<table>\n" +
+                        "                <thead>\n" +
+                        "                <tr>\n" +
+                        "                    <th colspan=\"2\">Absentéisme</th>\n" +
+                        "                </tr>\n" +
+                        "                </thead>\n" +
+                        "                <tbody>\n" +
+                        "                <tr>\n" +
+                        "                    <td>Nombre d'absences au total</td>\n" +
+                        "                    <td>" + nbAbsences.get(matiere) + "</td>\n" +
+                        "                </tr>\n" +
+                        "                <tr>\n" +
+                        "                    <td>Nombre moyen d'absence </td>\n" +
+                        "                    <td>" + moyenneAbsence.get(matiere) + "</td>\n" +
+                        "                </tr>\n" +
+                        "                </tbody>\n" +
+                        "            </table>");
+                System.out.println(etudiantsAbsenteistes.containsKey(cours));
+                if ((etudiantsAbsenteistes.containsKey(matiere))) {
+                    out.println("<table>\n" +
+                            "                <thead>\n" +
+                            "                <tr>\n" +
+                            "                    <th colspan=\"3\">Etudiant Absenteiste</th>\n" +
+                            "                </tr>\n" +
+                            "                </thead>\n" +
+                            "                <tbody>\n" +
+                            "                <tr>\n" +
+                            "                    <td>Numéro etudiant</td>\n" +
+                            "                    <td>Nom Prénom</td>\n" +
+                            "                    <td>Total d'absences globales</td>\n" +
+                            "                </tr>\n");
+
+                    for (Etudiant etudiantAbsenteiste : etudiantsAbsenteistes.get(matiere)) {
+
+                        out.println("<tr>\n" +
+                                "                   <td><a href='listeabsenceservlet?idE=" + etudiantAbsenteiste.getIdE() + "'> " + etudiantAbsenteiste.getIdE() + "</a></td>\n" +
+                                "                    <td>" + etudiantAbsenteiste.getNomE() + " " + etudiantAbsenteiste.getPrenomE() + "</td>\n" +
+                                "                    <td>" + absenceEtudiantGlobal.get(etudiantAbsenteiste) + "</td></a>\n" +
+                                "                </tr>\n");
+                    }
+                    out.println("                </tbody>\n" +
+                            "            </table>");
+                }
+                out.println("</details>");
+            }
+        %>
     </section>
 </div>
 <!-- /.container-fluid -->

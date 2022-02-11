@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 public class EtudiantDao implements Dao<Etudiant> {
+
      @Override
     public Etudiant get(int id) {
 
@@ -86,11 +87,12 @@ public class EtudiantDao implements Dao<Etudiant> {
         List<Occurence> absences = null;
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            absences = session.createQuery(" select Occurence FROM Occurence as Oc,Presenter as P,Etudiant E " +
-                            "WHERE Oc.cours.idC= :cours " +
+            absences = session.createQuery(" select Oc FROM Occurence as Oc,Presenter as P" +
+                            " WHERE Oc.cours.idC= :cours " +
                             "and Oc.idOc = P.occurence.idOc and  P.etudiant.idE = :etudiant and P.statut = 'Absent'")
                     .setParameter("cours", cours.getIdC())
                     .setParameter("etudiant", etudiant.getIdE()).list();
+            t.commit();
         }
         return absences;
     }

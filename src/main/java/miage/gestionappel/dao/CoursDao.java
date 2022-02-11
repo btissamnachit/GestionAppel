@@ -2,11 +2,14 @@ package miage.gestionappel.dao;
 
 import miage.gestionappel.metier.Cours;
 import miage.gestionappel.metier.Etudiant;
-import miage.gestionappel.metier.Occurence;
+import miage.gestionappel.metier.Groupe;
+import miage.gestionappel.metier.Presenter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CoursDao implements Dao<Cours>{
 
@@ -58,12 +61,12 @@ public class CoursDao implements Dao<Cours>{
         }
     }
 
-    public int nbAbsence(Cours cours) {
-        int nbAbsences = 0;
+    public long nbAbsence(Cours cours) {
+        long nbAbsences;
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
 
-            nbAbsences = (int) session.createQuery("select count(*) FROM " +
+            nbAbsences = (long) session.createQuery("select count(*) FROM " +
                             "Occurence as Oc,Presenter as P WHERE Oc.cours.idC= :cours " +
                             "and Oc.idOc = P.occurence.idOc and P.statut = 'Absent'")
                     .setParameter("cours", cours.getIdC()).uniqueResult();
@@ -73,31 +76,46 @@ public class CoursDao implements Dao<Cours>{
     }
 
     public int nbOccurence(Cours cours) {
-        return cours.getOccurences().size();
+        return cours.getOccurencesValidees().size();
     }
 
-    public float moyenneAbscence(Cours cours) {
+    public double moyenneAbscence(Cours cours) {
+        long nbAbsence = nbAbsence(cours);
+        double nbOccurence = nbOccurence(cours);
         if (nbAbsence(cours) != 0) {
-            return (float) (nbAbsence(cours) / nbOccurence(cours) * 100);
+            System.out.println(nbAbsence(cours));
+            System.out.println(nbOccurence(cours));
+            return (nbAbsence / nbOccurence);
         } else {
-            return 0F;
+            return 0D;
         }
     }
 
     public List<Etudiant> getEtudiantsAbsentistes(Cours cours) {
-        List<Etudiant> etudiantsAbsenteistes = null;
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            session.beginTransaction();
-            EtudiantDao etudiantDao = new EtudiantDao();
-            List<Etudiant> etudiants = etudiantDao.getAll();
-            for (Etudiant etudiant : etudiants) {
-                List<Occurence> absences = etudiantDao.getAbsencesCours(etudiant, cours);
-                if (absences.size() >= 3) {
-                    etudiantsAbsenteistes.add(etudiant);
+        List<Etudiant> etudiantsAbsenteistes = new ArrayList<>();
+        if (!(cours.getGroupes() == null)) {
+            for (Groupe groupe : cours.getGroupes()) {
+                if (!(groupe.getEtudiants() == null)) {
+                    for (Etudiant etudiant : groupe.getEtudiants()) {
+                        List<Presenter> absences = new ArrayList<>(etudiant.getPresences());
+                        absences = filtreCours(absences, cours);
+                        absences = filtreAbsence(absences);
+                        etudiantsAbsenteistes.add(etudiant);
+                    }
                 }
             }
         }
+
+
         return etudiantsAbsenteistes;
+    }
+
+    private List<Presenter> filtreAbsence(List<Presenter> cours) {
+        return cours.stream().filter(presenter -> presenter.getStatut() == "Absent").collect(Collectors.toList());
+    }
+
+    private List<Presenter> filtreCours(List<Presenter> cours, Cours matiere) {
+        return cours.stream().filter(presenter -> presenter.getOccurence().getCours() == matiere).collect(Collectors.toList());
     }
 
 }

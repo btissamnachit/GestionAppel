@@ -24,7 +24,8 @@ public class AppelServlet extends HttpServlet {
 
     OccurenceDao occurenceDao = new OccurenceDao();
     PresenterDao presenterDao = new PresenterDao();
-    EtudiantDao etudiantDao = new EtudiantDao();;
+    EtudiantDao etudiantDao = new EtudiantDao();
+    SendMail sendMail= new SendMail();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -70,11 +71,19 @@ public class AppelServlet extends HttpServlet {
             case "Valider":
                 occurence.setAppelValide(true);
                 occurenceDao.update(occurence, null);
-                System.out.println("validéé"+occurence.getPresences());
                 Set<Presenter> presenters = occurence.getPresences();
                 for (Presenter p : presenters) {
                     if (p.getStatut().equals("Absent")) {
-                        sendMail(p.getEtudiant(), occurence);
+                        String to = p.getEtudiant().getMailE();
+                        String objet = "[Capitole UT1] Notification d'absence";
+                        String message = "<!DOCTYPE html>\n" +
+                                "<html>\n" +
+                                "<head>\n" +
+                                "    <title>Message</title>\n" +
+                                "    <meta charset=\"UTF-8\">\n" +
+                                "</head>\n" +
+                                "<body><p>Bonjour,</p><p>Vous avez été absent au cours de : "+occurence.getCours().getNomC()+" le " + displayFormat.format(occurence.getDateOc())+"</p>";
+                        sendMail.sendMail(to,objet, message);
                     }
                 }
                 response.sendRedirect("/calendarServlet?week=thisWeek");
@@ -84,70 +93,6 @@ public class AppelServlet extends HttpServlet {
 
         }
     }
-    /**
-     * Fonction sendMail
-     * */
-    protected void sendMail(Etudiant etudiant, Occurence occurence) {
-        String to = etudiant.getMailE();
-        String from = "absence.utcapitole@gmail.com";
-
-        // Assuming you are sending email from through gmails smtp
-        String host = "smtp.gmail.com";
-
-        // Get system properties
-        Properties properties = System.getProperties();
-
-        // Setup mail server
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "465");
-        properties.put("mail.smtp.ssl.enable", "true");
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.auth.plain.disable", "true");
-
-        // Get the Session object.// and pass username and password
-        javax.mail.Session session = javax.mail.Session.getInstance(properties, new javax.mail.Authenticator() {
-
-            protected PasswordAuthentication getPasswordAuthentication() {
-
-                return new PasswordAuthentication("absence.utcapitole@gmail.com", "ut1-cap1234");
-
-            }
-        });
-        // Used to debug SMTP issues
-        session.setDebug(true);
-
-        try {
-            // Create a default MimeMessage object.
-            MimeMessage message = new MimeMessage(session);
-
-            // Set From: header field of the header.
-            message.setFrom(new InternetAddress(from));
-
-            // Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-            // Set Subject: header field
-            message.setSubject("[Capitole UT1] Notification d'absence");
-
-            // Now set the actual message
-            message.setContent("<!DOCTYPE html>\n" +
-                    "<html>\n" +
-                    "<head>\n" +
-                    "    <title>Message</title>\n" +
-                    "    <meta charset=\"UTF-8\">\n" +
-                    "</head>\n" +
-                    "<body><p>Bonjour,</p><p>Vous avez été absent au cours de : "+occurence.getCours().getNomC()+" le " + displayFormat.format(occurence.getDateOc())+"</p>","text/html") ;
-
-            System.out.println("sending...");
-            // Send message
-            Transport.send(message);
-            System.out.println("Sent message successfully....");
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
-        }
-
-    }
-
 
 }
 

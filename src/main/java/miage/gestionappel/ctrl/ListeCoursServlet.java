@@ -33,13 +33,14 @@ public class ListeCoursServlet extends HttpServlet {
         Professeur professeur = dao.getByEmail(email);
 
         Set<Cours> coursProfesseur = professeur.getCours();
-        HashMap<Cours, Integer> nbAbsence = null;
-        HashMap<Cours, Float> moyenneAbsence = null;
-        HashMap<Cours, List<Etudiant>> etudiantsAbsenteistes = null;
-        HashMap<Etudiant, Integer> absenceEtudiantGlobal = null;
+        HashMap<Cours, Long> nbAbsence = new HashMap<>();
+        HashMap<Cours, Double> moyenneAbsence = new HashMap<>();
+        HashMap<Cours, List<Etudiant>> etudiantsAbsenteistes = new HashMap<>();
+        HashMap<Etudiant, Integer> absenceEtudiantGlobal = new HashMap<>();
+
         for (Cours cours : coursProfesseur) {
-            int absensesCours = coursDao.nbAbsence(cours);
-            float moyenneAbsenceCours = coursDao.moyenneAbscence(cours);
+            long absensesCours = coursDao.nbAbsence(cours);
+            double moyenneAbsenceCours = coursDao.moyenneAbscence(cours);
             List<Etudiant> etudiantsAbsenteistesCours = coursDao.getEtudiantsAbsentistes(cours);
             nbAbsence.put(cours, absensesCours);
             moyenneAbsence.put(cours, moyenneAbsenceCours);

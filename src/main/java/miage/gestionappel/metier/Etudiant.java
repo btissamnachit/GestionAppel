@@ -21,6 +21,9 @@ public class Etudiant {
     @Column(name = "MailE")
     private String mailE;
 
+    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Justificatif> justificatifs = new HashSet<>();
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "Appartenir", joinColumns = @JoinColumn(name = "IdE"), inverseJoinColumns = @JoinColumn(name = "IdG"))
     private Set<Groupe> groupes = new HashSet<>();
@@ -37,6 +40,14 @@ public class Etudiant {
 
     }
 
+    public Etudiant(String nomE, String prenomE, String mailE, Set<Justificatif> justificatifs, Set<Groupe> groupes, Set<Presenter> presences) {
+        this.nomE = nomE;
+        this.prenomE = prenomE;
+        this.mailE = mailE;
+        this.justificatifs = justificatifs;
+        this.groupes = groupes;
+        this.presences = presences;
+    }
 
     public int getIdE() {
         return idE;
@@ -70,7 +81,15 @@ public class Etudiant {
         this.mailE = mailE;
     }
 
- /*   public Set<Groupe> getGroupes() {
+    public Set<Justificatif> getJustificatifs() {
+        return justificatifs;
+    }
+
+    public void setJustificatifs(Set<Justificatif> justificatifs) {
+        this.justificatifs = justificatifs;
+    }
+
+    public Set<Groupe> getGroupes() {
         return groupes;
     }
 
@@ -85,7 +104,23 @@ public class Etudiant {
     public void setPresences(Set<Presenter> presences) {
         this.presences = presences;
     }
-*/
+
+    /*   public Set<Groupe> getGroupes() {
+            return groupes;
+        }
+
+        public void setGroupes(Set<Groupe> groupes) {
+            this.groupes = groupes;
+        }
+
+        public Set<Presenter> getPresences() {
+            return presences;
+        }
+
+        public void setPresences(Set<Presenter> presences) {
+            this.presences = presences;
+        }
+    */
     public void addPresence(Presenter presence) {
         this.presences.add(presence);
      }
