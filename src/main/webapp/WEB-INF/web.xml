@@ -37,6 +37,10 @@
         <jsp-file>/jsp/ListeAbsences.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>AbsenceAlternant</servlet-name>
+        <jsp-file>/jsp/ListeAbsenceAlternant.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>ListeEtudiants</servlet-name>
         <jsp-file>/jsp/ListeEtudiants.jsp</jsp-file>
     </servlet>
@@ -63,6 +67,10 @@
     <servlet>
         <servlet-name>ListeAbsenceServlet</servlet-name>
         <servlet-class>miage.gestionappel.ctrl.ListeAbsenceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AbsenceAlternantServlet</servlet-name>
+        <servlet-class>miage.gestionappel.ctrl.AbsenceAlternantServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProfilServlet</servlet-name>
@@ -101,8 +109,16 @@
         <url-pattern>/listeabsences</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AbsenceAlternant</servlet-name>
+        <url-pattern>/absencesalternant</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ListeAbsenceServlet</servlet-name>
         <url-pattern>/listeabsenceservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AbsenceAlternantServlet</servlet-name>
+        <url-pattern>/absencealternantservlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListeEtudiants</servlet-name>

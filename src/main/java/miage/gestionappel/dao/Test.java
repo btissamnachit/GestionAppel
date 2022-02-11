@@ -7,16 +7,18 @@ import com.itextpdf.layout.element.Paragraph;
 import miage.gestionappel.metier.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Test {
     public static void createUser() {
@@ -69,28 +71,51 @@ public class Test {
 
         document.add(new Paragraph("Hello World!"));
 
+
+        document.add(new Paragraph("Hello World!"));
+
         document.close();
 
     }
     public static void main(String[] args) throws ParseException, FileNotFoundException {
 
+//        private LocalDate dateNow;
+//        private DateTime startOfTheWeek;
+//        private DateTime endOfTheWeek;
+//        private final SimpleDateFormat dateNameFormat = new SimpleDateFormat("EEEE");
+//        private final DateTimeFormatter localDateFormat = DateTimeFormat.forPattern("EEE MMM dd HH:mm:ss zzz yyyy");
         EtudiantDao ed = new EtudiantDao();
         Etudiant etu;
+
+        OccurenceDao od = new OccurenceDao();
         etu=ed.getByEmail("anis.mana@ut-capitole.fr");
+//
+        List<Occurence> absences = ed.getAllAbsence(etu);
 
-        List<Occurence> absences = (List<Occurence>) ed.getAllAbsence(etu);
-
-        Occurence occurence = absences.get(0);
-            String s = occurence.getCours().getNomC();
-        System.out.println(s);
+        String mois = od.getMoisOccurence(absences.get(0));
 
 
+        System.out.println(absences.get(0).getDateOc());
+        System.out.println(mois);
 
+        List<Occurence> absencesnov = new ArrayList<>();
+        if (mois.equals("11")){
+
+            absencesnov.add(absences.get(0));
+        }
+        System.out.println(absencesnov);
 //
 //        for (Occurence absence : absences){
 //
-//            System.out.println (absence.getCours());
-        };
+//
+//
+//        };
+
+        }
+//        File file = new File(DEST);
+//        file.getParentFile().mkdirs();
+//        new Test().createPdf(DEST);
+//
 
 
 

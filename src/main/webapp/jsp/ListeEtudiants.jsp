@@ -49,7 +49,6 @@
                 request.getAttribute("etudiantsAbsenteistes");
                 request.getAttribute("absenceEtudiantGlobal");
             %>
-
             <summary>Details</summary>
             <p>
                 Lorem ipsum dolor sit amet, eu alia suscipit mei. Reque iriure delectus vix id, ex sed forensibus
