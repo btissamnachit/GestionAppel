@@ -78,7 +78,7 @@
                 <span>Deposer un justificatif</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="recappresenceprof">
+            <a class="nav-link" href="absencealternantservlet">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Recapitulatif de présence</span></a>
         </li>
