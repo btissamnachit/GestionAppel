@@ -21,10 +21,10 @@ public class Etudiant {
     @Column(name = "MailE")
     private String mailE;
 
-    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Justificatif> justificatifs = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Appartenir", joinColumns = @JoinColumn(name = "IdE"), inverseJoinColumns = @JoinColumn(name = "IdG"))
     private Set<Groupe> groupes = new HashSet<>();
 

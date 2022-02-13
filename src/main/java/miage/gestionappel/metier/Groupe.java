@@ -12,10 +12,10 @@ public class Groupe {
     @Column(name = "IdG")
     private int idG;
 
-    @ManyToMany(mappedBy = "groupes", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "groupes", fetch = FetchType.LAZY)
     private Set<Occurence> occurences = new HashSet<>();
 
-    @ManyToMany(mappedBy = "groupes", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "groupes", fetch = FetchType.LAZY)
     private Set<Cours> cours = new HashSet<>();
 
     @ManyToMany(mappedBy = "groupes", fetch = FetchType.EAGER)

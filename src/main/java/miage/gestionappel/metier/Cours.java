@@ -16,7 +16,7 @@ public class Cours {
     @Column(name = "NomC")
     private String nomC;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Enseigner", joinColumns = @JoinColumn(name = "IdC"), inverseJoinColumns = @JoinColumn(name = "IdP"))
     private Set<Professeur> professeurs = new HashSet<>();
 

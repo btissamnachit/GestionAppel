@@ -1,17 +1,15 @@
 package miage.gestionappel.dao;
 
-import miage.gestionappel.metier.Etudiant;
 import miage.gestionappel.metier.Presenter;
-import miage.gestionappel.metier.Scolarite;
-import miage.gestionappel.metier.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 public class PresenterDao  implements Dao<Presenter>{
     @Override
+    @Transactional
     public Presenter get(int id) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
@@ -22,6 +20,7 @@ public class PresenterDao  implements Dao<Presenter>{
     }
 
     @Override
+    @Transactional
     public List<Presenter> getAll() {
         List<Presenter> listePresences = null;
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
@@ -35,6 +34,7 @@ public class PresenterDao  implements Dao<Presenter>{
     }
 
     @Override
+    @Transactional
     public void save(Presenter presence) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
@@ -45,6 +45,7 @@ public class PresenterDao  implements Dao<Presenter>{
     }
 
     @Override
+    @Transactional
     public void update(Presenter presence, String[] params) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
@@ -56,9 +57,9 @@ public class PresenterDao  implements Dao<Presenter>{
         }
     }
 
+    @Transactional
     public void saveOrUpdate(Presenter presence) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
-        {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             System.out.println(presence.getStatut());
             session.saveOrUpdate(presence);

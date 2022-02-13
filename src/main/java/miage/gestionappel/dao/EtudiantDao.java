@@ -6,13 +6,15 @@ import miage.gestionappel.metier.Occurence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class EtudiantDao implements Dao<Etudiant> {
 
-     @Override
+    @Override
+    @Transactional
     public Etudiant get(int id) {
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -24,6 +26,7 @@ public class EtudiantDao implements Dao<Etudiant> {
     }
 
     @Override
+    @Transactional
     public List<Etudiant> getAll() {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
@@ -47,6 +50,7 @@ public class EtudiantDao implements Dao<Etudiant> {
     }
 
     @Override
+    @Transactional
     public void save(Etudiant etudiant) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -56,6 +60,7 @@ public class EtudiantDao implements Dao<Etudiant> {
     }
 
     @Override
+    @Transactional
     public void update(Etudiant etudiant, String[] params) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -70,6 +75,7 @@ public class EtudiantDao implements Dao<Etudiant> {
     }
 
     @Override
+    @Transactional
     public void delete(Etudiant o) {
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -83,6 +89,7 @@ public class EtudiantDao implements Dao<Etudiant> {
         }
     }
 
+    @Transactional
     public List<Occurence> getAbsencesCours(Etudiant etudiant, Cours cours) {
         List<Occurence> absences = null;
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -97,12 +104,12 @@ public class EtudiantDao implements Dao<Etudiant> {
         return absences;
     }
 
+    @Transactional
     public List<Occurence> getAllAbsence(Etudiant etudiant) {
         List<Occurence> listAbsences = null;
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             listAbsences = session.createQuery(" SELECT p.occurence from Presenter p where p.etudiant.idE = :etudiant  AND p.statut = 'Absent'").setParameter("etudiant", etudiant.getIdE()).list();
-
 
 
             t.commit();
@@ -111,6 +118,8 @@ public class EtudiantDao implements Dao<Etudiant> {
 
 
     }
+
+    @Transactional
     public List<Occurence> getAllAbsenceMois(Etudiant etudiant, Date dateexacte) {
 
         SimpleDateFormat month = new SimpleDateFormat("mm");
@@ -118,7 +127,7 @@ public class EtudiantDao implements Dao<Etudiant> {
         List<Occurence> listAbsences = null;
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            listAbsences = session.createQuery(" SELECT p.occurence from Presenter p where p.etudiant.idE = :etudiant  AND p.statut = 'Absent' AND MONTH(p.occurence.dateOc) = :month").setParameter("etudiant", etudiant.getIdE()).setParameter("month",mois).list();
+            listAbsences = session.createQuery(" SELECT p.occurence from Presenter p where p.etudiant.idE = :etudiant  AND p.statut = 'Absent' AND MONTH(p.occurence.dateOc) = :month").setParameter("etudiant", etudiant.getIdE()).setParameter("month", mois).list();
 
 
             t.commit();

@@ -4,12 +4,13 @@ import miage.gestionappel.metier.Occurence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Optional;
 
 public class OccurenceDao implements Dao<Occurence> {
     @Override
+    @Transactional
     public Occurence get(int id) {
         try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
             session.beginTransaction();
@@ -33,6 +34,7 @@ public class OccurenceDao implements Dao<Occurence> {
         }
 
     @Override
+    @Transactional
     public List<Occurence> getAll() {
         List<Occurence> occurenceList;
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -43,6 +45,7 @@ public class OccurenceDao implements Dao<Occurence> {
     }
 
     @Override
+    @Transactional
     public void save(Occurence occurence) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
@@ -53,6 +56,7 @@ public class OccurenceDao implements Dao<Occurence> {
     }
 
     @Override
+    @Transactional
     public void update(Occurence occurence, String[] params) {
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
@@ -68,6 +72,7 @@ public class OccurenceDao implements Dao<Occurence> {
     }
 
     @Override
+    @Transactional
     public void delete(Occurence occurence) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {

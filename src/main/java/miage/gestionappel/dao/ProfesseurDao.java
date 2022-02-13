@@ -4,11 +4,12 @@ import miage.gestionappel.metier.Professeur;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 public class ProfesseurDao implements Dao<Professeur> {
     @Override
+    @Transactional
     public Professeur get(int id) {
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -20,6 +21,7 @@ public class ProfesseurDao implements Dao<Professeur> {
     }
 
     @Override
+    @Transactional
     public List<Professeur> getAll() {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             session.beginTransaction();
@@ -41,6 +43,7 @@ public class ProfesseurDao implements Dao<Professeur> {
     }
 
     @Override
+    @Transactional
     public void save(Professeur professeur) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -51,6 +54,7 @@ public class ProfesseurDao implements Dao<Professeur> {
     }
 
     @Override
+    @Transactional
     public void update(Professeur professeur, String[] params) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -64,7 +68,7 @@ public class ProfesseurDao implements Dao<Professeur> {
     }
 
     @Override
-
+    @Transactional
     public void delete(Professeur professeur) {
 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {

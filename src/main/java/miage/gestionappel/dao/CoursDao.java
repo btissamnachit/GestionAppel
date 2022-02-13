@@ -7,6 +7,7 @@ import miage.gestionappel.metier.Presenter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 public class CoursDao implements Dao<Cours>{
 
     @Override
+    @Transactional
     public Cours get(int id) {
         try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
             session.beginTransaction();
@@ -23,6 +25,7 @@ public class CoursDao implements Dao<Cours>{
     }
 
     @Override
+    @Transactional
     public List<Cours> getAll() {
         List<Cours> coursList;
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -33,6 +36,7 @@ public class CoursDao implements Dao<Cours>{
     }
 
     @Override
+    @Transactional
     public void save(Cours cours) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
@@ -43,6 +47,7 @@ public class CoursDao implements Dao<Cours>{
     }
 
     @Override
+    @Transactional
     public void update(Cours cours, String[] params) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
@@ -53,6 +58,7 @@ public class CoursDao implements Dao<Cours>{
     }
 
     @Override
+    @Transactional
     public void delete(Cours cours) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -61,6 +67,7 @@ public class CoursDao implements Dao<Cours>{
         }
     }
 
+    @Transactional
     public long nbAbsence(Cours cours) {
         long nbAbsences;
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -74,7 +81,6 @@ public class CoursDao implements Dao<Cours>{
         }
         return nbAbsences;
     }
-
     public int nbOccurence(Cours cours) {
         return cours.getOccurencesValidees().size();
     }
@@ -90,7 +96,6 @@ public class CoursDao implements Dao<Cours>{
             return 0D;
         }
     }
-
     public List<Etudiant> getEtudiantsAbsentistes(Cours cours) {
         List<Etudiant> etudiantsAbsenteistes = new ArrayList<>();
         if (!(cours.getGroupes() == null)) {

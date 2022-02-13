@@ -18,7 +18,7 @@ public class Scolarite {
     @Column(name = "MailS")
     private String mailS;
 
-    @OneToMany(mappedBy = "scolarite", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "scolarite", fetch = FetchType.LAZY)
     private Set<Cours> cours = new HashSet(0);
 
     public Scolarite() {

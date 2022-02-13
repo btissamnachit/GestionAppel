@@ -29,7 +29,7 @@ public class Justificatif {
     @JoinColumn(name = "IdE")
     private Etudiant etudiant;
 
-    @OneToMany(mappedBy = "justificatif", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "justificatif", fetch = FetchType.LAZY)
     Set<Presenter> presences = new HashSet<>();
 
 

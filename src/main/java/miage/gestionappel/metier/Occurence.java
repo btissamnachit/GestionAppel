@@ -37,7 +37,7 @@ public class Occurence {
     @OneToMany(mappedBy = "occurence", fetch = FetchType.EAGER)
     Set<Presenter> presences = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "Participer", joinColumns = @JoinColumn(name = "IdOc"), inverseJoinColumns = @JoinColumn(name = "IdG"))
     private Set<Groupe> groupes = new HashSet<>();
 
