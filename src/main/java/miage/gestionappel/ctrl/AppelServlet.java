@@ -34,7 +34,7 @@ public class AppelServlet extends HttpServlet {
 
         int idOccurence = Integer.parseInt(request.getParameter("idOccurence"));
 
-        Occurence occurence = occurenceDao.getOc(idOccurence);
+        Occurence occurence = occurenceDao.get(idOccurence);
         if (occurence.getAppelValide()) {
             Set<Presenter> presences = occurence.getPresences();
             request.setAttribute("presences", presences);

@@ -40,7 +40,6 @@ public class HibernateUtil
             configuration.addAnnotatedClass(miage.gestionappel.metier.Professeur.class);
             configuration.addAnnotatedClass(miage.gestionappel.metier.Scolarite.class);
             configuration.addAnnotatedClass(miage.gestionappel.metier.User.class);
-
             configuration.addAnnotatedClass(miage.gestionappel.metier.Etudiant.class);
 
 

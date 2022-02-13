@@ -51,7 +51,7 @@ public class Test {
     public static void createOccurence() {
         OccurenceDao occurenceDao = new OccurenceDao();
 
-        Occurence occurence = occurenceDao.getOc(3451);
+        Occurence occurence = occurenceDao.get(3451);
         for (Presenter p : occurence.getPresences()) {
             System.out.println("hhhhhh : " + p.getEtudiant().getNomE());
         }
@@ -78,13 +78,16 @@ public class Test {
 
     }
     public static void main(String[] args) throws ParseException, FileNotFoundException {
+        String PWD = System.getProperty("user.dir");
+        String CHEMIN_FICHIERS = System.getProperty("user.dir")+"\\src\\main\\webapp\\justificatif\\";
+        System.out.println(CHEMIN_FICHIERS);
 
 //        private LocalDate dateNow;
 //        private DateTime startOfTheWeek;
 //        private DateTime endOfTheWeek;
 //        private final SimpleDateFormat dateNameFormat = new SimpleDateFormat("EEEE");
 //        private final DateTimeFormatter localDateFormat = DateTimeFormat.forPattern("EEE MMM dd HH:mm:ss zzz yyyy");
-        EtudiantDao ed = new EtudiantDao();
+  /*     EtudiantDao ed = new EtudiantDao();
         Etudiant etu;
 
         OccurenceDao od = new OccurenceDao();
@@ -142,6 +145,6 @@ public class Test {
 //        }
 
 
+*/
 
-
-    }
+    }}

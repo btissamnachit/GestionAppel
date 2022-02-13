@@ -75,7 +75,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="depotJustificatif">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Deposer un justificatif</span></a>
+                    <span>Depot du justificatif</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="depotJustServlet?action=Afficher">
@@ -83,7 +83,7 @@
                     <span>Liste des justificatifs</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="recappresenceprof">
+                <a class="nav-link" href="absencealternantservlet">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Recapitulatif de présence</span></a>
             </li>

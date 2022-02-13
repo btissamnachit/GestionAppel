@@ -33,7 +33,7 @@ public class DepotJustServlet extends HttpServlet {
     JustificatifDao justificatifDao = new JustificatifDao();
     private static final long serialVersionUID = 1L;
   //  ${pageContext.request.contextPath}
-    public static final String CHEMIN_FICHIERS = "D:\\Projet JEE\\GestionAppel\\src\\main\\webapp\\justificatif\\";
+    public static final String CHEMIN_FICHIERS =  "D:\\Projet JEE\\GestionAppel\\src\\main\\webapp\\justificatif\\";
     private final SimpleDateFormat displayFormat = new SimpleDateFormat("EEEE, dd/MM");
 
     @Override
@@ -70,8 +70,8 @@ public class DepotJustServlet extends HttpServlet {
             case "EnregistrerJustificatif":
                 try {
                     String filename = enregistrerJustificatifEnLocal(request, response);
-                    Date dateDebut = new SimpleDateFormat("dd-MM-yy").parse(request.getParameter("debutPeriode"));
-                    Date dateFin = new SimpleDateFormat("dd-MM-yy").parse(request.getParameter("finPeriode"));
+                    Date dateDebut = new SimpleDateFormat("yy-MM-dd").parse(request.getParameter("debutPeriode"));
+                    Date dateFin = new SimpleDateFormat("yy-MM-dd").parse(request.getParameter("finPeriode"));
                     String email = (String) session.getAttribute("email");
                     Etudiant etudiant = etudiantDao.getByEmail(email);
                     Justificatif justificatif = new Justificatif("En cours", filename, dateDebut, dateFin, etudiant);

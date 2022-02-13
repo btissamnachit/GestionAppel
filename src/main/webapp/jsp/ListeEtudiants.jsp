@@ -17,7 +17,7 @@
 
 <html>
 <head>
-    <title>Mes cours</title>
+    <title>UT1 Capitole</title>
 </head>
 <body>
 

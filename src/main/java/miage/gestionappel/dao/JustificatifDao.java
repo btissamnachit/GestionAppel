@@ -21,12 +21,10 @@ public class JustificatifDao implements Dao<Justificatif> {
 
     @Override
     public List<Justificatif> getAll() {
-        List<Justificatif> listeJustificatis = null;
+        List<Justificatif> listeJustificatis ;
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
         {
-            /*----- Ouverture d'une transaction -----*/
             session.beginTransaction();
-
             listeJustificatis = (List<Justificatif>)session.createQuery("from Justificatif").list();
         }
         return listeJustificatis;
@@ -50,7 +48,6 @@ public class JustificatifDao implements Dao<Justificatif> {
             if(params != null){
                 justificatif.setStatutJustif(params[0]);
             }
-            session.update(justificatif);
             t.commit();
         }
 
