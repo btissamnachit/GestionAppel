@@ -83,7 +83,7 @@
                     <span>Liste des justificatifs</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="recappresenceprof">
+                <a class="nav-link" href="absencealternantservlet">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Recapitulatif de présence</span></a>
             </li>
@@ -105,12 +105,6 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Mon emploi du temps</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="listeetudiants?">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Liste des étudiants</span></a>
-            </li>
-
         </c:if>
         <c:if test="${sessionScope.role == 'scolarite'}">
             <!-- Heading -->
