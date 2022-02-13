@@ -1,5 +1,6 @@
 <%@ page import="miage.gestionappel.metier.Occurence" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: manaa
   Date: 07/02/2022
@@ -49,7 +50,8 @@
                 <div class="card-body">
 
                     <%
-                        List<Occurence> occurencesjanvier = (List<Occurence>) request.getAttribute("absencesjanvier");
+                        List<Occurence> occurencesjanvier = new ArrayList<>();
+                        occurencesjanvier = (List<Occurence>) request.getAttribute("absencesjanvier");
                         int i = 0;
                         if (!(occurencesjanvier == null)) {
                             for (Occurence o : occurencesjanvier) {
@@ -65,7 +67,7 @@
 
                             out.println("vous avez " + i + " absence(s) pour ce mois");
                         }
-                        if (occurencesjanvier.isEmpty()) {
+                        else {
                             out.println("Pas d'absence pour ce mois");
                         }
                     %>
@@ -103,7 +105,7 @@
 
                             out.println("vous avez " + i1 + " absence(s) pour ce mois");
                         }
-                        if (occurencesfevrier.isEmpty()) {
+                        else {
                             out.println("Pas d'absence pour ce mois");
                         }
                     %>
@@ -140,7 +142,7 @@
                             }
                             out.println("vous avez " + i2 + " absence(s) pour ce mois");
                         }
-                        if (occurencesmars.isEmpty()) {
+                        else {
                             out.println("Pas d'absence pour ce mois");
                         }
                     %>
@@ -163,7 +165,7 @@
 
 
                     <%
-                        List<Occurence> occurencesavril = (List<Occurence>) request.getAttribute("absencesjanvier");
+                        List<Occurence> occurencesavril = (List<Occurence>) request.getAttribute("absencesavril");
                         int i3 = 0;
                         if (!(occurencesavril == null)) {
                             for (Occurence o : occurencesavril) {
@@ -178,7 +180,7 @@
                             }
                             out.println("vous avez " + i3 + " absence(s) pour ce mois");
                         }
-                        if (occurencesavril.isEmpty()) {
+                        else {
                             out.println("Pas d'absence pour ce mois");
                         }
                     %>
@@ -215,7 +217,7 @@
                             }
                             out.println("vous avez " + i4 + " absence(s) pour ce mois");
                         }
-                        if (occurencesmai.isEmpty()) {
+                        else {
                             out.println("Pas d'absence pour ce mois");
                         }
                     %>
@@ -252,7 +254,7 @@
                             }
                             out.println("vous avez " + i5 + " absence(s) pour ce mois");
                         }
-                        if (occurencesjuin.isEmpty()) {
+                        else {
                             out.println("Pas d'absence pour ce mois");
                         }
                     %>
@@ -291,7 +293,7 @@
                             }
                             out.println("vous avez " + i6 + " absence(s) pour ce mois");
                         }
-                        if (occurencesjuillet.isEmpty()) {
+                        else {
                             out.println("Pas d'absence pour ce mois");
                         }
                     %>
@@ -330,7 +332,7 @@
                             }
                             out.println("vous avez " + i7 + " absence(s) pour ce mois");
                         }
-                        if (occurencesaout.isEmpty()) {
+                        else {
                             out.println("Pas d'absence pour ce mois");
                         }
                     %>
@@ -369,7 +371,7 @@
                             }
                             out.println("vous avez " + i8 + " absence(s) pour ce mois");
                         }
-                        if (occurencesseptembre.isEmpty()) {
+                        else {
                             out.println("Pas d'absence pour ce mois");
                         }
                     %>
@@ -406,7 +408,7 @@
                             }
                             out.println("vous avez " + i9 + " absence(s) pour ce mois");
                         }
-                        if (occurencesoctobre.isEmpty()) {
+                        else {
                             out.println("Pas d'absence pour ce mois");
                         }
                     %>
@@ -444,7 +446,7 @@
                             }
                             out.println("vous avez " + i10 + " absence(s) pour ce mois");
                         }
-                        if (occurencesnovembre.isEmpty()) {
+                        else {
                             out.println("Pas d'absence pour ce mois");
                         }
                     %>
@@ -482,10 +484,9 @@
                             }
                             out.println("vous avez " + i11 + " absence(s) pour ce mois");
                         }
-                        if (occurencesdecembre.isEmpty()) {
+                        else {
                             out.println("Pas d'absence pour ce mois");
                         }
-
                     %>
 
 
