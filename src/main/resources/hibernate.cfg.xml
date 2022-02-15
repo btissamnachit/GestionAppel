@@ -19,5 +19,6 @@
         <property name="hibernate.current_session_context_class">thread</property> <!-- Pour getCurrentSession() -->
         <property name="connection.autocommit">true</property>
         <property name="hibernate.hbm2ddl.auto">validate</property> <!-- create, validate, update, none -->
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
     </session-factory>
 </hibernate-configuration>

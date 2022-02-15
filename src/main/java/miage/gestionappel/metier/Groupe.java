@@ -18,7 +18,7 @@ public class Groupe {
     @ManyToMany(mappedBy = "groupes", fetch = FetchType.LAZY)
     private Set<Cours> cours = new HashSet<>();
 
-    @ManyToMany(mappedBy = "groupes", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "groupes", fetch = FetchType.LAZY)
     private Set<Etudiant> etudiants = new HashSet<>();
 
     public Groupe() {

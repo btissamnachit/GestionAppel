@@ -20,14 +20,14 @@ public class Cours {
     @JoinTable(name = "Enseigner", joinColumns = @JoinColumn(name = "IdC"), inverseJoinColumns = @JoinColumn(name = "IdP"))
     private Set<Professeur> professeurs = new HashSet<>();
 
-    @OneToMany(mappedBy = "cours",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cours", fetch = FetchType.LAZY)
     private Set<Occurence> occurences = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IdS")
     private Scolarite scolarite;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Inscrire", joinColumns = @JoinColumn(name = "IdC"), inverseJoinColumns = @JoinColumn(name = "IdG"))
     private Set<Groupe> groupes = new HashSet<>();
 

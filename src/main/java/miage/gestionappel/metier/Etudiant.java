@@ -28,7 +28,7 @@ public class Etudiant {
     @JoinTable(name = "Appartenir", joinColumns = @JoinColumn(name = "IdE"), inverseJoinColumns = @JoinColumn(name = "IdG"))
     private Set<Groupe> groupes = new HashSet<>();
 
-    @OneToMany(mappedBy = "etudiant", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "etudiant", fetch = FetchType.LAZY)
     Set<Presenter> presences = new HashSet<>();
     public Etudiant() {
     }

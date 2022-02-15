@@ -34,10 +34,10 @@ public class Occurence {
     @JoinColumn(name = "IdC")
     private Cours cours;
 
-    @OneToMany(mappedBy = "occurence", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "occurence", fetch = FetchType.LAZY)
     Set<Presenter> presences = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "Participer", joinColumns = @JoinColumn(name = "IdOc"), inverseJoinColumns = @JoinColumn(name = "IdG"))
     private Set<Groupe> groupes = new HashSet<>();
 
